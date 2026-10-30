@@ -1060,24 +1060,28 @@
         <div class="glass-card overflow-hidden h-64 relative group border-[var(--bg-glass-border)] hover:border-[var(--accent)] transition-all">
           <img id="galleryImg0" src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
           <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+            <span class="text-xs font-bold text-white">معرض الصور ✦</span>
           </div>
         </div>
 
         <div class="glass-card overflow-hidden h-64 relative group border-[var(--bg-glass-border)] hover:border-[var(--accent)] transition-all">
           <img id="galleryImg1" src="https://images.unsplash.com/photo-1519681393784-d120267933ba?w=600" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
           <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+            <span class="text-xs font-bold text-white">ملاذ القمر 🌙</span>
           </div>
         </div>
 
         <div class="glass-card overflow-hidden h-64 relative group border-[var(--bg-glass-border)] hover:border-[var(--accent)] transition-all">
           <img id="galleryImg2" src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
           <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+            <span class="text-xs font-bold text-white">طبيعة وذكريات ✨</span>
           </div>
         </div>
 
         <div class="glass-card overflow-hidden h-64 relative group border-[var(--bg-glass-border)] hover:border-[var(--accent)] transition-all">
           <img id="galleryImg3" src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=600" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
           <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+            <span class="text-xs font-bold text-white">أفق ورحلات 🚀</span>
           </div>
         </div>
       </div>
@@ -1162,18 +1166,18 @@
         <button class="closeModalBtn text-gray-400 hover:text-white text-xl">✕</button>
       </div>
 
-      <!-- Login Form View (Updated with Email & Firebase Auth) -->
+      <!-- Login Form View -->
       <div id="adminLoginForm" class="space-y-4">
         <p class="text-xs text-sub">يرجى تسجيل الدخول للوصول لإعدادات الأمان والأرقام السرية:</p>
         <div>
-          <label class="block text-xs font-bold text-sub mb-1">البريد الإلكتروني</label>
-          <input type="email" id="adminUserInput" placeholder="name@example.com..." class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm">
+          <label class="block text-xs font-bold text-sub mb-1">اسم المستخدم</label>
+          <input type="text" id="adminUserInput" placeholder="اسم المستخدم..." class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm">
         </div>
         <div>
           <label class="block text-xs font-bold text-sub mb-1">كلمة المرور</label>
           <input type="password" id="adminPassInput" placeholder="كلمة المرور..." class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm">
         </div>
-        <div id="adminAlertBox" class="hidden glass-alert-box text-center">خطأ: البريد الإلكتروني أو كلمة المرور غير صحيحة!</div>
+        <div id="adminAlertBox" class="hidden glass-alert-box text-center">خطأ: اسم المستخدم أو كلمة المرور غير صحيحة!</div>
         <button onclick="loginAdmin()" class="w-full py-2.5 rounded-xl text-white font-bold text-sm" style="background: var(--accent);">تسجيل الدخول</button>
       </div>
 
@@ -1407,13 +1411,17 @@
       document.getElementById('cvModal').classList.remove('active');
     }
 
+    /* ==========================================================================
+       FIREBASE INITIALIZATION (CONFIG & REALTIME SYNC)
+       ========================================================================== */
     const firebaseConfig = {
-      apiKey: "AIzaSyDs60FnOxeou_6xCOekRbk3pb_sYzxIBW8",
-      authDomain: "alajwanah-f8bc6.firebaseapp.com",
-      projectId: "alajwanah-f8bc6",
-      storageBucket: "alajwanah-f8bc6.firebasestorage.app",
-      messagingSenderId: "503796969729",
-      appId: "1:503796969729:web:4e6288050034a7743aab00"
+      apiKey: "AIzaSyYOUR_API_KEY_HERE",
+      authDomain: "alajwanah-maladh.firebaseapp.com",
+      databaseURL: "https://alajwanah-maladh-default-rtdb.firebaseio.com",
+      projectId: "alajwanah-maladh",
+      storageBucket: "alajwanah-maladh.appspot.com",
+      messagingSenderId: "1234567890",
+      appId: "1:1234567890:web:abcdef123456"
     };
 
     let db;
@@ -1429,6 +1437,7 @@
       console.warn("Firebase Running in Local-fallback mode until keys configured.");
     }
 
+    let adminCredentials = JSON.parse(localStorage.getItem('alajwanah_admin_creds')) || { user: 'admin', pass: '123456' };
     let activeSectionPin = localStorage.getItem('alajwanah_section_pin') || '1234';
     let onedriveFolderUrl = localStorage.getItem('alajwanah_onedrive_url') || '';
     let isAdminLoggedIn = false;
@@ -1989,38 +1998,31 @@
     }
 
     function loginAdmin() {
-      const email = document.getElementById('adminUserInput').value.trim();
+      const user = document.getElementById('adminUserInput').value;
       const pass = document.getElementById('adminPassInput').value;
       const alertBox = document.getElementById('adminAlertBox');
 
-      // استخدام خدمة المصادقة في فايربيس لتسجيل الدخول بالبريد وكلمة المرور
-      firebase.auth().signInWithEmailAndPassword(email, pass)
-        .then((userCredential) => {
-          // تم تسجيل الدخول بنجاح
-          isAdminLoggedIn = true;
-          alertBox.classList.add('hidden');
-          document.getElementById('adminLoginForm').classList.add('hidden');
-          document.getElementById('adminControlsArea').classList.remove('hidden');
-          document.getElementById('newSectionPinInput').value = activeSectionPin;
-          document.getElementById('onedriveFolderUrlInput').value = onedriveFolderUrl;
-          showToast('⚙️ مرحبًا بك في لوحة التحكم');
-        })
-        .catch((error) => {
-          // خطأ في الإيميل أو كلمة المرور
-          alertBox.innerText = '⚠️ خطأ: البريد الإلكتروني أو كلمة المرور غير صحيحة!';
-          alertBox.classList.remove('hidden');
-        });
+      if (user === adminCredentials.user && pass === adminCredentials.pass) {
+        isAdminLoggedIn = true;
+        alertBox.classList.add('hidden');
+        document.getElementById('adminLoginForm').classList.add('hidden');
+        document.getElementById('adminControlsArea').classList.remove('hidden');
+        document.getElementById('newSectionPinInput').value = activeSectionPin;
+        document.getElementById('onedriveFolderUrlInput').value = onedriveFolderUrl;
+        showToast('⚙️ مرحبًا بك في لوحة التحكم');
+      } else {
+        alertBox.innerText = '⚠️ خطأ: اسم المستخدم أو كلمة المرور غير صحيحة!';
+        alertBox.classList.remove('hidden');
+      }
     }
 
     function logoutAdmin() {
-      firebase.auth().signOut().then(() => {
-        isAdminLoggedIn = false;
-        document.getElementById('adminLoginForm').classList.remove('hidden');
-        document.getElementById('adminControlsArea').classList.add('hidden');
-        document.getElementById('adminUserInput').value = '';
-        document.getElementById('adminPassInput').value = '';
-        document.getElementById('adminAlertBox').classList.add('hidden');
-      });
+      isAdminLoggedIn = false;
+      document.getElementById('adminLoginForm').classList.remove('hidden');
+      document.getElementById('adminControlsArea').classList.add('hidden');
+      document.getElementById('adminUserInput').value = '';
+      document.getElementById('adminPassInput').value = '';
+      document.getElementById('adminAlertBox').classList.add('hidden');
     }
 
     function updateSectionPin() {
