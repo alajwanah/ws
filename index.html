@@ -1815,22 +1815,26 @@
     }
 
 // دالة عند الضغط على زر المزيد في أي قسم
+// دالة عند الضغط على زر المزيد في أي قسم
     function promptPassAndOpen(section) {
       pendingActionCallback = () => {
         if (section === 'achievement') {
           cancelAchForm();
           const form = document.getElementById('achievementForm');
           form.classList.remove('hidden');
+          form.style.display = 'block';
           form.scrollIntoView({ behavior: 'smooth' });
         } else if (section === 'blog') {
           cancelBlogForm();
           const form = document.getElementById('creativeBlogForm');
           form.classList.remove('hidden');
+          form.style.display = 'block';
           form.scrollIntoView({ behavior: 'smooth' });
         } else if (section === 'library') {
           cancelBookForm();
           const form = document.getElementById('libraryBookForm');
           form.classList.remove('hidden');
+          form.style.display = 'block';
           form.scrollIntoView({ behavior: 'smooth' });
         }
       };
