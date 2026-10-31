@@ -25,11 +25,6 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   
-  <!-- Firebase SDKs -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-  
   <style>
     :root {
       --bg-primary: #0d111e;
@@ -763,7 +758,7 @@
     </div>
   </div>
 
-  <!-- PASSWORD PROMPT MODAL FOR SECURE EDIT/DELETE/ADD -->
+  <!-- PASSWORD PROMPT MODAL -->
   <div id="passwordPromptModal" class="modal fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md">
     <div class="glass-card w-full max-w-md p-6 space-y-4 text-center">
       <h3 class="text-lg font-bold text-main">الرقم السري المطلوب 🔒</h3>
@@ -777,7 +772,7 @@
     </div>
   </div>
 
-  <!-- ADMIN DASHBOARD MODAL WITH SECURE AUTH & COURSES MANAGEMENT -->
+  <!-- ADMIN DASHBOARD MODAL -->
   <div id="adminModal" class="modal fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md">
     <div class="glass-card w-full max-w-2xl p-6 space-y-6 max-h-[90vh] overflow-y-auto">
       <div class="flex items-center justify-between border-b border-gray-800 pb-4">
@@ -813,10 +808,9 @@
         </div>
 
         <div class="space-y-3 border-t border-gray-800 pt-4">
-          <h4 class="font-bold text-sm text-sky-300">Google Drive API استوديو الصور (بكسلاتي):</h4>
-          <input type="text" id="gdriveApiKeyInput" placeholder="Google Drive API Key..." class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm">
-          <input type="text" id="gdriveFolderIdInput" placeholder="Google Drive Folder ID..." class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm">
-          <button onclick="saveGDriveConfig()" class="px-4 py-2 rounded-lg bg-sky-500 text-slate-950 font-bold text-xs">حفظ وإحضار الصور ديناميكياً</button>
+          <h4 class="font-bold text-sm text-sky-300">روابط صور بكسلاتي (افصل بين الروابط بفاصلة ,):</h4>
+          <textarea id="galleryLinksInput" rows="3" placeholder="https://image1.jpg, https://image2.jpg..." class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm text-main"></textarea>
+          <button onclick="saveGalleryLinks()" class="px-4 py-2 rounded-lg bg-sky-500 text-slate-950 font-bold text-xs">حفظ وعرض الصور فوراً</button>
         </div>
 
         <div class="space-y-3 border-t border-gray-800 pt-4">
@@ -1077,20 +1071,19 @@
     ];
 
     let activeSectionPin = localStorage.getItem('alajwanah_section_pin') || '1234';
-    let gdriveApiKey = localStorage.getItem('alajwanah_gdrive_key') || '';
-    let gdriveFolderId = localStorage.getItem('alajwanah_gdrive_folder') || '';
+    let galleryCustomLinks = localStorage.getItem('alajwanah_gallery_links') || '';
     let pendingActionCallback = null;
     let savedSurahsState = JSON.parse(localStorage.getItem('alajwanah_surahs_map')) || {};
 
     let appData = JSON.parse(localStorage.getItem('alajwanah_main_data')) || {
       ideas: [
-        { id: 1, title: "خاطرة عن المطر", date: "السبت، ٣١ أكتوبر ٢٠٢٦", category: "خاطرة", desc: "ينهمر المطر في بيشة، فيغسل هموم الروح ويكسونا بالطمأنينة.", link: "" }
+        { id: 1, title: "خاطرة عن المطر", category: "خاطرة", desc: "ينهمر المطر في بيشة، فيغسل هموم الروح ويكسونا بالطمأنينة.", link: "" }
       ],
       achievements: [
-        { id: 1, title: "إتمام حفظ أجزاء من القرآن الكريم", date: "السبت، ٣١ أكتوبر ٢٠٢٦", category: "لحظة فخر", desc: "بفضل الله أواصل رحلة الحفظ والتدبر في كتاب الله الكريم.", link: "" }
+        { id: 1, title: "إتمام حفظ أجزاء من القرآن الكريم", category: "لحظة فخر", desc: "بفضل الله أواصل رحلة الحفظ والتدبر في كتاب الله الكريم.", link: "" }
       ],
       books: [
-        { id: 1, title: "قصص النبيين", date: "السبت، ٣١ أكتوبر ٢٠٢٦", category: "ديني", desc: "فوائد جمة وعبر عظيمة استخلصتها من قراءة سير الأنبياء عليهم السلام.", link: "" }
+        { id: 1, title: "قصص النبيين", category: "ديني", desc: "فوائد جمة وعبر عظيمة استخلصتها من قراءة سير الأنبياء عليهم السلام.", link: "" }
       ],
       courses: DEFAULT_COURSES
     };
@@ -1184,8 +1177,75 @@
       document.getElementById('todayReflectionDate').innerText = `${toArabicNumerals(day)} جمادى الأولى ١٤٤٨ هـ`;
     }
 
+    function renderQuranSection() {
+      initializeDefaultSurahs();
+      const juzGrid = document.getElementById('juzGrid');
+      if (!juzGrid) return;
+      juzGrid.innerHTML = '';
+      let completedJuzCount = 0;
+
+      for (let i = 30; i >= 1; i--) {
+        const status = getJuzStatus(i);
+        if (status === 'done') completedJuzCount++;
+        const btn = document.createElement('button');
+        btn.className = 'juz-glass-card';
+        btn.innerHTML = `<span class="text-sm font-extrabold text-main">الجزء ${toArabicNumerals(i)}</span><div class="status-bar-glow ${status}"></div>`;
+        btn.onclick = () => openJuzDrawer(i);
+        juzGrid.appendChild(btn);
+      }
+
+      const percentVal = ((completedJuzCount / 30) * 100).toFixed(1);
+      document.getElementById('quranTotalPercent').innerText = toArabicNumerals(percentVal) + '٪';
+      document.getElementById('quranTotalProgressBar').style.width = percentVal + '%';
+      document.getElementById('dynamicQuranSummaryText').innerText = `(بحمد الله وفضله ومنّته تم حفظ ${toArabicNumerals(completedJuzCount)} جزءاً من أصل ٣٠ جزءاً ونسأل الله التمام)`;
+    }
+
+    function initializeDefaultSurahs() {
+      if (Object.keys(savedSurahsState).length === 0) {
+        for (let j = 30; j >= 3; j--) {
+          (QURAN_JUZ_DATA[j] || []).forEach(s => savedSurahsState[`${j}_${s}`] = true);
+        }
+        localStorage.setItem('alajwanah_surahs_map', JSON.stringify(savedSurahsState));
+      }
+    }
+
+    function getJuzStatus(juzNum) {
+      const surahs = QURAN_JUZ_DATA[juzNum] || [];
+      if (surahs.length === 0) return 'empty';
+      let checkedCount = 0;
+      surahs.forEach(s => { if (savedSurahsState[`${juzNum}_${s}`]) checkedCount++; });
+      if (checkedCount === surahs.length) return 'done';
+      if (checkedCount > 0) return 'progress';
+      return 'empty';
+    }
+
+    function openJuzDrawer(juzNum) {
+      const drawer = document.getElementById('juzDetailsDrawer');
+      document.getElementById('juzDrawerTitle').innerText = `الجزء ${toArabicNumerals(juzNum)} - السور المقررة`;
+      const checklist = document.getElementById('surahChecklist');
+      checklist.innerHTML = '';
+
+      (QURAN_JUZ_DATA[juzNum] || []).forEach(surah => {
+        const surahKey = `${juzNum}_${surah}`;
+        const isSurahSaved = !!savedSurahsState[surahKey];
+        const item = document.createElement('label');
+        item.className = 'flex items-center justify-between p-2.5 rounded-lg bg-slate-950/80 border border-gray-800 text-xs cursor-pointer hover:border-emerald-500/40';
+        item.innerHTML = `<span class="font-bold text-slate-200">سورة ${surah}</span><input type="checkbox" ${isSurahSaved ? 'checked' : ''} onchange="toggleSurahSave('${juzNum}', '${surah}')" class="accent-emerald-500 w-4 h-4">`;
+        checklist.appendChild(item);
+      });
+      drawer.classList.remove('hidden');
+    }
+
+    function toggleSurahSave(juzNum, surah) {
+      const surahKey = `${juzNum}_${surah}`;
+      savedSurahsState[surahKey] = !savedSurahsState[surahKey];
+      saveData();
+      showToast('۞ تم تحديث حالة الحفظ للسورة!');
+    }
+
     function renderCourses() {
       const box = document.getElementById('coursesGridContainer');
+      if (!box) return;
       box.innerHTML = '';
       appData.courses.forEach(c => {
         const card = document.createElement('a');
@@ -1202,6 +1262,7 @@
 
     function renderAdminCoursesList() {
       const list = document.getElementById('adminCoursesManageList');
+      if (!list) return;
       list.innerHTML = '';
       appData.courses.forEach(c => {
         const row = document.createElement('div');
@@ -1211,7 +1272,7 @@
             <span class="text-xs font-bold text-main">${c.icon} ${c.title}</span>
           </div>
           <div class="flex gap-2">
-            <input type="url" value="${c.link || ''}" placeholder="أدخل رابط المقرر السحابي هنا..." id="courseLinkInput_${c.id}" class="px-3 py-1.5 bg-slate-950 text-xs rounded-lg border border-gray-700 flex-1 text-main">
+            <input type="url" value="${c.link && c.link !== '#' ? c.link : ''}" placeholder="أدخل رابط المقرر السحابي هنا..." id="courseLinkInput_${c.id}" class="px-3 py-1.5 bg-slate-950 text-xs rounded-lg border border-gray-700 flex-1 text-main">
             <button onclick="saveSingleCourseLink(${c.id})" class="px-3 py-1.5 bg-emerald-500 text-slate-950 font-bold text-xs rounded-lg">حفظ</button>
           </div>
         `;
@@ -1229,48 +1290,114 @@
       }
     }
 
-    async function loadGoogleDriveGallery() {
-      const grid = document.getElementById('photoStudioGrid');
+    function renderAchievements() {
+      const grid = document.getElementById('achievementsGrid');
+      if (!grid) return;
       grid.innerHTML = '';
-
-      if (!gdriveApiKey || !gdriveFolderId) {
-        grid.innerHTML = '<div class="col-span-full p-8 text-center text-xs text-sub glass-card">يرجى إضافة مفتاح API ومُعرّف المجلد من لوحة التحكم لعرض الصور ديناميكياً.</div>';
-        return;
-      }
-
-      try {
-        const url = `https://www.googleapis.com/drive/v3/files?q='${gdriveFolderId}'+in+parents+and+mimeType+contains+'image/'&key=${gdriveApiKey}&fields=files(id,name)`;
-        const res = await fetch(url);
-        const data = await res.json();
-
-        if (data.files && data.files.length > 0) {
-          data.files.forEach(file => {
-            const imgSrc = `https://lh3.googleusercontent.com/d/${file.id}`;
-            const card = document.createElement('div');
-            card.className = 'glass-card overflow-hidden h-64 relative group border-[var(--bg-glass-border)] hover:border-[var(--accent)]';
-            card.innerHTML = `
-              <img src="${imgSrc}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" onerror="this.src='https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600'">
-              <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
-                <span class="text-xs font-bold text-white">${file.name}</span>
+      appData.achievements.forEach(a => {
+        const card = document.createElement('div');
+        card.className = 'glass-card p-6 flex flex-col justify-between space-y-4';
+        card.innerHTML = `
+          <div class="space-y-2">
+            <div class="flex justify-between items-center">
+              <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-[var(--bg-glass)] text-[var(--accent)] border border-[var(--bg-glass-border)]">${a.category}</span>
+              <div class="flex gap-2">
+                <button onclick="promptPassAndOpen(() => editAchievement(${a.id}))" class="text-xs text-amber-400 hover:underline">تعديل</button>
+                <button onclick="promptPassAndOpen(() => deleteAchievement(${a.id}))" class="text-xs text-red-400 hover:underline">حذف</button>
               </div>
-            `;
-            grid.appendChild(card);
-          });
-        } else {
-          grid.innerHTML = '<div class="col-span-full p-8 text-center text-xs text-sub glass-card">تأكد من مشاركة مجلد Google Drive كـ (Public / أي شخص لديه الرابط).</div>';
-        }
-      } catch (err) {
-        grid.innerHTML = '<div class="col-span-full p-8 text-center text-xs text-red-400 glass-card">حدث خطأ في الاتصال بالـ API. تأكد من إعداد المفتاح وصلاحيات المجلد.</div>';
-      }
+            </div>
+            <h3 class="font-bold text-lg text-main">${a.title}</h3>
+            <p class="text-xs text-sub leading-relaxed max-h-24 overflow-hidden">${a.desc}</p>
+            ${a.link ? `<a href="${a.link}" target="_blank" class="inline-block text-xs font-bold text-sky-400 hover:underline mt-2">عرض التفاصيل ↗</a>` : ''}
+          </div>
+        `;
+        grid.appendChild(card);
+      });
     }
 
-    function saveGDriveConfig() {
-      gdriveApiKey = document.getElementById('gdriveApiKeyInput').value;
-      gdriveFolderId = document.getElementById('gdriveFolderIdInput').value;
-      localStorage.setItem('alajwanah_gdrive_key', gdriveApiKey);
-      localStorage.setItem('alajwanah_gdrive_folder', gdriveFolderId);
-      loadGoogleDriveGallery();
-      showToast('✓ تم حفظ إعدادات Drive API');
+    function renderIdeas() {
+      const box = document.getElementById('ideasContainer');
+      if (!box) return;
+      box.innerHTML = '';
+      appData.ideas.forEach(i => {
+        const card = document.createElement('div');
+        card.className = 'glass-card p-6 flex flex-col justify-between space-y-4';
+        card.innerHTML = `
+          <div class="space-y-2">
+            <div class="flex justify-between items-center">
+              <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-purple-500/10 text-purple-300 border border-purple-500/30">${i.category || 'فكرة'}</span>
+              <div class="flex gap-2">
+                <button onclick="promptPassAndOpen(() => editBlog(${i.id}))" class="text-xs text-amber-400 hover:underline">تعديل</button>
+                <button onclick="promptPassAndOpen(() => deleteBlog(${i.id}))" class="text-xs text-red-400 hover:underline">حذف</button>
+              </div>
+            </div>
+            <h3 class="font-bold text-lg text-main">${i.title}</h3>
+            <p class="text-xs text-sub leading-relaxed max-h-36 overflow-hidden">${i.desc}</p>
+            ${i.link ? `<a href="${i.link}" target="_blank" class="inline-block text-xs font-bold text-sky-400 hover:underline mt-2">زيارة الرابط ↗</a>` : ''}
+          </div>
+        `;
+        box.appendChild(card);
+      });
+    }
+
+    function renderLibrary() {
+      const container = document.getElementById('libraryContainer');
+      if (!container) return;
+      container.innerHTML = '';
+      appData.books.forEach(b => {
+        const card = document.createElement('div');
+        card.className = 'glass-card p-6 flex flex-col justify-between space-y-4';
+        card.innerHTML = `
+          <div class="space-y-2">
+            <div class="flex justify-between items-center">
+              <span class="text-xs font-bold px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/30">${b.category}</span>
+              <div class="flex gap-2">
+                <button onclick="promptPassAndOpen(() => editBook(${b.id}))" class="text-xs text-amber-400 hover:underline">تعديل</button>
+                <button onclick="promptPassAndOpen(() => deleteBook(${b.id}))" class="text-xs text-red-400 hover:underline">حذف</button>
+              </div>
+            </div>
+            <h3 class="font-bold text-base text-main">${b.title}</h3>
+            <p class="text-xs text-sub leading-relaxed max-h-36 overflow-hidden">${b.desc}</p>
+            ${b.link ? `<a href="${b.link}" target="_blank" class="inline-block text-xs font-bold text-sky-400 hover:underline mt-2">تفاصيل الكتاب ↗</a>` : ''}
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function renderGallery() {
+      const grid = document.getElementById('photoStudioGrid');
+      if (!grid) return;
+      grid.innerHTML = '';
+
+      let links = galleryCustomLinks.split(',').map(l => l.trim()).filter(l => l.length > 0);
+      if (links.length === 0) {
+        links = [
+          "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600",
+          "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=600",
+          "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600",
+          "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=600"
+        ];
+      }
+
+      links.forEach((src, index) => {
+        const card = document.createElement('div');
+        card.className = 'glass-card overflow-hidden h-64 relative group border-[var(--bg-glass-border)] hover:border-[var(--accent)]';
+        card.innerHTML = `
+          <img src="${src}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" onerror="this.src='https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600'">
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+            <span class="text-xs font-bold text-white">بكسل رقم (${toArabicNumerals(index + 1)}) ✦</span>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function saveGalleryLinks() {
+      galleryCustomLinks = document.getElementById('galleryLinksInput').value;
+      localStorage.setItem('alajwanah_gallery_links', galleryCustomLinks);
+      renderGallery();
+      showToast('✓ تم حفظ وعرض صور بكسلاتي بنجاح');
     }
 
     function loginAdmin() {
@@ -1280,8 +1407,7 @@
         document.getElementById('adminLoginForm').classList.add('hidden');
         document.getElementById('adminControlsArea').classList.remove('hidden');
         document.getElementById('newSectionPinInput').value = activeSectionPin;
-        document.getElementById('gdriveApiKeyInput').value = gdriveApiKey;
-        document.getElementById('gdriveFolderIdInput').value = gdriveFolderId;
+        document.getElementById('galleryLinksInput').value = galleryCustomLinks;
         renderAdminCoursesList();
       } else {
         document.getElementById('adminAlertBox').classList.remove('hidden');
@@ -1302,6 +1428,144 @@
       }
     }
 
+    document.getElementById('achievementForm').onsubmit = (e) => {
+      e.preventDefault();
+      const id = document.getElementById('achEditId').value;
+      const title = document.getElementById('achTitleInput').value;
+      const category = document.getElementById('achCategoryInput').value;
+      const desc = document.getElementById('achDescInput').value;
+      const link = document.getElementById('achLinkInput').value;
+
+      if (id) {
+        const index = appData.achievements.findIndex(a => a.id == id);
+        if (index !== -1) appData.achievements[index] = { id: Number(id), title, category, desc, link };
+      } else {
+        appData.achievements.unshift({ id: Date.now(), title, category, desc, link });
+      }
+      saveData();
+      cancelAchForm();
+      showToast('🎓 تم حفظ الإنجاز بنجاح!');
+    };
+
+    function editAchievement(id) {
+      const item = appData.achievements.find(a => a.id === id);
+      if (!item) return;
+      document.getElementById('achEditId').value = item.id;
+      document.getElementById('achTitleInput').value = item.title;
+      document.getElementById('achCategoryInput').value = item.category;
+      document.getElementById('achDescInput').value = item.desc;
+      document.getElementById('achLinkInput').value = item.link || '';
+      document.getElementById('achFormTitle').innerText = 'تعديل الإنجاز';
+      document.getElementById('achievementForm').classList.remove('hidden');
+    }
+
+    function deleteAchievement(id) {
+      if (confirm('هل أنت متأكد من حذف هذا الإنجاز؟')) {
+        appData.achievements = appData.achievements.filter(a => a.id !== id);
+        saveData();
+        showToast('تم الحذف بنجاح');
+      }
+    }
+
+    function cancelAchForm() {
+      document.getElementById('achievementForm').reset();
+      document.getElementById('achEditId').value = '';
+      document.getElementById('achFormTitle').innerText = 'توثيق إنجاز جديد';
+      document.getElementById('achievementForm').classList.add('hidden');
+    }
+
+    document.getElementById('creativeBlogForm').onsubmit = (e) => {
+      e.preventDefault();
+      const id = document.getElementById('blogEditId').value;
+      const title = document.getElementById('blogTitleInput').value;
+      const category = document.getElementById('blogCategoryInput').value;
+      const desc = document.getElementById('blogDescInput').value;
+      const link = document.getElementById('blogLinkInput').value;
+
+      if (id) {
+        const index = appData.ideas.findIndex(i => i.id == id);
+        if (index !== -1) appData.ideas[index] = { id: Number(id), title, category, desc, link };
+      } else {
+        appData.ideas.unshift({ id: Date.now(), title, category, desc, link });
+      }
+      saveData();
+      cancelBlogForm();
+      showToast('✦ تم حفظ المدونة بنجاح!');
+    };
+
+    function editBlog(id) {
+      const item = appData.ideas.find(i => i.id === id);
+      if (!item) return;
+      document.getElementById('blogEditId').value = item.id;
+      document.getElementById('blogTitleInput').value = item.title;
+      document.getElementById('blogCategoryInput').value = item.category || 'فكرة';
+      document.getElementById('blogDescInput').value = item.desc;
+      document.getElementById('blogLinkInput').value = item.link || '';
+      document.getElementById('blogFormTitle').innerText = 'تعديل المدونة';
+      document.getElementById('creativeBlogForm').classList.remove('hidden');
+    }
+
+    function deleteBlog(id) {
+      if (confirm('هل أنت متأكد من حذف هذه المدونة؟')) {
+        appData.ideas = appData.ideas.filter(i => i.id !== id);
+        saveData();
+        showToast('تم الحذف بنجاح');
+      }
+    }
+
+    function cancelBlogForm() {
+      document.getElementById('creativeBlogForm').reset();
+      document.getElementById('blogEditId').value = '';
+      document.getElementById('blogFormTitle').innerText = 'تدوين مدونة جديدة';
+      document.getElementById('creativeBlogForm').classList.add('hidden');
+    }
+
+    document.getElementById('libraryBookForm').onsubmit = (e) => {
+      e.preventDefault();
+      const id = document.getElementById('bookEditId').value;
+      const title = document.getElementById('bookTitleInput').value;
+      const category = document.getElementById('bookCategoryInput').value;
+      const desc = document.getElementById('bookDescInput').value;
+      const link = document.getElementById('bookLinkInput').value;
+
+      if (id) {
+        const index = appData.books.findIndex(b => b.id == id);
+        if (index !== -1) appData.books[index] = { id: Number(id), title, category, desc, link };
+      } else {
+        appData.books.unshift({ id: Date.now(), title, category, desc, link });
+      }
+      saveData();
+      cancelBookForm();
+      showToast('📖 تم حفظ الكتاب بنجاح!');
+    };
+
+    function editBook(id) {
+      const item = appData.books.find(b => b.id === id);
+      if (!item) return;
+      document.getElementById('bookEditId').value = item.id;
+      document.getElementById('bookTitleInput').value = item.title;
+      document.getElementById('bookCategoryInput').value = item.category;
+      document.getElementById('bookDescInput').value = item.desc;
+      document.getElementById('bookLinkInput').value = item.link || '';
+      document.getElementById('bookFormTitle').innerText = 'تعديل الكتاب';
+      document.getElementById('libraryBookForm').classList.remove('hidden');
+    }
+
+    function deleteBook(id) {
+      if (confirm('هل أنت متأكد من حذف هذا الكتاب؟')) {
+        appData.books = appData.books.filter(b => b.id !== id);
+        saveData();
+        showToast('تم الحذف بنجاح');
+      }
+    }
+
+    function cancelBookForm() {
+      document.getElementById('libraryBookForm').reset();
+      document.getElementById('bookEditId').value = '';
+      document.getElementById('bookFormTitle').innerText = 'إضافة كتاب جديد';
+      document.getElementById('libraryBookForm').classList.add('hidden');
+    }
+
     document.getElementById('adminModalBtn').onclick = () => document.getElementById('adminModal').classList.add('active');
     document.querySelectorAll('.closeModalBtn').forEach(b => b.onclick = () => {
       document.getElementById('adminModal').classList.remove('active');
@@ -1316,15 +1580,20 @@
     }
 
     function renderAll() {
+      renderQuranSection();
       renderReflectionsPreview();
       renderCourses();
-      loadGoogleDriveGallery();
+      renderAchievements();
+      renderIdeas();
+      renderLibrary();
+      renderGallery();
       document.getElementById('todayHijriHeader').innerText = `${toArabicNumerals(getHijriDayNumber())} جمادى الأولى ١٤٤٨ هـ`;
     }
 
     let particleMaterial;
     function init3DBackground() {
       const container = document.getElementById('canvas-container');
+      if (!container) return;
       const scene = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
       const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
@@ -1353,7 +1622,6 @@
 
       const particles = new THREE.Points(geometry, particleMaterial);
       scene.add(particles);
-
       camera.position.z = 5;
 
       function animate() {
@@ -1362,7 +1630,6 @@
         particles.rotation.x += 0.0004;
         renderer.render(scene, camera);
       }
-
       animate();
 
       window.addEventListener('resize', () => {
