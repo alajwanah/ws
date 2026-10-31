@@ -31,6 +31,9 @@
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
   
   <style>
+    /* ==========================================================================
+       THEME SYSTEM & DYNAMIC CSS VARIABLES
+       ========================================================================== */
     :root {
       --bg-primary: #0d111e;
       --bg-secondary: #171d31;
@@ -52,6 +55,7 @@
       --font-quran: 'Amiri Quran', 'Amiri', serif;
     }
 
+    /* 11 Fully Harmonized Color Themes */
     [data-theme="quran"] {
       --bg-primary: #04140d; --bg-secondary: #0a291c;
       --bg-header-footer: rgba(10, 41, 28, 0.9);
@@ -84,6 +88,54 @@
       --accent-gradient: linear-gradient(135deg, #f59e0b 0%, #b45309 100%);
       --glow-color: rgba(245, 158, 11, 0.7);
     }
+    [data-theme="burgundy"] {
+      --bg-primary: #1a050d; --bg-secondary: #2d0a17;
+      --bg-header-footer: rgba(45, 10, 23, 0.9);
+      --bg-glass: rgba(45, 10, 23, 0.85); --bg-glass-border: rgba(225, 29, 72, 0.35);
+      --text-main: #fff1f2; --text-sub: #fecdd3; --accent: #f43f5e; --accent-secondary: #fb7185;
+      --accent-gradient: linear-gradient(135deg, #e11d48 0%, #be123c 100%);
+      --glow-color: rgba(244, 63, 94, 0.7);
+    }
+    [data-theme="spring"] {
+      --bg-primary: #170814; --bg-secondary: #2b0e25;
+      --bg-header-footer: rgba(43, 14, 37, 0.9);
+      --bg-glass: rgba(43, 14, 37, 0.85); --bg-glass-border: rgba(244, 114, 182, 0.35);
+      --text-main: #fdf2f8; --text-sub: #fbcfe8; --accent: #f472b6; --accent-secondary: #fb7185;
+      --accent-gradient: linear-gradient(135deg, #ec4899 0%, #f43f5e 100%);
+      --glow-color: rgba(244, 114, 182, 0.7);
+    }
+    [data-theme="summer"] {
+      --bg-primary: #1c0f02; --bg-secondary: #331c05;
+      --bg-header-footer: rgba(51, 28, 5, 0.9);
+      --bg-glass: rgba(51, 28, 5, 0.85); --bg-glass-border: rgba(251, 146, 60, 0.35);
+      --text-main: #fff7ed; --text-sub: #ffedd5; --accent: #fb923c; --accent-secondary: #facc15;
+      --accent-gradient: linear-gradient(135deg, #ea580c 0%, #eab308 100%);
+      --glow-color: rgba(251, 146, 60, 0.7);
+    }
+    [data-theme="autumn"] {
+      --bg-primary: #140d07; --bg-secondary: #26180d;
+      --bg-header-footer: rgba(38, 24, 13, 0.9);
+      --bg-glass: rgba(38, 24, 13, 0.85); --bg-glass-border: rgba(217, 119, 6, 0.35);
+      --text-main: #fef3c7; --text-sub: #fde68a; --accent: #d97706; --accent-secondary: #b45309;
+      --accent-gradient: linear-gradient(135deg, #c2410c 0%, #92400e 100%);
+      --glow-color: rgba(217, 119, 6, 0.7);
+    }
+    [data-theme="winter"] {
+      --bg-primary: #070d17; --bg-secondary: #101929;
+      --bg-header-footer: rgba(16, 25, 41, 0.9);
+      --bg-glass: rgba(16, 25, 41, 0.85); --bg-glass-border: rgba(186, 230, 253, 0.35);
+      --text-main: #f0f9ff; --text-sub: #bae6fd; --accent: #38bdf8; --accent-secondary: #e0f2fe;
+      --accent-gradient: linear-gradient(135deg, #0284c7 0%, #bae6fd 100%);
+      --glow-color: rgba(56, 189, 248, 0.7);
+    }
+    [data-theme="realmadrid"] {
+      --bg-primary: #060a14; --bg-secondary: #0f1629;
+      --bg-header-footer: rgba(15, 22, 41, 0.9);
+      --bg-glass: rgba(15, 22, 41, 0.85); --bg-glass-border: rgba(234, 179, 8, 0.35);
+      --text-main: #ffffff; --text-sub: #cbd5e1; --accent: #eab308; --accent-secondary: #6366f1;
+      --accent-gradient: linear-gradient(135deg, #eab308 0%, #4f46e5 100%);
+      --glow-color: rgba(234, 179, 8, 0.7);
+    }
 
     body {
       font-family: var(--font-ar);
@@ -93,11 +145,46 @@
       transition: background-color 0.4s ease, color 0.4s ease;
     }
 
-    .hero-title-main { font-family: 'Zain', sans-serif; font-weight: 800; display: block; color: var(--text-main); word-break: break-word; }
-    .clean-moon-text { color: var(--accent); text-shadow: 0 0 15px var(--glow-color); font-weight: 900; display: inline-block; }
-    .hero-title-sub { font-family: 'Ummi Regular', 'Aref Ruqaa', serif; line-height: 1.4 !important; color: var(--text-sub); }
-    .glowing-ajwan { font-family: var(--font-ar); font-weight: 800; color: var(--accent); text-shadow: 0 0 10px var(--glow-color); }
-    .quran-ayah { font-family: var(--font-quran); word-spacing: 2px; }
+    .hero-title-main {
+      font-family: 'Zain', sans-serif;
+      font-weight: 800;
+      display: block;
+      color: var(--text-main);
+      word-break: break-word;
+    }
+
+    .clean-moon-text {
+      color: var(--accent);
+      text-shadow: 0 0 15px var(--glow-color);
+      font-weight: 900;
+      display: inline-block;
+      transition: color 0.4s ease, text-shadow 0.4s ease;
+    }
+
+    .hero-title-sub {
+      font-family: 'Ummi Regular', 'Aref Ruqaa', serif;
+      line-height: 1.4 !important;
+      color: var(--text-sub);
+      transition: color 0.4s ease;
+    }
+
+    .glowing-ajwan {
+      font-family: var(--font-ar);
+      font-weight: 800;
+      color: var(--accent);
+      text-shadow: 0 0 10px var(--glow-color), 0 0 20px var(--glow-color);
+      animation: pulseGlowText 3s infinite alternate ease-in-out;
+    }
+
+    @keyframes pulseGlowText {
+      0% { text-shadow: 0 0 8px var(--glow-color); }
+      100% { text-shadow: 0 0 22px var(--glow-color), 0 0 30px var(--accent); }
+    }
+
+    .quran-ayah {
+      font-family: var(--font-quran);
+      word-spacing: 2px;
+    }
 
     .glass-card {
       background: var(--bg-glass);
@@ -106,114 +193,313 @@
       border: 1px solid var(--bg-glass-border);
       border-radius: 1.25rem;
       box-shadow: var(--card-shadow);
-      transition: transform 0.3s ease, border-color 0.3s ease;
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, background 0.4s ease;
     }
-    .glass-card:hover { transform: translateY(-4px); border-color: var(--accent); }
-    .theme-header-footer { background-color: var(--bg-header-footer); backdrop-filter: blur(20px); border-color: var(--bg-glass-border); }
+    .glass-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent);
+    }
 
-    .hero-art-container { position: relative; width: 100%; max-width: 460px; height: 460px; display: flex; align-items: center; justify-content: center; margin: 0 auto; }
-    .crystal-planet { position: relative; width: 220px; height: 220px; border-radius: 50%; background: var(--bg-secondary); border: 3px solid var(--accent); box-shadow: 0 0 45px var(--glow-color); overflow: hidden; display: flex; align-items: center; justify-content: center; z-index: 5; animation: floatPlanet 6s ease-in-out infinite; }
-    .crystal-planet img { width: 100%; height: 100%; object-fit: cover; }
+    .theme-header-footer {
+      background-color: var(--bg-header-footer);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-color: var(--bg-glass-border);
+      transition: background-color 0.4s ease, border-color 0.4s ease;
+    }
+
+    .hero-art-container {
+      position: relative;
+      width: 100%;
+      max-width: 460px;
+      height: 460px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      isolation: isolate;
+      margin: 0 auto;
+    }
+
+    .crystal-planet {
+      position: relative;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: var(--bg-secondary);
+      border: 3px solid var(--accent);
+      box-shadow: 0 0 45px var(--glow-color), inset 0 0 25px rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: floatPlanet 6s ease-in-out infinite;
+      z-index: 5;
+    }
     
+    .crystal-planet img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
     @keyframes floatPlanet {
       0%, 100% { transform: translateY(0) rotate(0deg); }
       50% { transform: translateY(-10px) rotate(-2deg); }
     }
 
-    .orbit-ring { position: absolute; border: 1.5px dashed rgba(148, 163, 184, 0.4); opacity: 0.65; border-radius: 50%; pointer-events: none; animation: spinOrbit 35s linear infinite; }
-    .ring-1 { width: 320px; height: 320px; } .ring-2 { width: 420px; height: 420px; animation-direction: reverse; }
-    @keyframes spinOrbit { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    .orbit-ring {
+      position: absolute;
+      border: 1.5px dashed rgba(148, 163, 184, 0.4);
+      opacity: 0.65;
+      border-radius: 50%;
+      pointer-events: none;
+      box-shadow: 0 0 8px rgba(148, 163, 184, 0.2);
+      animation: spinOrbit 35s linear infinite;
+    }
+    .ring-1 { width: 320px; height: 320px; animation-duration: 25s; }
+    .ring-2 { width: 420px; height: 420px; animation-duration: 45s; animation-direction: reverse; }
+    .ring-3 { width: 250px; height: 250px; animation-duration: 20s; }
+    .ring-4 { width: 380px; height: 180px; transform: rotate(45deg); animation-duration: 30s; }
+    .ring-5 { width: 400px; height: 220px; transform: rotate(-35deg); animation-duration: 38s; animation-direction: reverse; }
 
-    .orbit-star { position: absolute; width: 44px; height: 44px; border-radius: 50%; background: var(--bg-secondary); border: 2px solid var(--accent); color: var(--text-main); display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10; text-decoration: none; transition: transform 0.3s; }
-    .orbit-star:hover { transform: scale(1.25); background: var(--accent); color: #fff; }
+    @keyframes spinOrbit {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .orbit-star {
+      position: absolute;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--bg-secondary);
+      border: 2px solid var(--accent);
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 0 20px var(--glow-color);
+      transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+      z-index: 10;
+      pointer-events: auto;
+      text-decoration: none;
+    }
+    .orbit-star:hover {
+      transform: scale(1.25);
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 0 30px var(--accent);
+    }
 
     .star-tooltip {
-      position: absolute; bottom: -32px; left: 50%; transform: translateX(-50%) scale(0.9);
-      background: var(--bg-secondary); border: 1px solid var(--bg-glass-border); color: var(--text-main);
-      padding: 4px 10px; border-radius: 8px; font-size: 11px; font-weight: 700; white-space: nowrap;
-      opacity: 0; visibility: hidden; transition: all 0.25s ease; pointer-events: none;
+      position: absolute;
+      bottom: -32px;
+      left: 50%;
+      transform: translateX(-50%) scale(0.9);
+      background: var(--bg-secondary);
+      border: 1px solid var(--bg-glass-border);
+      color: var(--text-main);
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      white-space: nowrap;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.25s ease;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      pointer-events: none;
     }
-    .orbit-star:hover .star-tooltip { opacity: 1; visibility: visible; transform: translateX(-50%) scale(1); }
+    .orbit-star:hover .star-tooltip {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) scale(1);
+    }
 
-    .single-floating-moon { position: relative; width: 180px; height: 180px; border-radius: 50%; display: flex; align-items: center; justify-content: center; animation: moonFloatSpin 8s ease-in-out infinite; }
+    .glowing-box {
+      background: var(--bg-glass);
+      border: 2px solid var(--accent);
+      box-shadow: 0 0 25px var(--glow-color);
+    }
+
+    .single-floating-moon {
+      position: relative;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: moonFloatSpin 8s ease-in-out infinite;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
     @keyframes moonFloatSpin {
       0%, 100% { transform: translateY(0) rotate(0deg); }
       50% { transform: translateY(-14px) rotate(4deg); }
     }
 
-    .juz-glass-card { background: var(--bg-glass); border: 1px solid var(--bg-glass-border); border-radius: 1rem; padding: 0.85rem; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; transition: all 0.3s ease; }
-    .juz-glass-card:hover { transform: translateY(-3px); border-color: var(--accent); }
-    
-    .status-bar-glow { width: 100%; height: 6px; border-radius: 10px; }
-    .status-bar-glow.done { background: #10b981; box-shadow: 0 0 12px #10b981; } 
-    .status-bar-glow.progress { background: #f59e0b; box-shadow: 0 0 12px #f59e0b; } 
+    .juz-glass-card {
+      background: var(--bg-glass);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--bg-glass-border);
+      border-radius: 1rem;
+      padding: 0.85rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      transition: all 0.3s ease;
+    }
+    .juz-glass-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent);
+    }
+
+    .status-bar-glow {
+      width: 100%;
+      height: 6px;
+      border-radius: 10px;
+      transition: all 0.4s ease;
+    }
+    .status-bar-glow.done { background: #10b981; box-shadow: 0 0 12px #10b981; }
+    .status-bar-glow.progress { background: #f59e0b; box-shadow: 0 0 12px #f59e0b; }
     .status-bar-glow.empty { background: #ef4444; box-shadow: 0 0 12px #ef4444; }
 
-    #canvas-container { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none; }
-    .modal { transition: opacity 0.3s ease, visibility 0.3s ease; opacity: 0; visibility: hidden; }
+    #canvas-container {
+      position: fixed; top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      z-index: -1; pointer-events: none;
+    }
+
+    .modal {
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      opacity: 0; visibility: hidden;
+    }
     .modal.active { opacity: 1; visibility: visible; }
-    .glass-alert-box { background: rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.4); color: #fca5a5; padding: 0.75rem; border-radius: 0.75rem; font-size: 0.85rem; }
 
-    .mobile-menu-drawer { position: fixed; top: 0; right: -100%; width: 85%; max-width: 380px; height: 100vh; background: var(--bg-secondary); border-left: 1px solid var(--bg-glass-border); z-index: 100; transition: right 0.4s ease; display: flex; flex-direction: column; padding: 1.5rem; }
-    .mobile-menu-drawer.active { right: 0; }
-    .mobile-menu-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 90; opacity: 0; visibility: hidden; transition: opacity 0.3s ease; }
-    .mobile-menu-overlay.active { opacity: 1; visibility: visible; }
+    .theme-card {
+      position: relative;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .theme-card.active-theme {
+      border-color: var(--accent) !important;
+      box-shadow: 0 0 20px var(--glow-color);
+      transform: scale(1.03);
+    }
+    .theme-card .check-badge { display: none; }
+    .theme-card.active-theme .check-badge { display: flex; }
 
-    .theme-card { cursor: pointer; transition: all 0.3s ease; }
-    .theme-card.active-theme { border-color: var(--accent) !important; box-shadow: 0 0 20px var(--glow-color); transform: scale(1.03); }
+    .glass-alert-box {
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      backdrop-filter: blur(12px);
+      color: #fca5a5;
+      padding: 0.75rem 1rem;
+      border-radius: 0.75rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      box-shadow: 0 4px 20px rgba(239, 68, 68, 0.2);
+    }
+
+    /* Burger Menu Sliding Drawer Styles */
+    .mobile-menu-drawer {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 85%;
+      max-width: 380px;
+      height: 100vh;
+      background: var(--bg-secondary);
+      border-left: 1px solid var(--bg-glass-border);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      z-index: 100;
+      transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+      display: flex;
+      flex-direction: column;
+      padding: 1.5rem;
+      overflow-y: auto;
+    }
+    .mobile-menu-drawer.active {
+      right: 0;
+    }
+    .mobile-menu-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(4px);
+      z-index: 90;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    .mobile-menu-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
   </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-purple-500 selection:text-white">
 
-  <!-- 3D Canvas Background -->
+  <!-- ThreeJS Background Canvas -->
   <div id="canvas-container"></div>
 
-  <!-- Header -->
-  <header class="sticky top-0 z-40 w-full theme-header-footer border-b">
-    <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
+  <!-- Header / Navigation Bar -->
+  <header class="sticky top-0 z-40 w-full theme-header-footer border-b transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
       
+      <!-- Brand Logo -->
       <a href="#home" class="flex items-center gap-3 group">
-        <div class="w-11 h-11 rounded-xl overflow-hidden border border-[var(--bg-glass-border)] flex items-center justify-center bg-slate-900 flex-shrink-0">
+        <div class="w-11 h-11 rounded-xl overflow-hidden border border-[var(--bg-glass-border)] shadow-lg transform group-hover:rotate-6 transition-transform flex items-center justify-center bg-slate-900 flex-shrink-0">
           <img src="ajwan_icon.png" alt="أجوان" class="w-full h-full object-cover" onerror="this.src='ajwan_icon.png'">
         </div>
         <div class="flex flex-col">
-          <span class="font-bold text-base sm:text-lg group-hover:text-purple-400 transition-colors">أجوان اليوسف</span>
+          <span class="font-bold text-base sm:text-lg tracking-wide group-hover:text-purple-400 transition-colors">أجوان اليوسف</span>
           <span class="text-xs text-sub flex items-center gap-1">م ملاذ الـقمـر 🌙</span>
         </div>
       </a>
 
-      <!-- Desktop Nav -->
+      <!-- Desktop Nav Links -->
       <nav class="hidden lg:flex items-center gap-4 text-sm font-medium">
-        <a href="#quran" class="hover:text-[var(--accent)] py-1">محرابي</a>
-        <a href="#reflections" class="hover:text-[var(--accent)] py-1">تأملاتي</a>
-        <a href="#cv" class="hover:text-[var(--accent)] py-1">سيرتي</a>
-        <a href="#planner" class="hover:text-[var(--accent)] py-1">مقرراتي</a>
-        <a href="#achievements" class="hover:text-[var(--accent)] py-1">إنجازاتي</a>
-        <a href="#creative" class="hover:text-[var(--accent)] py-1">مدونتي</a>
-        <a href="#library" class="hover:text-[var(--accent)] py-1">مكتبتي</a>
-        <a href="#gallery" class="hover:text-[var(--accent)] py-1">بكسلاتي</a>
+        <a href="#quran" class="hover:text-[var(--accent)] transition-colors py-1">محرابي</a>
+        <a href="#reflections" class="hover:text-[var(--accent)] transition-colors py-1">تأملاتي</a>
+        <a href="#cv" class="text-white hover:text-[var(--accent)] transition-colors py-1">سيرتي</a>
+        <a href="#planner" class="hover:text-[var(--accent)] transition-colors py-1">مقرراتي</a>
+        <a href="#achievements" class="hover:text-[var(--accent)] transition-colors py-1">إنجازاتي</a>
+        <a href="#creative" class="hover:text-[var(--accent)] transition-colors py-1">مدونتي</a>
+        <a href="#library" class="hover:text-[var(--accent)] transition-colors py-1">مكتبتي</a>
+        <a href="#gallery" class="hover:text-[var(--accent)] transition-colors py-1">بكسلاتي</a>
       </nav>
 
-      <div class="flex items-center gap-3">
-        <button id="themeModalBtn" class="hidden sm:flex px-3.5 py-2 rounded-xl border border-gray-700 bg-slate-900/40 text-xs font-semibold hover:border-[var(--accent)] items-center gap-1.5">
+      <!-- Action Control Buttons -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        <button id="themeModalBtn" class="hidden sm:flex px-3.5 py-2 rounded-xl border border-gray-700 bg-slate-900/40 text-xs font-semibold hover:border-[var(--accent)] transition-all items-center gap-1.5" title="اختر المظهر المفضّل">
           <span>🎨</span> <span>المظهر</span>
         </button>
 
-        <button id="adminModalBtn" class="hidden sm:flex px-3.5 py-2 rounded-xl text-white font-bold text-xs hover:opacity-90 shadow-md items-center gap-1" style="background: var(--accent);">
-          <span>⚙️</span> <span>لوحة التحكم</span>
+        <button id="adminModalBtn" class="hidden sm:flex px-3.5 py-2 rounded-xl text-white font-bold text-xs hover:opacity-90 transition-all shadow-md items-center gap-1" style="background: var(--accent);">
+          <span>⚙️</span> <span class="hidden md:inline">لوحة التحكم</span>
         </button>
 
-        <button id="burgerMenuBtn" class="lg:hidden p-2.5 rounded-xl border border-gray-700 bg-slate-900/60 flex flex-col justify-center gap-1.5 w-11 h-11 items-center">
-          <span class="w-5 h-0.5 bg-current rounded-full"></span>
-          <span class="w-5 h-0.5 bg-current rounded-full"></span>
-          <span class="w-5 h-0.5 bg-current rounded-full"></span>
+        <!-- Burger Menu Button (Mobile & Tablet) -->
+        <button id="burgerMenuBtn" class="lg:hidden p-2.5 rounded-xl border border-gray-700 bg-slate-900/60 text-main hover:border-[var(--accent)] transition-all flex flex-col justify-center gap-1.5 w-11 h-11 items-center" aria-label="القائمة">
+          <span class="w-5 h-0.5 bg-current rounded-full transition-all"></span>
+          <span class="w-5 h-0.5 bg-current rounded-full transition-all"></span>
+          <span class="w-5 h-0.5 bg-current rounded-full transition-all"></span>
         </button>
       </div>
 
     </div>
   </header>
 
-  <!-- Mobile Drawer -->
+  <!-- Mobile Burger Menu Drawer (Sidebar) -->
   <div id="mobileMenuOverlay" class="mobile-menu-overlay"></div>
   <div id="mobileMenuDrawer" class="mobile-menu-drawer">
     <div class="flex items-center justify-between border-b border-gray-800 pb-4 mb-4">
@@ -223,30 +509,38 @@
         </div>
         <span class="font-bold text-base text-main">القائمة</span>
       </div>
-      <button id="closeMobileMenuBtn" class="w-9 h-9 rounded-xl bg-slate-900 text-sub flex items-center justify-center font-bold">✕</button>
+      <button id="closeMobileMenuBtn" class="w-9 h-9 rounded-xl bg-slate-900 border border-gray-800 text-sub hover:text-white flex items-center justify-center font-bold text-base">✕</button>
     </div>
 
     <div class="flex flex-col gap-2 text-base font-semibold flex-1">
-      <a href="#quran" onclick="toggleMobileMenu()" class="p-3 rounded-xl hover:bg-slate-900"><span>۞</span> محرابي</a>
-      <a href="#reflections" onclick="toggleMobileMenu()" class="p-3 rounded-xl hover:bg-slate-900"><span>✨</span> تأملاتي</a>
-      <a href="#cv" onclick="toggleMobileMenu()" class="p-3 rounded-xl hover:bg-slate-900"><span>📜</span> سيرتي</a>
-      <a href="#planner" onclick="toggleMobileMenu()" class="p-3 rounded-xl hover:bg-slate-900"><span>📚</span> مقرراتي</a>
-      <a href="#achievements" onclick="toggleMobileMenu()" class="p-3 rounded-xl hover:bg-slate-900"><span>🏆</span> إنجازاتي</a>
-      <a href="#creative" onclick="toggleMobileMenu()" class="p-3 rounded-xl hover:bg-slate-900"><span>✧</span> مدونتي</a>
-      <a href="#library" onclick="toggleMobileMenu()" class="p-3 rounded-xl hover:bg-slate-900"><span>📖</span> مكتبتي</a>
-      <a href="#gallery" onclick="toggleMobileMenu()" class="p-3 rounded-xl hover:bg-slate-900"><span>🖼️</span> بكسلاتي</a>
+      <a href="#quran" onclick="toggleMobileMenu()" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-900/60 hover:text-[var(--accent)] transition-colors border border-transparent hover:border-gray-800"><span>۞</span> محرابي</a>
+      <a href="#reflections" onclick="toggleMobileMenu()" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-900/60 hover:text-[var(--accent)] transition-colors border border-transparent hover:border-gray-800"><span>✨</span> تأملاتي</a>
+      <a href="#cv" onclick="toggleMobileMenu()" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-900/60 hover:text-[var(--accent)] transition-colors border border-transparent hover:border-gray-800"><span>📜</span> سيرتي</a>
+      <a href="#planner" onclick="toggleMobileMenu()" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-900/60 hover:text-[var(--accent)] transition-colors border border-transparent hover:border-gray-800"><span>📚</span> مقرراتي</a>
+      <a href="#achievements" onclick="toggleMobileMenu()" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-900/60 hover:text-[var(--accent)] transition-colors border border-transparent hover:border-gray-800"><span>🏆</span> إنجازاتي</a>
+      <a href="#creative" onclick="toggleMobileMenu()" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-900/60 hover:text-[var(--accent)] transition-colors border border-transparent hover:border-gray-800"><span>✧</span> مدونتي</a>
+      <a href="#library" onclick="toggleMobileMenu()" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-900/60 hover:text-[var(--accent)] transition-colors border border-transparent hover:border-gray-800"><span>📖</span> مكتبتي</a>
+      <a href="#gallery" onclick="toggleMobileMenu()" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-900/60 hover:text-[var(--accent)] transition-colors border border-transparent hover:border-gray-800"><span>🖼️</span> بكسلاتي</a>
 
       <div class="border-t border-gray-800 my-3 pt-3 flex flex-col gap-2">
-        <button onclick="toggleMobileMenu(); document.getElementById('themeModalBtn').click();" class="p-3 rounded-xl bg-slate-900/40 border border-gray-800 text-right w-full font-bold">🎨 المظهر</button>
-        <button onclick="toggleMobileMenu(); document.getElementById('adminModalBtn').click();" class="p-3 rounded-xl text-white text-right w-full font-bold" style="background: var(--accent);">⚙️ لوحة التحكم</button>
+        <button onclick="toggleMobileMenu(); document.getElementById('themeModalBtn').click();" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-900/60 text-[var(--accent)] transition-colors border border-gray-800 bg-slate-900/40 text-right w-full font-bold">
+          <span>🎨</span> <span>المظهر</span>
+        </button>
+        <button onclick="toggleMobileMenu(); document.getElementById('adminModalBtn').click();" class="flex items-center gap-3 p-3 rounded-xl text-white transition-all shadow-md text-right w-full font-bold" style="background: var(--accent);">
+          <span>⚙️</span> <span>لوحة التحكم</span>
+        </button>
       </div>
+    </div>
+    
+    <div class="pt-4 border-t border-gray-800 text-center text-xs text-sub">
+      ملاذ القمر | أجوان اليوسف 🌙
     </div>
   </div>
 
-  <!-- Main Content -->
+  <!-- Main Content Areas -->
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24 py-10 w-full">
 
-    <!-- 1. HERO SECTION -->
+    <!-- 1. HERO / HOME SECTION -->
     <section id="home" class="min-h-[80vh] flex flex-col lg:flex-row items-center justify-between gap-12 pt-4">
       <div class="lg:w-1/2 space-y-6 text-center lg:text-start">
         <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[var(--bg-glass-border)] bg-[var(--bg-glass)] text-[var(--accent)] text-xs font-medium">
@@ -254,8 +548,9 @@
           <span>بين ضوء القمر .. وأفق الحلم</span>
         </div>
         
+        <!-- Main Titles -->
         <div class="space-y-3">
-          <h1 class="hero-title-main text-2xl sm:text-4xl lg:text-5xl font-extrabold">
+          <h1 class="hero-title-main text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-wide">
             أهلًا بكم في <span class="clean-moon-text">ملاذ القمر</span>🌙
           </h1>
           <h2 class="hero-title-sub text-xl sm:text-2xl lg:text-3xl font-bold">
@@ -263,8 +558,8 @@
           </h2>
         </div>
         
-        <div class="text-sub text-sm sm:text-base leading-relaxed space-y-4 text-justify">
-          <p><span class="glowing-ajwan">أنا أجوان اليوسف ...</span> وُلدتُ في أعالي جبال السروات بالمملكة العربية السعودية، حيث يعانق الغيم الضباب، وحيث يهمس المطر للأرض بحكايات السماء. نشأتُ في كنف دفء أبٍ كريم، وعطف أمٍّ رؤوم، محاطةً بحبِّ الأخ، وودِّ الأخت، وثقة الكبير، واحترام الصغير، وابتسامة الطفل البريء. أجد نفسي قريبةً من الناس، وأشعر بهم قريبين مني، أعبُر إلى أرواحهم بهدوءٍ كعبور النسيم.</p>
+        <div class="text-sub text-sm sm:text-base leading-relaxed pt-2 space-y-4 text-justify">
+          <p><span class="glowing-ajwan text-base sm:text-lg">أنا أجوان اليوسف ...</span> وُلدتُ في أعالي جبال السروات بالمملكة العربية السعودية، حيث يعانق الغيم الضباب، وحيث يهمس المطر للأرض بحكايات السماء. نشأتُ في كنف دفء أبٍ كريم، وعطف أمٍّ رؤوم، محاطةً بحبِّ الأخ، وودِّ الأخت، وثقة الكبير، واحترام الصغير، وابتسامة الطفل البريء. أجد نفسي قريبةً من الناس، وأشعر بهم قريبين مني، أعبُر إلى أرواحهم بهدوءٍ كعبور النسيم.</p>
           <p>بدأتُ تعليمي في روضة بيشة الأهلية، ثم أكملتُ مشواري في ابتدائية تحفيظ القرآن الكريم الأولى ببيشة، وأستمر الآن في متوسطة تحفيظ القرآن الكريم الأولى ببيشة، عشتُ تجارب السفر والترحال إلى المدينة الحضارية والقرية الريفية، و عبرت منها إلى الضواحي ووصلت حتى البوادي، أتنقل بين تفاصيلها، وأستلهم من دروسها.</p>
           <p>أغلى وأجمل الهدايا إلى قلبي : والدي يوسف، وأمي هند، وأخي إبراهيم و أختي أسمهان.</p>
           <p>أعشقُ السفر، وأحبُّ أن أرفع عيني للسماء، أبحث عن إجاباتٍ في النجوم، وأسرحُ في تأملاتٍ تُطيل الرحلة في خاطري. أؤمن أن في كل خطوةٍ حكاية، وفي كل طريق سرًّا مخفيًا ينتظر أن يُكتشف.</p>
@@ -273,16 +568,20 @@
         </div>
       </div>
 
+      <!-- Hero Glass Portrait Circle -->
       <div class="lg:w-1/2 flex justify-center py-8 w-full">
         <div class="hero-art-container scale-90 sm:scale-100">
           <div class="orbit-ring ring-1"></div>
           <div class="orbit-ring ring-2"></div>
+          <div class="orbit-ring ring-3"></div>
+          <div class="orbit-ring ring-4"></div>
+          <div class="orbit-ring ring-5"></div>
 
-          <div class="crystal-planet">
+          <div class="crystal-planet" id="planetAvatar">
             <img src="ajwan portrait.png" alt="أجوان اليوسف" onerror="this.src='ajwan portrait.png'">
           </div>
 
-          <a href="#quran" class="orbit-star" style="top: 8%; left: 50%; transform: translateX(-50%);">
+          <a href="#quran" class="orbit-star" style="top: 8%; left: 50%; transform: translate(-50%, -50%);">
             <span>۞</span> <div class="star-tooltip">محرابي</div>
           </a>
           <a href="#reflections" class="orbit-star" style="top: 22%; right: 4%;">
@@ -307,18 +606,23 @@
       </div>
     </section>
 
-    <!-- 2. CV SECTION -->
+    <!-- SECTION: MY CV (سيرتي التفاعلية العائمة) -->
     <section id="cv" class="space-y-8 scroll-mt-24">
-      <div class="flex justify-between items-end border-b border-gray-800 pb-4">
-        <div><h2 class="text-3xl font-bold mt-1">سيرتي 📜</h2></div>
-        <div class="text-xs text-sub">📍 ALAC3159, Bisha City</div>
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-gray-800 pb-4">
+        <div>
+          <h2 class="text-3xl font-bold mt-1">سيرتي 📜</h2>
+        </div>
+        <div class="flex items-center gap-3 text-xs text-sub">
+          <span>📍 ALAC3159, Bisha City</span>
+        </div>
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        
         <div onclick="openCvModal('bio')" class="glass-card p-6 cursor-pointer flex flex-col justify-between space-y-4 group">
           <div class="flex items-center justify-between">
-            <div class="w-12 h-12 rounded-2xl bg-[var(--accent)]/10 border border-[var(--accent)]/30 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">🪶</div>
+            <div class="w-12 h-12 rounded-2xl bg-[var(--accent)]/10 border border-[var(--accent)]/30 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform shadow-inner">
+              <span class="filter drop-shadow">🪶</span>
+            </div>
             <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-slate-900/60 text-[var(--accent)] border border-gray-800">تعريف شامل ↗</span>
           </div>
           <div>
@@ -329,7 +633,9 @@
 
         <div onclick="openCvModal('education')" class="glass-card p-6 cursor-pointer flex flex-col justify-between space-y-4 group">
           <div class="flex items-center justify-between">
-            <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">🎓</div>
+            <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform shadow-inner">
+              <span class="filter drop-shadow">🎓</span>
+            </div>
             <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-slate-900/60 text-emerald-400 border border-gray-800">التسلسل الزمني ↗</span>
           </div>
           <div>
@@ -340,7 +646,9 @@
 
         <div onclick="openCvModal('experiences')" class="glass-card p-6 cursor-pointer flex flex-col justify-between space-y-4 group">
           <div class="flex items-center justify-between">
-            <div class="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">🌟</div>
+            <div class="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform shadow-inner">
+              <span class="filter drop-shadow">🌟</span>
+            </div>
             <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-slate-900/60 text-amber-400 border border-gray-800">الأنشطة والمشاركة ↗</span>
           </div>
           <div>
@@ -351,7 +659,9 @@
 
         <div onclick="openCvModal('skills')" class="glass-card p-6 cursor-pointer flex flex-col justify-between space-y-4 group">
           <div class="flex items-center justify-between">
-            <div class="w-12 h-12 rounded-2xl bg-sky-500/10 border border-sky-500/30 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">💡</div>
+            <div class="w-12 h-12 rounded-2xl bg-sky-500/10 border border-sky-500/30 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform shadow-inner">
+              <span class="filter drop-shadow">💡</span>
+            </div>
             <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-slate-900/60 text-sky-400 border border-gray-800">القدرات الشخصية ↗</span>
           </div>
           <div>
@@ -362,7 +672,9 @@
 
         <div onclick="openCvModal('languages')" class="glass-card p-6 cursor-pointer flex flex-col justify-between space-y-4 group">
           <div class="flex items-center justify-between">
-            <div class="w-12 h-12 rounded-2xl bg-rose-500/10 border border-rose-500/30 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">🗣️</div>
+            <div class="w-12 h-12 rounded-2xl bg-rose-500/10 border border-rose-500/30 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform shadow-inner">
+              <span class="filter drop-shadow">🗣️</span>
+            </div>
             <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-slate-900/60 text-rose-400 border border-gray-800">مستويات اللغات ↗</span>
           </div>
           <div>
@@ -373,7 +685,9 @@
 
         <div onclick="openCvModal('interests')" class="glass-card p-6 cursor-pointer flex flex-col justify-between space-y-4 group">
           <div class="flex items-center justify-between">
-            <div class="w-12 h-12 rounded-2xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">🎨</div>
+            <div class="w-12 h-12 rounded-2xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform shadow-inner">
+              <span class="filter drop-shadow">🎨</span>
+            </div>
             <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-slate-900/60 text-purple-400 border border-gray-800">الشغف والهوايات ↗</span>
           </div>
           <div>
@@ -381,23 +695,22 @@
             <p class="text-xs text-sub mt-2 leading-relaxed">التصميم والإبداع البصري، السفر والترحال، الكتابة والتدوين، والقراءة.</p>
           </div>
         </div>
-
       </div>
     </section>
 
-    <!-- 3. QURAN SECTION -->
+    <!-- 2. QURAN JOURNEY SECTION -->
     <section id="quran" class="space-y-8 scroll-mt-24">
-      <div class="flex justify-between items-end border-b border-gray-800 pb-4">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-gray-800 pb-4">
         <div><h2 class="text-3xl font-bold mt-1">رحلتي القرآنية ۞</h2></div>
         <div class="text-xs text-emerald-400 font-semibold">متابعة الحفظ والتلاوة والتدبر</div>
       </div>
 
-      <div class="glass-card p-4 sm:p-8 space-y-6">
+      <div class="glass-card p-4 sm:p-8 space-y-6 glowing-box">
         <div class="text-center space-y-4 border-b border-gray-800/80 pb-6">
           <div><span class="text-4xl text-emerald-400 inline-block animate-pulse">۞</span></div>
           <div class="text-lg sm:text-2xl md:text-3xl font-extrabold text-emerald-400 leading-relaxed pt-2">
             <span class="quran-ayah inline-block">﴿وَلَقَدْ يَسَّرْنَا الْقُرْآنَ لِلذِّكْرِ فَهَلْ مِن مُّدَّكِرٍ﴾</span>
-            <span class="inline-block text-xs sm:text-sm font-semibold text-sub mr-3">سورة القمر • آية ١٧</span>
+            <span class="inline-block text-xs sm:text-sm font-semibold text-sub mr-3 align-middle">سورة القمر • آية ١٧</span>
           </div>
         </div>
 
@@ -431,14 +744,14 @@
       </div>
     </section>
 
-    <!-- 4. REFLECTIONS SECTION -->
+    <!-- 3. REFLECTIONS SECTION -->
     <section id="reflections" class="space-y-8 scroll-mt-24">
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-gray-800 pb-4">
         <div><h2 class="text-3xl font-bold mt-1">تأملاتي في رحاب الآيات</h2></div>
         <div class="text-xs text-amber-400 font-semibold" id="currentMoonPhaseLabel">...</div>
       </div>
 
-      <div class="glass-card p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-8">
+      <div class="glass-card p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-8 glowing-box">
         <div class="flex flex-col items-center gap-3">
           <div class="single-floating-moon" id="dynamicMoonSphere"></div>
         </div>
@@ -457,7 +770,7 @@
       </div>
     </section>
 
-    <!-- 5. STUDY PLANNER SECTION -->
+    <!-- 4. STUDY PLANNER SECTION -->
     <section id="planner" class="space-y-8 scroll-mt-24">
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-gray-800 pb-4">
         <div><h2 class="text-3xl font-bold mt-1">مقرراتي 1448هـ</h2></div>
@@ -465,11 +778,85 @@
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="coursesGridContainer"></div>
+
+      <!-- Educational Platforms -->
+      <div class="space-y-6 pt-10">
+        <div class="text-center space-y-2">
+          <h3 class="text-2xl font-bold text-main">المنصات التعليمية الرسمية</h3>
+          <p class="text-xs text-sub">روابط سريعة ومباشرة للمنصات الوزارية والتعليمية المعتمدة</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+          <a href="https://www.moe.gov.sa/" target="_blank" class="glass-card p-6 flex flex-col items-center text-center space-y-4 group hover:border-[var(--accent)]">
+            <div class="w-16 h-16 rounded-2xl bg-[var(--bg-secondary)] border border-[var(--bg-glass-border)] shadow-md flex items-center justify-center text-3xl group-hover:scale-110 transition-transform" style="color: var(--accent);">🏛️</div>
+            <div><h4 class="font-bold text-base text-main">وزارة التعليم</h4></div>
+          </a>
+          <a href="https://schools.madrasati.sa/" target="_blank" class="glass-card p-6 flex flex-col items-center text-center space-y-4 group hover:border-[var(--accent)]">
+            <div class="w-16 h-16 rounded-2xl bg-[var(--bg-secondary)] border border-[var(--bg-glass-border)] shadow-md flex items-center justify-center text-3xl group-hover:scale-110 transition-transform" style="color: var(--accent);">💻</div>
+            <div><h4 class="font-bold text-base text-main">منصة مدرستي</h4></div>
+          </a>
+          <a href="https://noor.moe.gov.sa/" target="_blank" class="glass-card p-6 flex flex-col items-center text-center space-y-4 group hover:border-[var(--accent)]">
+            <div class="w-16 h-16 rounded-2xl bg-[var(--bg-secondary)] border border-[var(--bg-glass-border)] shadow-md flex items-center justify-center text-3xl group-hover:scale-110 transition-transform" style="color: var(--accent);">🎓</div>
+            <div><h4 class="font-bold text-base text-main">نظام نور</h4></div>
+          </a>
+          <a href="https://ethrai.sa/" target="_blank" class="glass-card p-6 flex flex-col items-center text-center space-y-4 group hover:border-[var(--accent)]">
+            <div class="w-16 h-16 rounded-2xl bg-[var(--bg-secondary)] border border-[var(--bg-glass-border)] shadow-md flex items-center justify-center text-3xl group-hover:scale-110 transition-transform" style="color: var(--accent);">🌟</div>
+            <div><h4 class="font-bold text-base text-main">إثرائي</h4></div>
+          </a>
+          <a href="https://www.ien.edu.sa/" target="_blank" class="glass-card p-6 flex flex-col items-center text-center space-y-4 group hover:border-[var(--accent)]">
+            <div class="w-16 h-16 rounded-2xl bg-[var(--bg-secondary)] border border-[var(--bg-glass-border)] shadow-md flex items-center justify-center text-3xl group-hover:scale-110 transition-transform" style="color: var(--accent);">👁️</div>
+            <div><h4 class="font-bold text-base text-main">عين التعليمية</h4></div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Quran, Sunnah & Kalem Tayeb Section -->
+      <div class="space-y-6 pt-10">
+        <div class="text-center space-y-2">
+          <h3 class="text-2xl font-bold text-main">الطمأنينة والسكينة</h3>
+          <p class="text-xs text-sub">مساحة إيمانية ومعرفية تتغذى بها الأرواح وتستقر معها القلوب</p>
+        </div>
+
+        <div class="space-y-4">
+          <a href="https://www.youtube.com/@SaudiQuranTv" target="_blank" class="glass-card p-6 flex flex-col sm:flex-row items-center justify-between gap-4 group hover:border-[var(--accent)]">
+            <div class="flex items-center gap-4 text-right">
+              <div class="w-14 h-14 rounded-2xl bg-[var(--bg-secondary)] border border-[var(--bg-glass-border)] shadow-md flex items-center justify-center text-2xl flex-shrink-0 group-hover:scale-110 transition-transform text-emerald-400">📺</div>
+              <div>
+                <h4 class="font-bold text-base text-main">قناة القرآن الكريم</h4>
+                <p class="text-xs text-sub mt-1">«في تدبر القرآن حياة القلوب، ونور البصائر، وطمأنينة السرائر..»</p>
+              </div>
+            </div>
+            <span class="px-5 py-2.5 rounded-xl bg-slate-900/60 border border-gray-700 text-xs font-bold text-main group-hover:bg-[var(--accent)] group-hover:text-white transition-all whitespace-nowrap">الانتقال للبث المباشر</span>
+          </a>
+
+          <a href="https://www.youtube.com/@SaudiSunnahTv" target="_blank" class="glass-card p-6 flex flex-col sm:flex-row items-center justify-between gap-4 group hover:border-[var(--accent)]">
+            <div class="flex items-center gap-4 text-right">
+              <div class="w-14 h-14 rounded-2xl bg-[var(--bg-secondary)] border border-[var(--bg-glass-border)] shadow-md flex items-center justify-center text-2xl flex-shrink-0 group-hover:scale-110 transition-transform text-amber-400">📚</div>
+              <div>
+                <h4 class="font-bold text-base text-main">قناة السنة النبوية</h4>
+                <p class="text-xs text-sub mt-1">«من أشرقت في قلبه أنوار السنة السنية، أشرق وجهه ببهجة القبول..»</p>
+              </div>
+            </div>
+            <span class="px-5 py-2.5 rounded-xl bg-slate-900/60 border border-gray-700 text-xs font-bold text-main group-hover:bg-[var(--accent)] group-hover:text-white transition-all whitespace-nowrap">الانتقال للبث المباشر</span>
+          </a>
+
+          <a href="https://kalemtayeb.com/" target="_blank" class="glass-card p-6 flex flex-col sm:flex-row items-center justify-between gap-4 group hover:border-[var(--accent)]">
+            <div class="flex items-center gap-4 text-right">
+              <div class="w-14 h-14 rounded-2xl bg-[var(--bg-secondary)] border border-[var(--bg-glass-border)] shadow-md flex items-center justify-center text-2xl flex-shrink-0 group-hover:scale-110 transition-transform text-sky-400">💬</div>
+              <div>
+                <h4 class="font-bold text-base text-main">الكلم الطيب</h4>
+                <p class="text-xs text-sub mt-1">«الكلم الطيب يرفع صاحبه إلى أعلى درجات القرب، فالذكر للقلب مثل الماء للسمك..»</p>
+              </div>
+            </div>
+            <span class="px-5 py-2.5 rounded-xl bg-slate-900/60 border border-gray-700 text-xs font-bold text-main group-hover:bg-[var(--accent)] group-hover:text-white transition-all whitespace-nowrap">زيارة موسوعة الكلم الطيب</span>
+          </a>
+        </div>
+      </div>
     </section>
 
-    <!-- 6. ACHIEVEMENTS SECTION -->
+    <!-- 5. ACHIEVEMENTS SECTION -->
     <section id="achievements" class="space-y-8 scroll-mt-24">
-      <div class="flex justify-between items-end border-b border-gray-800 pb-4">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-gray-800 pb-4">
         <div><h2 class="text-3xl font-bold mt-1">إنجازاتي</h2></div>
         <button onclick="promptPassAndOpen('achievement')" class="px-4 py-2 rounded-xl bg-slate-900/60 border border-gray-700 text-xs font-bold hover:border-[var(--accent)] transition-all">
           ＋ المزيد ...
@@ -478,21 +865,21 @@
 
       <div id="achievementsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
 
-      <form id="achievementForm" class="hidden glass-card p-6 space-y-4">
+      <form id="achievementForm" class="hidden glass-card p-6 space-y-4 border-[var(--bg-glass-border)]">
         <h3 id="achFormTitle" class="font-bold text-base">توثيق إنجاز جديد</h3>
         <input type="hidden" id="achEditId">
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <input type="text" id="achTitleInput" required placeholder="اسم المنجز..." class="px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm">
-          <input type="date" id="achDateInput" required class="px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm">
-          <select id="achCategoryInput" class="px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm">
+          <input type="text" id="achTitleInput" required placeholder="عنوان الإنجاز..." class="px-3 py-2 rounded-lg bg-slate-900/80 border border-gray-800 text-sm">
+          <input type="date" id="achDateInput" required class="px-3 py-2 rounded-lg bg-slate-900/80 border border-gray-800 text-sm">
+          <select id="achCategoryInput" class="px-3 py-2 rounded-lg bg-slate-900/80 border border-gray-800 text-sm">
             <option value="شهادة شكر / تقدير / تفوق">شهادة شكر / تقدير / تفوق</option>
             <option value="مشروع دراسي / تطوعي">مشروع دراسي / تطوعي</option>
             <option value="مهارة جديدة">مهارة جديدة</option>
             <option value="لحظة فخر">لحظة فخر</option>
           </select>
         </div>
-        <textarea id="achDescInput" rows="3" maxlength="150" required placeholder="تفاصيل الإنجاز (حد أقصى 150 حرف)..." class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm"></textarea>
-        <input type="url" id="achLinkInput" placeholder="حاوية إضافة رابط (اختياري)..." class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm">
+        <textarea id="achDescInput" rows="3" maxlength="150" required placeholder="تفاصيل الإنجاز (حد أقصى 150 حرف)..." class="w-full px-3 py-2 rounded-lg bg-slate-900/80 border border-gray-800 text-sm"></textarea>
+        <input type="url" id="achLinkInput" placeholder="رابط تفاصيل الإنجاز (اختياري)..." class="w-full px-3 py-2 rounded-lg bg-slate-900/80 border border-gray-800 text-sm">
         
         <div class="flex gap-2">
           <button type="submit" class="px-6 py-2 rounded-lg text-white font-bold text-sm" style="background: var(--accent);">حفظ الإنجاز</button>
@@ -501,30 +888,30 @@
       </form>
     </section>
 
-    <!-- 7. CREATIVE SPACE SECTION (BLOG) -->
+    <!-- 6. CREATIVE SPACE SECTION (BLOG) -->
     <section id="creative" class="space-y-8 scroll-mt-24">
-      <div class="flex justify-between items-end border-b border-gray-800 pb-4">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-gray-800 pb-4">
         <div><h2 class="text-3xl font-bold mt-1">مدونتي</h2></div>
         <button onclick="promptPassAndOpen('blog')" class="px-4 py-2 rounded-xl bg-slate-900/60 border border-gray-700 text-xs font-bold hover:border-[var(--accent)] transition-all">
           ＋ المزيد ...
         </button>
       </div>
 
-      <form id="creativeBlogForm" class="hidden glass-card p-6 space-y-4">
+      <form id="creativeBlogForm" class="hidden glass-card p-6 space-y-4 border-[var(--bg-glass-border)]">
         <h3 id="blogFormTitle" class="font-bold text-base">تدوين مدونة جديدة</h3>
         <input type="hidden" id="blogEditId">
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <input type="text" id="blogTitleInput" required placeholder="عنوان المدونة..." class="px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm">
-          <input type="date" id="blogDateInput" required class="px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm">
-          <select id="blogCategoryInput" class="px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm">
+          <input type="text" id="blogTitleInput" required placeholder="عنوان المدونة..." class="px-3 py-2 rounded-lg bg-slate-900/80 border border-gray-800 text-sm">
+          <input type="date" id="blogDateInput" required class="px-3 py-2 rounded-lg bg-slate-900/80 border border-gray-800 text-sm">
+          <select id="blogCategoryInput" class="px-3 py-2 rounded-lg bg-slate-900/80 border border-gray-800 text-sm">
             <option value="خاطرة">خاطرة</option>
             <option value="فكرة">فكرة</option>
             <option value="عبارة راقت لي">عبارة راقت لي</option>
             <option value="صورة معبرة">صورة معبرة</option>
           </select>
         </div>
-        <textarea id="blogDescInput" rows="4" maxlength="300" required placeholder="تفاصيل المدونة (حد أقصى 300 حرف)..." class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm"></textarea>
-        <input type="url" id="blogLinkInput" placeholder="حاوية إضافة رابط (اختياري)..." class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm">
+        <textarea id="blogDescInput" rows="4" maxlength="700" required placeholder="تفاصيل المدونة (حد أقصى 700 حرف)..." class="w-full px-3 py-2 rounded-lg bg-slate-900/80 border border-gray-800 text-sm"></textarea>
+        <input type="url" id="blogLinkInput" placeholder="رابط المدونة أو المرفق (اختياري)..." class="w-full px-3 py-2 rounded-lg bg-slate-900/80 border border-gray-800 text-sm">
         
         <div class="flex gap-2">
           <button type="submit" class="px-6 py-2 rounded-lg text-white font-bold text-sm" style="background: var(--accent);">حفظ المدونة</button>
@@ -535,22 +922,22 @@
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="ideasContainer"></div>
     </section>
 
-    <!-- 8. PERSONAL LIBRARY SECTION -->
+    <!-- 7. PERSONAL LIBRARY SECTION -->
     <section id="library" class="space-y-8 scroll-mt-24">
-      <div class="flex justify-between items-end border-b border-gray-800 pb-4">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-gray-800 pb-4">
         <div><h2 class="text-3xl font-bold mt-1">مكتبتي</h2></div>
         <button onclick="promptPassAndOpen('library')" class="px-4 py-2 rounded-xl bg-slate-900/60 border border-gray-700 text-xs font-bold hover:border-[var(--accent)] transition-all">
           ＋ المزيد ...
         </button>
       </div>
 
-      <form id="libraryBookForm" class="hidden glass-card p-6 space-y-4">
+      <form id="libraryBookForm" class="hidden glass-card p-6 space-y-4 border-[var(--bg-glass-border)]">
         <h3 id="bookFormTitle" class="font-bold text-base">إضافة كتاب جديد</h3>
         <input type="hidden" id="bookEditId">
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <input type="text" id="bookTitleInput" required placeholder="عنوان الكتاب..." class="px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm">
-          <input type="date" id="bookDateInput" required class="px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm">
-          <select id="bookCategoryInput" class="px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm">
+          <input type="text" id="bookTitleInput" required placeholder="عنوان الكتاب..." class="px-3 py-2 rounded-lg bg-slate-900/80 border border-gray-800 text-sm">
+          <input type="date" id="bookDateInput" required class="px-3 py-2 rounded-lg bg-slate-900/80 border border-gray-800 text-sm">
+          <select id="bookCategoryInput" class="px-3 py-2 rounded-lg bg-slate-900/80 border border-gray-800 text-sm">
             <option value="ديني">ديني</option>
             <option value="ثقافي">ثقافي</option>
             <option value="تاريخي">تاريخي</option>
@@ -558,8 +945,8 @@
             <option value="علمي">علمي</option>
           </select>
         </div>
-        <textarea id="bookDescInput" rows="4" maxlength="200" required placeholder="تفاصيل عن الكتاب (حد أقصى 200 حرف)..." class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm"></textarea>
-        <input type="url" id="bookLinkInput" placeholder="حاوية إضافة رابط (اختياري)..." class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm">
+        <textarea id="bookDescInput" rows="4" maxlength="700" required placeholder="تفاصيل الكتاب والفوائد (حد أقصى 700 حرف)..." class="w-full px-3 py-2 rounded-lg bg-slate-900/80 border border-gray-800 text-sm"></textarea>
+        <input type="url" id="bookLinkInput" placeholder="رابط التحميل أو تفاصيل الكتاب (اختياري)..." class="w-full px-3 py-2 rounded-lg bg-slate-900/80 border border-gray-800 text-sm">
         
         <div class="flex gap-2">
           <button type="submit" class="px-6 py-2 rounded-lg text-white font-bold text-sm" style="background: var(--accent);">حفظ الكتاب</button>
@@ -570,11 +957,14 @@
       <div id="libraryContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
     </section>
 
-    <!-- 9. PIXEL STUDIO SECTION -->
+    <!-- 8. PIXEL STUDIO SECTION -->
     <section id="gallery" class="space-y-8 scroll-mt-24">
-      <div class="flex justify-between items-end border-b border-gray-800 pb-4">
-        <div><h2 class="text-3xl font-bold mt-1">بكسلاتي 🖼️</h2></div>
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-gray-800 pb-4">
+        <div>
+          <h2 class="text-3xl font-bold mt-1">بكسلاتي 🖼️</h2>
+        </div>
       </div>
+
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="photoStudioGrid"></div>
     </section>
 
@@ -585,7 +975,7 @@
     <div class="glass-card w-full max-w-2xl p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto relative border-[var(--accent)]">
       <div class="flex items-center justify-between border-b border-gray-800 pb-4">
         <h3 id="cvModalTitle" class="text-xl font-bold text-main flex items-center gap-2">عنوان القسم</h3>
-        <button onclick="closeCvModal()" class="w-9 h-9 rounded-xl bg-slate-900 border border-gray-800 text-sub flex items-center justify-center font-bold">✕</button>
+        <button onclick="closeCvModal()" class="w-9 h-9 rounded-xl bg-slate-900 border border-gray-800 text-sub hover:text-white flex items-center justify-center font-bold text-base">✕</button>
       </div>
       <div id="cvModalBody" class="space-y-4 text-sm text-sub leading-relaxed"></div>
     </div>
@@ -602,12 +992,12 @@
     </div>
   </div>
 
-  <!-- PASSWORD PROMPT MODAL -->
+  <!-- PASSWORD PROMPT MODAL FOR SECURE EDIT/DELETE/ADD -->
   <div id="passwordPromptModal" class="modal fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md">
     <div class="glass-card w-full max-w-md p-6 space-y-4 text-center">
       <h3 class="text-lg font-bold text-main">الرقم السري المطلوب 🔒</h3>
       <p class="text-xs text-sub">يرجى إدخال الرقم السري المعتمد من لوحة التحكم:</p>
-      <input type="password" id="sectionPassInput" placeholder="أدخل الرقم السري..." class="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-gray-700 text-center text-lg outline-none">
+      <input type="password" id="sectionPassInput" placeholder="أدخل الرقم السري..." class="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-gray-700 text-center text-lg outline-none focus:border-[var(--accent)]">
       <div id="passAlertBox" class="hidden glass-alert-box text-center">خطأ: الرقم السري غير صحيح!</div>
       <div class="flex justify-center gap-3 pt-2">
         <button onclick="verifySectionPassword()" class="px-6 py-2 rounded-xl text-white font-bold text-sm" style="background: var(--accent);">تأكيد</button>
@@ -616,16 +1006,17 @@
     </div>
   </div>
 
-  <!-- ADMIN DASHBOARD MODAL -->
+  <!-- ADMIN DASHBOARD MODAL WITH SECURE AUTH & FIREBASE SYNC -->
   <div id="adminModal" class="modal fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md">
     <div class="glass-card w-full max-w-2xl p-6 space-y-6 max-h-[90vh] overflow-y-auto">
       <div class="flex items-center justify-between border-b border-gray-800 pb-4">
-        <h3 class="text-xl font-bold flex items-center gap-2"><span>⚙️</span> <span>لوحة التحكم والإدارة</span></h3>
+        <h3 class="text-xl font-bold flex items-center gap-2"><span>⚙️</span> <span>لوحة التحكم والإدارة الإدارية</span></h3>
         <button class="closeModalBtn text-gray-400 hover:text-white text-xl">✕</button>
       </div>
 
+      <!-- Login Form View -->
       <div id="adminLoginForm" class="space-y-4">
-        <p class="text-xs text-sub">تسجيل الدخول كمسؤول بالنظام:</p>
+        <p class="text-xs text-sub">يرجى تسجيل الدخول للوصول لإعدادات الأمان والأرقام السرية:</p>
         <div>
           <label class="block text-xs font-bold text-sub mb-1">اسم المستخدم</label>
           <input type="text" id="adminUserInput" placeholder="admin" class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm">
@@ -634,14 +1025,19 @@
           <label class="block text-xs font-bold text-sub mb-1">كلمة المرور</label>
           <input type="password" id="adminPassInput" placeholder="123456" class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm">
         </div>
-        <div id="adminAlertBox" class="hidden glass-alert-box text-center">خطأ: بيانات الدخول غير صحيحة!</div>
+        <div id="adminAlertBox" class="hidden glass-alert-box text-center">خطأ: اسم المستخدم أو كلمة المرور غير صحيحة!</div>
         <button onclick="loginAdmin()" class="w-full py-2.5 rounded-xl text-white font-bold text-sm" style="background: var(--accent);">تسجيل الدخول</button>
       </div>
 
+      <!-- Dashboard Controls View (Authenticated) -->
       <div id="adminControlsArea" class="hidden space-y-6">
+        <div class="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold">
+          ✓ تم تسجيل الدخول بنجاح كمسؤول بالنظام.
+        </div>
+
         <div class="space-y-3">
           <h4 class="font-bold text-sm text-amber-300">تغيير الرقم السري (للإضافة، التعديل، الحذف):</h4>
-          <input type="text" id="newSectionPinInput" class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm">
+          <input type="text" id="newSectionPinInput" placeholder="الرقم السري الجديد..." class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm">
           <button onclick="updateSectionPin()" class="px-4 py-2 rounded-lg bg-amber-500 text-slate-950 font-bold text-xs">تحديث الرقم السري</button>
         </div>
 
@@ -657,17 +1053,21 @@
           <div id="adminCoursesManageList" class="space-y-2 max-h-48 overflow-y-auto"></div>
         </div>
 
-        <button onclick="logoutAdmin()" class="text-xs text-red-400 font-bold hover:underline">تسجيل الخروج</button>
+        <div class="border-t border-gray-800 pt-4 flex justify-between items-center">
+          <button onclick="logoutAdmin()" class="text-xs text-red-400 font-bold hover:underline">تسجيل الخروج</button>
+        </div>
       </div>
+
     </div>
   </div>
 
   <!-- Toast Notification -->
-  <div id="toast" class="fixed bottom-5 left-5 z-50 transform translate-y-20 opacity-0 transition-all px-5 py-3 rounded-2xl glass-card text-white text-sm">
+  <div id="toast" class="fixed bottom-5 left-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 px-5 py-3 rounded-2xl glass-card text-white text-sm shadow-2xl flex items-center gap-3 border-[var(--accent)]">
+    <span class="w-2.5 h-2.5 rounded-full bg-[var(--accent)] animate-ping"></span>
     <span id="toastMsg" class="font-bold">تم الإجراء بنجاح</span>
   </div>
 
-  <!-- Footer -->
+  <!-- Vertical Ordered Footer -->
   <footer class="w-full theme-header-footer border-t py-10 mt-16 text-center text-xs text-sub">
     <div class="max-w-7xl mx-auto px-4 flex flex-col items-center justify-center gap-3">
       <p class="font-bold text-sm text-main">All Rights Reserved 2026©</p>
@@ -676,9 +1076,180 @@
     </div>
   </footer>
 
+  <!-- JAVASCRIPT LOGIC -->
   <script>
     /* ==========================================================================
-       1. DATA ARRAYS & CONFIGS
+       CV MODAL DATA & CONTENT CONTROLLER
+       ========================================================================== */
+    const cvDataContent = {
+      bio: {
+        title: "🪶 النبذة التعريفية",
+        content: `
+          <div class="space-y-4 text-justify">
+            <p>في رحاب الطفولة المزهرة، تفتحت زهرة باسمة اسمها <strong>أجوان بنت يوسف بن حامد آل حامد القرني</strong>، تحمل قلباً ناعماً بالصفاء، وعقلاً مشدوداً إلى نور العلم وحفظ القرآن. كان ذلك في الحادي عشر من شهر رمضان المبارك عام ثلاث وثلاثين وأربعمائة وألف للهجرة (11 رمضان 1433 هـ)، لتشرق حياتها في شهر القرآن العظيم حيث تعانق الروح السكينة ويزهو القلب بالإيمان.</p>
+            <p>تنتمي أجوان إلى أرض الخير، أرض المملكة العربية السعودية، وتعيش في ربوع منطقة عسير، في مدينة بيشة، بحي الملك عبدالله، حيث تمتزج الأصالة بعبق المكان ودفء الانتماء، وهي اليوم تخط خطواتها الدراسية الواثقة في <strong>الصف الثالث المتوسط</strong>، ضمن برنامج تحفيظ القرآن الكريم بالقسم " ب "، في متوسطة تحفيظ القرآن الكريم الأولى ببيشة، لتكون إحدى براعم العلم القرآني بإذن الله.</p>
+            <div class="pt-3 border-t border-gray-800 text-center">
+              <span class="text-xs text-sub">البريد الإلكتروني :</span><br>
+              <strong style="color: var(--accent);">alajwanah@gmail.com</strong>
+            </div>
+          </div>
+        `
+      },
+      education: {
+        title: "🎓 المسيرة التعليمية",
+        content: `
+          <div class="relative border-r-2 border-[var(--accent)] mr-3 pr-6 space-y-6">
+            <div class="relative">
+              <div class="absolute -right-[31px] top-1.5 w-4 h-4 rounded-full bg-[var(--accent)] border-4 border-slate-950"></div>
+              <span class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-slate-900 text-[var(--accent)]">٢٠١٧ - ٢٠١٨ م</span>
+              <h4 class="font-bold text-main text-base mt-1">روضة بيشة الأهلية</h4>
+              <p class="text-xs text-sub mt-1">بداية التأسيس والتعليم المبكر والحصول على شهادة إتمام المستوى الثالث بتقدير ممتاز.</p>
+            </div>
+            <div class="relative">
+              <div class="absolute -right-[31px] top-1.5 w-4 h-4 rounded-full bg-[var(--accent)] border-4 border-slate-950"></div>
+              <span class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-slate-900 text-[var(--accent)]">٢٠١٨ - ٢٠٢٣ م</span>
+              <h4 class="font-bold text-main text-base mt-1">ابتدائية تحفيظ القرآن الكريم الأولى ببيشة</h4>
+              <p class="text-xs text-sub mt-1">إتمام المرحلة الابتدائية وحفظ أجزاء مباركة من كتاب الله بتقدير ممتاز.</p>
+            </div>
+            <div class="relative">
+              <div class="absolute -right-[31px] top-1.5 w-4 h-4 rounded-full bg-[var(--accent)] border-4 border-slate-950"></div>
+              <span class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-slate-900 text-[var(--accent)]">٢٠٢٣ - حتى الآن</span>
+              <h4 class="font-bold text-main text-base mt-1">متوسطة تحفيظ القرآن الكريم الأولى ببيشة</h4>
+              <p class="text-xs text-sub mt-1">مواصلة التميز العلمي بالصف الثالث المتوسط (القسم ب).</p>
+            </div>
+          </div>
+        `
+      },
+      experiences: {
+        title: "🌟 الخبرات والأنشطة",
+        content: `
+          <ul class="space-y-3">
+            <li class="p-3 rounded-xl bg-slate-900/60 border border-gray-800 flex items-start gap-3">
+              <span class="text-lg">🏆</span>
+              <span>المشاركة الفاعلة والمتميزة في المسابقات المدرسية العلمية والثقافية.</span>
+            </li>
+            <li class="p-3 rounded-xl bg-slate-900/60 border border-gray-800 flex items-start gap-3">
+              <span class="text-lg">💻</span>
+              <span>إتقان تطبيقات الحاسب الآلي وبرامج العرض الاحترافي (PowerPoint, Word, Canva).</span>
+            </li>
+            <li class="p-3 rounded-xl bg-slate-900/60 border border-gray-800 flex items-start gap-3">
+              <span class="text-lg">👥</span>
+              <span>مهارات تنظيمية عالية والقدرة على إدارة وتنسيق الفعاليات المدرسية وفريق العمل.</span>
+            </li>
+            <li class="p-3 rounded-xl bg-slate-900/60 border border-gray-800 flex items-start gap-3">
+              <span class="text-lg">📖</span>
+              <span>شغف بالقراءة الواعية وتنظيم الجداول الدراسية بفاعلية وانضباط.</span>
+            </li>
+          </ul>
+        `
+      },
+      skills: {
+        title: "💡 المهارات الشخصية والقدرات",
+        content: `
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div class="p-3 rounded-xl bg-slate-900/60 border border-gray-800 flex items-center gap-3">
+              <span>۞</span> <span class="font-bold text-main">حفظ القرآن الكريم والتلاوة بالتجويد</span>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-900/60 border border-gray-800 flex items-center gap-3">
+              <span>🗣️</span> <span class="font-bold text-main">مهارات التواصل الفعّال والإيجابي</span>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-900/60 border border-gray-800 flex items-center gap-3">
+              <span>🤝</span> <span class="font-bold text-main">العمل الجماعي وروح المبادرة</span>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-900/60 border border-gray-800 flex items-center gap-3">
+              <span>✍️</span> <span class="font-bold text-main">الصياغة الأدبية والكتابة الإبداعية</span>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-900/60 border border-gray-800 flex items-center gap-3 sm:col-span-2">
+              <span>🎤</span> <span class="font-bold text-main">القدرات الإلقائية والخطابية المميزة</span>
+            </div>
+          </div>
+        `
+      },
+      languages: {
+        title: "🗣️ اللغات",
+        content: `
+          <div class="space-y-4">
+            <div>
+              <div class="flex justify-between text-xs font-bold mb-1">
+                <span class="text-main">اللغة العربية (اللغة الأم)</span>
+                <span class="text-[var(--accent)]">١٠٠٪</span>
+              </div>
+              <div class="w-full h-3 bg-slate-950 rounded-full overflow-hidden p-0.5 border border-gray-800">
+                <div class="h-full bg-gradient-to-r from-emerald-500 to-teal-400 rounded-full" style="width: 100%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-xs font-bold mb-1">
+                <span class="text-main">English (اللغة الإنجليزية)</span>
+                <span class="text-[var(--accent)]">٦٥٪</span>
+              </div>
+              <div class="w-full h-3 bg-slate-950 rounded-full overflow-hidden p-0.5 border border-gray-800">
+                <div class="h-full bg-gradient-to-r from-sky-500 to-indigo-400 rounded-full" style="width: 65%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-xs font-bold mb-1">
+                <span class="text-main">Español (اللغة الإسبانية)</span>
+                <span class="text-[var(--accent)]">٣٥٪</span>
+              </div>
+              <div class="w-full h-3 bg-slate-950 rounded-full overflow-hidden p-0.5 border border-gray-800">
+                <div class="h-full bg-gradient-to-r from-amber-500 to-rose-400 rounded-full" style="width: 35%"></div>
+              </div>
+            </div>
+            <div class="mt-4 p-3 bg-slate-900/80 rounded-xl text-xs text-sub text-center font-medium border border-gray-800">
+              🎓 شغف مستمر بتعلّم وتطوير اللغات الأجنبية.
+            </div>
+          </div>
+        `
+      },
+      interests: {
+        title: "🎨 الاهتمامات والهوايات",
+        content: `
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="p-4 rounded-xl bg-slate-900/60 border border-gray-800 flex items-center gap-4">
+              <div class="w-12 h-12 rounded-xl bg-purple-500/20 border border-purple-500/40 flex items-center justify-center text-2xl">🎨</div>
+              <div>
+                <h4 class="font-bold text-main">التصميم الفني</h4>
+                <p class="text-xs text-sub mt-0.5">الإبداع البصري وتنسيق الألوان</p>
+              </div>
+            </div>
+            <div class="p-4 rounded-xl bg-slate-900/60 border border-gray-800 flex items-center gap-4">
+              <div class="w-12 h-12 rounded-xl bg-sky-500/20 border border-sky-500/40 flex items-center justify-center text-2xl">✈️</div>
+              <div>
+                <h4 class="font-bold text-main">السفر والترحال</h4>
+                <p class="text-xs text-sub mt-0.5">استكشاف الطبيعة والأماكن</p>
+              </div>
+            </div>
+            <div class="p-4 rounded-xl bg-slate-900/60 border border-gray-800 flex items-center gap-4">
+              <div class="w-12 h-12 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-2xl">✍️</div>
+              <div>
+                <h4 class="font-bold text-main">الكتابة والتدوين</h4>
+                <p class="text-xs text-sub mt-0.5">التعبير الأدبي والخواطر</p>
+              </div>
+            </div>
+            <div class="p-4 rounded-xl bg-slate-900/60 border border-gray-800 flex items-center gap-4">
+              <div class="w-12 h-12 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-2xl">📖</div>
+              <div>
+                <h4 class="font-bold text-main">القراءة الواعية</h4>
+                <p class="text-xs text-sub mt-0.5">تغذية الفكر والاطلاع المستمر</p>
+              </div>
+            </div>
+          </div>
+        `
+      }
+    };
+
+    function openCvModal(key) {
+      const data = cvDataContent[key];
+      if (!data) return;
+      document.getElementById('cvModalTitle').innerText = data.title;
+      document.getElementById('cvModalBody').innerHTML = data.content;
+      document.getElementById('cvModal').classList.add('active');
+    }
+    function closeCvModal() { document.getElementById('cvModal').classList.remove('active'); }
+
+    /* ==========================================================================
+       DATA & CORE LOGIC
        ========================================================================== */
     const QURAN_JUZ_DATA = {
       30: ["النبأ", "النازعات", "عبس", "التكوير", "الانفطار", "المطففين", "الانشقاق", "البروج", "الطارق", "الأعلى", "الغاشية", "الفجر", "البلد", "الشمس", "الليل", "الضحى", "الشرح", "التين", "العلق", "القدر", "البينة", "الزلزلة", "العاديات", "القارعة", "التكاثر", "العصر", "الهمزة", "الفيل", "قريش", "المعون", "الكوثر", "الكافرون", "النصر", "المسد", "الإخلاص", "الفلق", "الناس"],
@@ -700,33 +1271,6 @@
       { q: "فَاسْتَجَبْنَا لَهُ وَنَجَّيْنَاهُ مِنَ الْغَمِّ", s: "الأنبياء", a: "٨٨", t: "دعوة يونس ونور الظلمات", d: "لا تسقط دعوة خرجت بنبض التوحيد والاستغفار ولو من قاع البحار." }
     ];
 
-    const cvDataContent = {
-      bio: {
-        title: "🪶 النبذة التعريفية",
-        content: `<p class="space-y-4">في رحاب الطفولة المزهرة، تفتحت زهرة باسمة اسمها <strong>أجوان بنت يوسف القرني</strong>، تحمل قلباً ناعماً بالصفاء. وُلدت في 11 رمضان 1433 هـ، في ربوع جبال السروات ببيشة، وهي اليوم تواصل تميزها بالصف الثالث المتوسط.</p>`
-      },
-      education: {
-        title: "🎓 المسيرة التعليمية",
-        content: `<p class="space-y-2"><strong>روضة بيشة الأهلية</strong> (2017-2018)<br><strong>ابتدائية تحفيظ القرآن الكريم الأولى ببيشة</strong> (2018-2023)<br><strong>متوسطة تحفيظ القرآن الأولى ببيشة</strong> (2023-حتى الآن)</p>`
-      },
-      experiences: {
-        title: "🌟 الخبرات والأنشطة",
-        content: `<ul class="list-disc pr-5 space-y-2"><li>المشاركة في المسابقات المدرسية الثقافية.</li><li>إتقان تطبيقات الحاسب Canva & PowerPoint.</li><li>مهارات تنظيم الفعاليات والعمل التطوعي.</li></ul>`
-      },
-      skills: {
-        title: "💡 المهارات الشخصية",
-        content: `<p>حفظ القرآن الكريم بالتجويد، التواصل الإيجابي، العمل الجماعي، والخطابة والكتابة الإبداعية.</p>`
-      },
-      languages: {
-        title: "🗣️ اللغات",
-        content: `<p>العربية (اللغة الأم - 100%)<br>الإنجليزية (متوسط - 65%)<br>الإسبانية (مبتدئ - 35%)</p>`
-      },
-      interests: {
-        title: "🎨 الهوايات",
-        content: `<p>التصميم البصري، السفر والترحال، كتابة الخواطر، والقراءة الواعية.</p>`
-      }
-    };
-
     const DEFAULT_COURSES = [
       { id: 1, title: "القرآن الكريم وعلومـه", desc: "ملفات الحفظ والتلاوة والتجويد", icon: "📖", link: "#" },
       { id: 2, title: "التربية الإسلامية", desc: "التفسير والحديث والفقه والتوحيد", icon: "💡", link: "#" },
@@ -746,13 +1290,13 @@
 
     let appData = JSON.parse(localStorage.getItem('alajwanah_main_data')) || {
       ideas: [
-        { id: 1, title: "خاطرة عن المطر", date: "2026-10-31", category: "خاطرة", desc: "ينهمر المطر في بيشة، فيغسل هموم الروح ويكسونا بالطمأنينة.", link: "" }
+        { id: 1, title: "خاطرة عن المطر", date: "السبت، ٣١ أكتوبر ٢٠٢٦", category: "خاطرة", desc: "ينهمر المطر في بيشة، فيغسل هموم الروح ويكسونا بالطمأنينة.", link: "" }
       ],
       achievements: [
-        { id: 1, title: "إتمام حفظ أجزاء من القرآن الكريم", date: "2026-10-31", category: "لحظة فخر", desc: "بفضل الله أواصل رحلة الحفظ والتدبر في كتاب الله الكريم.", link: "" }
+        { id: 1, title: "إتمام حفظ أجزاء من القرآن الكريم", date: "السبت، ٣١ أكتوبر ٢٠٢٦", category: "لحظة فخر", desc: "بفضل الله أواصل رحلة الحفظ والتدبر في كتاب الله الكريم.", link: "" }
       ],
       books: [
-        { id: 1, title: "قصص النبيين", date: "2026-10-31", category: "ديني", desc: "فوائد جمة وعبر عظيمة استخلصتها من قراءة سير الأنبياء عليهم السلام.", link: "" }
+        { id: 1, title: "قصص النبيين", date: "السبت، ٣١ أكتوبر ٢٠٢٦", category: "ديني", desc: "فوائد جمة وعبر عظيمة استخلصتها من قراءة سير الأنبياء عليهم السلام.", link: "" }
       ],
       courses: DEFAULT_COURSES
     };
@@ -768,7 +1312,7 @@
     }
 
     /* ==========================================================================
-       2. UI & MODAL HANDLERS
+       MOBILE DRAWER LOGIC
        ========================================================================== */
     function toggleMobileMenu() {
       document.getElementById('mobileMenuDrawer').classList.toggle('active');
@@ -778,15 +1322,9 @@
     document.getElementById('closeMobileMenuBtn').onclick = toggleMobileMenu;
     document.getElementById('mobileMenuOverlay').onclick = toggleMobileMenu;
 
-    function openCvModal(key) {
-      const data = cvDataContent[key];
-      if (!data) return;
-      document.getElementById('cvModalTitle').innerText = data.title;
-      document.getElementById('cvModalBody').innerHTML = data.content;
-      document.getElementById('cvModal').classList.add('active');
-    }
-    function closeCvModal() { document.getElementById('cvModal').classList.remove('active'); }
-
+    /* ==========================================================================
+       PASSWORD PROMPT LOGIC
+       ========================================================================== */
     function promptPassAndOpen(action) {
       if (typeof action === 'function') {
         pendingActionCallback = action;
@@ -832,7 +1370,7 @@
     }
 
     /* ==========================================================================
-       3. SECTIONS RENDERERS
+       RENDER SECTIONS
        ========================================================================== */
     function initializeDefaultSurahs() {
       if (Object.keys(savedSurahsState).length === 0) {
@@ -1142,7 +1680,7 @@
           "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600",
           "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=600"
         ];
-        staticImgs.forEach((src, idx) => {
+        staticImgs.forEach((src) => {
           const card = document.createElement('div');
           card.className = 'glass-card overflow-hidden h-64 relative group border-[var(--bg-glass-border)] hover:border-[var(--accent)]';
           card.innerHTML = `<img src="${src}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">`;
@@ -1176,7 +1714,7 @@
     }
 
     /* ==========================================================================
-       4. ADMIN DASHBOARD & THEMES
+       ADMIN CONTROLLER & THEMES
        ========================================================================== */
     function renderAdminCoursesList() {
       const list = document.getElementById('adminCoursesManageList');
@@ -1265,7 +1803,64 @@
       document.getElementById('todayHijriHeader').innerText = "١٥ جمادى الأولى ١٤٤٨ هـ";
     }
 
+    let particleMaterial;
+    function updateParticleColors() {
+      if (!particleMaterial) return;
+      const computedColor = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim();
+      particleMaterial.color.set(computedColor || '#c084fc');
+    }
+
+    function init3DBackground() {
+      const container = document.getElementById('canvas-container');
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      container.appendChild(renderer.domElement);
+
+      const geometry = new THREE.BufferGeometry();
+      const count = 650;
+      const positions = new Float32Array(count * 3);
+
+      for (let i = 0; i < count * 3; i++) {
+        positions[i] = (Math.random() - 0.5) * 20;
+      }
+
+      geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      
+      const computedColor = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#c084fc';
+      particleMaterial = new THREE.PointsMaterial({
+        size: 0.035,
+        color: computedColor,
+        transparent: true,
+        opacity: 0.75
+      });
+
+      const particles = new THREE.Points(geometry, particleMaterial);
+      scene.add(particles);
+
+      camera.position.z = 5;
+
+      function animate() {
+        requestAnimationFrame(animate);
+        particles.rotation.y += 0.0008;
+        particles.rotation.x += 0.0004;
+        renderer.render(scene, camera);
+      }
+
+      animate();
+
+      window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+    }
+
     window.onload = function() {
+      init3DBackground();
       renderAll();
     };
   </script>
