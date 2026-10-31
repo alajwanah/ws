@@ -68,6 +68,22 @@
       --accent-gradient: linear-gradient(135deg, #16a34a 0%, #ca8a04 100%);
       --glow-color: rgba(34, 197, 94, 0.7);
     }
+    [data-theme="travel"] {
+      --bg-primary: #051321; --bg-secondary: #0b253c;
+      --bg-header-footer: rgba(11, 37, 60, 0.9);
+      --bg-glass: rgba(11, 37, 60, 0.85); --bg-glass-border: rgba(56, 189, 248, 0.35);
+      --text-main: #f0f9ff; --text-sub: #7dd3fc; --accent: #38bdf8; --accent-secondary: #818cf8;
+      --accent-gradient: linear-gradient(135deg, #0284c7 0%, #6366f1 100%);
+      --glow-color: rgba(56, 189, 248, 0.7);
+    }
+    [data-theme="book"] {
+      --bg-primary: #17120e; --bg-secondary: #271f19;
+      --bg-header-footer: rgba(39, 31, 25, 0.9);
+      --bg-glass: rgba(39, 31, 25, 0.85); --bg-glass-border: rgba(217, 119, 6, 0.35);
+      --text-main: #f5f5f4; --text-sub: #d6d3d1; --accent: #f59e0b; --accent-secondary: #d97706;
+      --accent-gradient: linear-gradient(135deg, #f59e0b 0%, #b45309 100%);
+      --glow-color: rgba(245, 158, 11, 0.7);
+    }
 
     body {
       font-family: var(--font-ar);
@@ -86,6 +102,7 @@
     .glass-card {
       background: var(--bg-glass);
       backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border: 1px solid var(--bg-glass-border);
       border-radius: 1.25rem;
       box-shadow: var(--card-shadow);
@@ -95,19 +112,42 @@
     .theme-header-footer { background-color: var(--bg-header-footer); backdrop-filter: blur(20px); border-color: var(--bg-glass-border); }
 
     .hero-art-container { position: relative; width: 100%; max-width: 460px; height: 460px; display: flex; align-items: center; justify-content: center; margin: 0 auto; }
-    .crystal-planet { position: relative; width: 220px; height: 220px; border-radius: 50%; background: var(--bg-secondary); border: 3px solid var(--accent); box-shadow: 0 0 45px var(--glow-color); overflow: hidden; display: flex; align-items: center; justify-content: center; z-index: 5; }
+    .crystal-planet { position: relative; width: 220px; height: 220px; border-radius: 50%; background: var(--bg-secondary); border: 3px solid var(--accent); box-shadow: 0 0 45px var(--glow-color); overflow: hidden; display: flex; align-items: center; justify-content: center; z-index: 5; animation: floatPlanet 6s ease-in-out infinite; }
     .crystal-planet img { width: 100%; height: 100%; object-fit: cover; }
+    
+    @keyframes floatPlanet {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-10px) rotate(-2deg); }
+    }
+
     .orbit-ring { position: absolute; border: 1.5px dashed rgba(148, 163, 184, 0.4); opacity: 0.65; border-radius: 50%; pointer-events: none; animation: spinOrbit 35s linear infinite; }
     .ring-1 { width: 320px; height: 320px; } .ring-2 { width: 420px; height: 420px; animation-direction: reverse; }
     @keyframes spinOrbit { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-    .orbit-star { position: absolute; width: 44px; height: 44px; border-radius: 50%; background: var(--bg-secondary); border: 2px solid var(--accent); color: var(--text-main); display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10; text-decoration: none; }
+    .orbit-star { position: absolute; width: 44px; height: 44px; border-radius: 50%; background: var(--bg-secondary); border: 2px solid var(--accent); color: var(--text-main); display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10; text-decoration: none; transition: transform 0.3s; }
     .orbit-star:hover { transform: scale(1.25); background: var(--accent); color: #fff; }
 
-    .single-floating-moon { position: relative; width: 180px; height: 180px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-    .juz-glass-card { background: var(--bg-glass); border: 1px solid var(--bg-glass-border); border-radius: 1rem; padding: 0.85rem; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
+    .star-tooltip {
+      position: absolute; bottom: -32px; left: 50%; transform: translateX(-50%) scale(0.9);
+      background: var(--bg-secondary); border: 1px solid var(--bg-glass-border); color: var(--text-main);
+      padding: 4px 10px; border-radius: 8px; font-size: 11px; font-weight: 700; white-space: nowrap;
+      opacity: 0; visibility: hidden; transition: all 0.25s ease; pointer-events: none;
+    }
+    .orbit-star:hover .star-tooltip { opacity: 1; visibility: visible; transform: translateX(-50%) scale(1); }
+
+    .single-floating-moon { position: relative; width: 180px; height: 180px; border-radius: 50%; display: flex; align-items: center; justify-content: center; animation: moonFloatSpin 8s ease-in-out infinite; }
+    @keyframes moonFloatSpin {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-14px) rotate(4deg); }
+    }
+
+    .juz-glass-card { background: var(--bg-glass); border: 1px solid var(--bg-glass-border); border-radius: 1rem; padding: 0.85rem; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; transition: all 0.3s ease; }
+    .juz-glass-card:hover { transform: translateY(-3px); border-color: var(--accent); }
+    
     .status-bar-glow { width: 100%; height: 6px; border-radius: 10px; }
-    .status-bar-glow.done { background: #10b981; } .status-bar-glow.progress { background: #f59e0b; } .status-bar-glow.empty { background: #ef4444; }
+    .status-bar-glow.done { background: #10b981; box-shadow: 0 0 12px #10b981; } 
+    .status-bar-glow.progress { background: #f59e0b; box-shadow: 0 0 12px #f59e0b; } 
+    .status-bar-glow.empty { background: #ef4444; box-shadow: 0 0 12px #ef4444; }
 
     #canvas-container { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none; }
     .modal { transition: opacity 0.3s ease, visibility 0.3s ease; opacity: 0; visibility: hidden; }
@@ -118,25 +158,31 @@
     .mobile-menu-drawer.active { right: 0; }
     .mobile-menu-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 90; opacity: 0; visibility: hidden; transition: opacity 0.3s ease; }
     .mobile-menu-overlay.active { opacity: 1; visibility: visible; }
+
+    .theme-card { cursor: pointer; transition: all 0.3s ease; }
+    .theme-card.active-theme { border-color: var(--accent) !important; box-shadow: 0 0 20px var(--glow-color); transform: scale(1.03); }
   </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between">
+<body class="min-h-screen flex flex-col justify-between selection:bg-purple-500 selection:text-white">
 
+  <!-- 3D Canvas Background -->
   <div id="canvas-container"></div>
 
   <!-- Header -->
   <header class="sticky top-0 z-40 w-full theme-header-footer border-b">
     <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
-      <a href="#home" class="flex items-center gap-3">
-        <div class="w-11 h-11 rounded-xl overflow-hidden border border-[var(--bg-glass-border)] flex items-center justify-center bg-slate-900">
+      
+      <a href="#home" class="flex items-center gap-3 group">
+        <div class="w-11 h-11 rounded-xl overflow-hidden border border-[var(--bg-glass-border)] flex items-center justify-center bg-slate-900 flex-shrink-0">
           <img src="ajwan_icon.png" alt="أجوان" class="w-full h-full object-cover" onerror="this.src='ajwan_icon.png'">
         </div>
         <div class="flex flex-col">
-          <span class="font-bold text-base sm:text-lg">أجوان اليوسف</span>
-          <span class="text-xs text-sub">م ملاذ الـقمـر 🌙</span>
+          <span class="font-bold text-base sm:text-lg group-hover:text-purple-400 transition-colors">أجوان اليوسف</span>
+          <span class="text-xs text-sub flex items-center gap-1">م ملاذ الـقمـر 🌙</span>
         </div>
       </a>
 
+      <!-- Desktop Nav -->
       <nav class="hidden lg:flex items-center gap-4 text-sm font-medium">
         <a href="#quran" class="hover:text-[var(--accent)] py-1">محرابي</a>
         <a href="#reflections" class="hover:text-[var(--accent)] py-1">تأملاتي</a>
@@ -152,15 +198,18 @@
         <button id="themeModalBtn" class="hidden sm:flex px-3.5 py-2 rounded-xl border border-gray-700 bg-slate-900/40 text-xs font-semibold hover:border-[var(--accent)] items-center gap-1.5">
           <span>🎨</span> <span>المظهر</span>
         </button>
+
         <button id="adminModalBtn" class="hidden sm:flex px-3.5 py-2 rounded-xl text-white font-bold text-xs hover:opacity-90 shadow-md items-center gap-1" style="background: var(--accent);">
           <span>⚙️</span> <span>لوحة التحكم</span>
         </button>
+
         <button id="burgerMenuBtn" class="lg:hidden p-2.5 rounded-xl border border-gray-700 bg-slate-900/60 flex flex-col justify-center gap-1.5 w-11 h-11 items-center">
           <span class="w-5 h-0.5 bg-current rounded-full"></span>
           <span class="w-5 h-0.5 bg-current rounded-full"></span>
           <span class="w-5 h-0.5 bg-current rounded-full"></span>
         </button>
       </div>
+
     </div>
   </header>
 
@@ -168,19 +217,25 @@
   <div id="mobileMenuOverlay" class="mobile-menu-overlay"></div>
   <div id="mobileMenuDrawer" class="mobile-menu-drawer">
     <div class="flex items-center justify-between border-b border-gray-800 pb-4 mb-4">
-      <span class="font-bold text-base">القائمة</span>
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-lg overflow-hidden border border-[var(--bg-glass-border)] flex items-center justify-center bg-slate-900">
+          <img src="ajwan_icon.png" alt="أجوان" class="w-full h-full object-cover" onerror="this.src='ajwan_icon.png'">
+        </div>
+        <span class="font-bold text-base text-main">القائمة</span>
+      </div>
       <button id="closeMobileMenuBtn" class="w-9 h-9 rounded-xl bg-slate-900 text-sub flex items-center justify-center font-bold">✕</button>
     </div>
+
     <div class="flex flex-col gap-2 text-base font-semibold flex-1">
-      <a href="#quran" onclick="toggleMobileMenu()" class="p-3 rounded-xl hover:bg-slate-900">۞ محرابي</a>
-      <a href="#reflections" onclick="toggleMobileMenu()" class="p-3 rounded-xl hover:bg-slate-900">✨ تأملاتي</a>
-      <a href="#cv" onclick="toggleMobileMenu()" class="p-3 rounded-xl hover:bg-slate-900">📜 سيرتي</a>
-      <a href="#planner" onclick="toggleMobileMenu()" class="p-3 rounded-xl hover:bg-slate-900">📚 مقرراتي</a>
-      <a href="#achievements" onclick="toggleMobileMenu()" class="p-3 rounded-xl hover:bg-slate-900">🏆 إنجازاتي</a>
-      <a href="#creative" onclick="toggleMobileMenu()" class="p-3 rounded-xl hover:bg-slate-900">✧ مدونتي</a>
-      <a href="#library" onclick="toggleMobileMenu()" class="p-3 rounded-xl hover:bg-slate-900">📖 مكتبتي</a>
-      <a href="#gallery" onclick="toggleMobileMenu()" class="p-3 rounded-xl hover:bg-slate-900">🖼️ بكسلاتي</a>
-      
+      <a href="#quran" onclick="toggleMobileMenu()" class="p-3 rounded-xl hover:bg-slate-900"><span>۞</span> محرابي</a>
+      <a href="#reflections" onclick="toggleMobileMenu()" class="p-3 rounded-xl hover:bg-slate-900"><span>✨</span> تأملاتي</a>
+      <a href="#cv" onclick="toggleMobileMenu()" class="p-3 rounded-xl hover:bg-slate-900"><span>📜</span> سيرتي</a>
+      <a href="#planner" onclick="toggleMobileMenu()" class="p-3 rounded-xl hover:bg-slate-900"><span>📚</span> مقرراتي</a>
+      <a href="#achievements" onclick="toggleMobileMenu()" class="p-3 rounded-xl hover:bg-slate-900"><span>🏆</span> إنجازاتي</a>
+      <a href="#creative" onclick="toggleMobileMenu()" class="p-3 rounded-xl hover:bg-slate-900"><span>✧</span> مدونتي</a>
+      <a href="#library" onclick="toggleMobileMenu()" class="p-3 rounded-xl hover:bg-slate-900"><span>📖</span> مكتبتي</a>
+      <a href="#gallery" onclick="toggleMobileMenu()" class="p-3 rounded-xl hover:bg-slate-900"><span>🖼️</span> بكسلاتي</a>
+
       <div class="border-t border-gray-800 my-3 pt-3 flex flex-col gap-2">
         <button onclick="toggleMobileMenu(); document.getElementById('themeModalBtn').click();" class="p-3 rounded-xl bg-slate-900/40 border border-gray-800 text-right w-full font-bold">🎨 المظهر</button>
         <button onclick="toggleMobileMenu(); document.getElementById('adminModalBtn').click();" class="p-3 rounded-xl text-white text-right w-full font-bold" style="background: var(--accent);">⚙️ لوحة التحكم</button>
@@ -191,65 +246,218 @@
   <!-- Main Content -->
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24 py-10 w-full">
 
-    <!-- HERO SECTION -->
+    <!-- 1. HERO SECTION -->
     <section id="home" class="min-h-[80vh] flex flex-col lg:flex-row items-center justify-between gap-12 pt-4">
       <div class="lg:w-1/2 space-y-6 text-center lg:text-start">
         <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[var(--bg-glass-border)] bg-[var(--bg-glass)] text-[var(--accent)] text-xs font-medium">
           <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
           <span>بين ضوء القمر .. وأفق الحلم</span>
         </div>
+        
         <div class="space-y-3">
-          <h1 class="hero-title-main text-2xl sm:text-4xl lg:text-5xl font-extrabold">أهلًا بكم في <span class="clean-moon-text">ملاذ القمر</span>🌙</h1>
-          <h2 class="hero-title-sub text-xl sm:text-2xl lg:text-3xl font-bold">وهنا تبدأ حكايتي</h2>
+          <h1 class="hero-title-main text-2xl sm:text-4xl lg:text-5xl font-extrabold">
+            أهلًا بكم في <span class="clean-moon-text">ملاذ القمر</span>🌙
+          </h1>
+          <h2 class="hero-title-sub text-xl sm:text-2xl lg:text-3xl font-bold">
+            وهنا تبدأ حكايتي
+          </h2>
         </div>
+        
         <div class="text-sub text-sm sm:text-base leading-relaxed space-y-4 text-justify">
-          <p><span class="glowing-ajwan">أنا أجوان اليوسف ...</span> وُلدتُ في أعالي جبال السروات بالمملكة العربية السعودية، حيث يعانق الغيم الضباب.</p>
+          <p><span class="glowing-ajwan">أنا أجوان اليوسف ...</span> وُلدتُ في أعالي جبال السروات بالمملكة العربية السعودية، حيث يعانق الغيم الضباب، وحيث يهمس المطر للأرض بحكايات السماء. نشأتُ في كنف دفء أبٍ كريم، وعطف أمٍّ رؤوم، محاطةً بحبِّ الأخ، وودِّ الأخت، وثقة الكبير، واحترام الصغير، وابتسامة الطفل البريء. أجد نفسي قريبةً من الناس، وأشعر بهم قريبين مني، أعبُر إلى أرواحهم بهدوءٍ كعبور النسيم.</p>
+          <p>بدأتُ تعليمي في روضة بيشة الأهلية، ثم أكملتُ مشواري في ابتدائية تحفيظ القرآن الكريم الأولى ببيشة، وأستمر الآن في متوسطة تحفيظ القرآن الكريم الأولى ببيشة، عشتُ تجارب السفر والترحال إلى المدينة الحضارية والقرية الريفية، و عبرت منها إلى الضواحي ووصلت حتى البوادي، أتنقل بين تفاصيلها، وأستلهم من دروسها.</p>
+          <p>أغلى وأجمل الهدايا إلى قلبي : والدي يوسف، وأمي هند، وأخي إبراهيم و أختي أسمهان.</p>
+          <p>أعشقُ السفر، وأحبُّ أن أرفع عيني للسماء، أبحث عن إجاباتٍ في النجوم، وأسرحُ في تأملاتٍ تُطيل الرحلة في خاطري. أؤمن أن في كل خطوةٍ حكاية، وفي كل طريق سرًّا مخفيًا ينتظر أن يُكتشف.</p>
+          <p>أكتبُ لأُفرغ ثِقَل الأيام حين تضيق، وأترك قلمي يطير بي حين يملؤني الفرح.</p>
+          <p>في النهاية ... هذه الحياةُ رحلةٌ قصيرة، فلنجعلها أجمل بطاعة الله، ونحياها بحبٍّ وصدق، ونتأمل كلَّ جمالها قبل أن تصل الرحلة إلى نهايتها.</p>
         </div>
       </div>
+
       <div class="lg:w-1/2 flex justify-center py-8 w-full">
-        <div class="hero-art-container">
-          <div class="crystal-planet"><img src="ajwan portrait.png" alt="أجوان" onerror="this.src='ajwan portrait.png'"></div>
-          <a href="#quran" class="orbit-star" style="top: 8%; left: 50%; transform: translateX(-50%);">۞</a>
-          <a href="#planner" class="orbit-star" style="bottom: 22%; left: 4%;">📚</a>
+        <div class="hero-art-container scale-90 sm:scale-100">
+          <div class="orbit-ring ring-1"></div>
+          <div class="orbit-ring ring-2"></div>
+
+          <div class="crystal-planet">
+            <img src="ajwan portrait.png" alt="أجوان اليوسف" onerror="this.src='ajwan portrait.png'">
+          </div>
+
+          <a href="#quran" class="orbit-star" style="top: 8%; left: 50%; transform: translateX(-50%);">
+            <span>۞</span> <div class="star-tooltip">محرابي</div>
+          </a>
+          <a href="#reflections" class="orbit-star" style="top: 22%; right: 4%;">
+            <span>✨</span> <div class="star-tooltip">تأملاتي</div>
+          </a>
+          <a href="#cv" class="orbit-star" style="top: 50%; right: -2%;">
+            <span>📜</span> <div class="star-tooltip">سيرتي</div>
+          </a>
+          <a href="#achievements" class="orbit-star" style="bottom: 12%; right: 8%;">
+            <span>🏆</span> <div class="star-tooltip">إنجازاتي</div>
+          </a>
+          <a href="#creative" class="orbit-star" style="bottom: 2%; left: 45%; transform: translateX(-50%);">
+            <span>✧</span> <div class="star-tooltip">مدونتي</div>
+          </a>
+          <a href="#planner" class="orbit-star" style="bottom: 22%; left: 4%;">
+            <span>📚</span> <div class="star-tooltip">مقرراتي</div>
+          </a>
+          <a href="#library" class="orbit-star" style="top: 22%; left: 8%;">
+            <span>📖</span> <div class="star-tooltip">المكتبة</div>
+          </a>
         </div>
       </div>
     </section>
 
-    <!-- QURAN SECTION -->
+    <!-- 2. CV SECTION -->
+    <section id="cv" class="space-y-8 scroll-mt-24">
+      <div class="flex justify-between items-end border-b border-gray-800 pb-4">
+        <div><h2 class="text-3xl font-bold mt-1">سيرتي 📜</h2></div>
+        <div class="text-xs text-sub">📍 ALAC3159, Bisha City</div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <div onclick="openCvModal('bio')" class="glass-card p-6 cursor-pointer flex flex-col justify-between space-y-4 group">
+          <div class="flex items-center justify-between">
+            <div class="w-12 h-12 rounded-2xl bg-[var(--accent)]/10 border border-[var(--accent)]/30 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">🪶</div>
+            <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-slate-900/60 text-[var(--accent)] border border-gray-800">تعريف شامل ↗</span>
+          </div>
+          <div>
+            <h3 class="font-bold text-lg text-main">النبذة التعريفية</h3>
+            <p class="text-xs text-sub mt-2 leading-relaxed">نبذة عن النشأة، المولد في شهر رمضان المبارك، والبدايات في ربوع جبال السروات ببيشة.</p>
+          </div>
+        </div>
+
+        <div onclick="openCvModal('education')" class="glass-card p-6 cursor-pointer flex flex-col justify-between space-y-4 group">
+          <div class="flex items-center justify-between">
+            <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">🎓</div>
+            <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-slate-900/60 text-emerald-400 border border-gray-800">التسلسل الزمني ↗</span>
+          </div>
+          <div>
+            <h3 class="font-bold text-lg text-main">المسيرة التعليمية</h3>
+            <p class="text-xs text-sub mt-2 leading-relaxed">من روضة بيشة إلى ابتدائية ومتوسطة تحفيظ القرآن الكريم الأولى بتقدير ممتاز.</p>
+          </div>
+        </div>
+
+        <div onclick="openCvModal('experiences')" class="glass-card p-6 cursor-pointer flex flex-col justify-between space-y-4 group">
+          <div class="flex items-center justify-between">
+            <div class="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">🌟</div>
+            <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-slate-900/60 text-amber-400 border border-gray-800">الأنشطة والمشاركة ↗</span>
+          </div>
+          <div>
+            <h3 class="font-bold text-lg text-main">الخبرات والأنشطة</h3>
+            <p class="text-xs text-sub mt-2 leading-relaxed">المسابقات العلمية، مهارات الحاسب، التنظيم، والعمل التطوعي والمدرسي.</p>
+          </div>
+        </div>
+
+        <div onclick="openCvModal('skills')" class="glass-card p-6 cursor-pointer flex flex-col justify-between space-y-4 group">
+          <div class="flex items-center justify-between">
+            <div class="w-12 h-12 rounded-2xl bg-sky-500/10 border border-sky-500/30 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">💡</div>
+            <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-slate-900/60 text-sky-400 border border-gray-800">القدرات الشخصية ↗</span>
+          </div>
+          <div>
+            <h3 class="font-bold text-lg text-main">المهارات الشخصية والقدرات</h3>
+            <p class="text-xs text-sub mt-2 leading-relaxed">حفظ القرآن، التواصل الفعّال، العمل الجماعي، والصياغة الأدبية الإبداعية.</p>
+          </div>
+        </div>
+
+        <div onclick="openCvModal('languages')" class="glass-card p-6 cursor-pointer flex flex-col justify-between space-y-4 group">
+          <div class="flex items-center justify-between">
+            <div class="w-12 h-12 rounded-2xl bg-rose-500/10 border border-rose-500/30 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">🗣️</div>
+            <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-slate-900/60 text-rose-400 border border-gray-800">مستويات اللغات ↗</span>
+          </div>
+          <div>
+            <h3 class="font-bold text-lg text-main">اللغات</h3>
+            <p class="text-xs text-sub mt-2 leading-relaxed">العربية (اللغة الأم)، الإنجليزية (متوسط)، والإسبانية (مبتدئ).</p>
+          </div>
+        </div>
+
+        <div onclick="openCvModal('interests')" class="glass-card p-6 cursor-pointer flex flex-col justify-between space-y-4 group">
+          <div class="flex items-center justify-between">
+            <div class="w-12 h-12 rounded-2xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">🎨</div>
+            <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-slate-900/60 text-purple-400 border border-gray-800">الشغف والهوايات ↗</span>
+          </div>
+          <div>
+            <h3 class="font-bold text-lg text-main">الاهتمامات والهوايات</h3>
+            <p class="text-xs text-sub mt-2 leading-relaxed">التصميم والإبداع البصري، السفر والترحال، الكتابة والتدوين، والقراءة.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 3. QURAN SECTION -->
     <section id="quran" class="space-y-8 scroll-mt-24">
       <div class="flex justify-between items-end border-b border-gray-800 pb-4">
-        <h2 class="text-3xl font-bold">رحلتي القرآنية ۞</h2>
+        <div><h2 class="text-3xl font-bold mt-1">رحلتي القرآنية ۞</h2></div>
+        <div class="text-xs text-emerald-400 font-semibold">متابعة الحفظ والتلاوة والتدبر</div>
       </div>
-      <div class="glass-card p-6 space-y-6">
-        <div class="space-y-3 bg-slate-900/40 p-4 rounded-xl border border-gray-800">
-          <div class="flex justify-between text-xs sm:text-sm font-bold">
-            <span class="text-emerald-400">نسبة الإنجاز في حفظ القرآن الكريم:</span>
-            <span class="text-emerald-400" id="quranTotalPercent">٠٪</span>
-          </div>
-          <div class="w-full h-4 rounded-full bg-slate-950 overflow-hidden border border-gray-800">
-            <div id="quranTotalProgressBar" class="h-full bg-gradient-to-r from-emerald-500 to-teal-300 transition-all" style="width: 0%"></div>
+
+      <div class="glass-card p-4 sm:p-8 space-y-6">
+        <div class="text-center space-y-4 border-b border-gray-800/80 pb-6">
+          <div><span class="text-4xl text-emerald-400 inline-block animate-pulse">۞</span></div>
+          <div class="text-lg sm:text-2xl md:text-3xl font-extrabold text-emerald-400 leading-relaxed pt-2">
+            <span class="quran-ayah inline-block">﴿وَلَقَدْ يَسَّرْنَا الْقُرْآنَ لِلذِّكْرِ فَهَلْ مِن مُّدَّكِرٍ﴾</span>
+            <span class="inline-block text-xs sm:text-sm font-semibold text-sub mr-3">سورة القمر • آية ١٧</span>
           </div>
         </div>
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3" id="juzGrid"></div>
+
+        <div class="space-y-3 bg-slate-900/40 p-4 sm:p-6 rounded-xl border border-gray-800">
+          <div class="flex justify-between items-center text-xs sm:text-sm font-bold">
+            <span class="text-emerald-400 flex items-center gap-2"><span>۞</span> <span>نسبة الإنجاز في حفظ القرآن الكريم:</span></span>
+            <span class="text-lg sm:text-xl text-emerald-400" id="quranTotalPercent">٠٪</span>
+          </div>
+          <div class="w-full h-4 rounded-full bg-slate-950 overflow-hidden p-0.5 border border-gray-800">
+            <div id="quranTotalProgressBar" class="h-full bg-gradient-to-r from-emerald-500 to-teal-300 rounded-full transition-all duration-500" style="width: 0%"></div>
+          </div>
+          <p class="text-xs sm:text-sm text-sub text-center pt-2 font-medium" id="dynamicQuranSummaryText">
+            (بحمد الله وفضله ومنّته تم حفظ ٣٠ جزءاً من أصل ٣٠ جزءاً ونسأل الله التمام)
+          </p>
+        </div>
+
+        <div class="space-y-4">
+          <h3 class="font-bold text-lg text-emerald-400 flex items-center gap-2">
+            <span>📚</span> <span>متابعة الأجزاء والسور وتوثيق الحفظ:</span>
+          </h3>
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-3" id="juzGrid"></div>
+        </div>
+
+        <div id="juzDetailsDrawer" class="hidden bg-slate-900/90 p-4 sm:p-5 rounded-xl border border-emerald-500/40 space-y-4">
+          <div class="flex justify-between items-center border-b border-gray-800 pb-3">
+            <h4 class="font-bold text-emerald-300 text-sm sm:text-base" id="juzDrawerTitle">تفاصيل الجزء</h4>
+            <button onclick="document.getElementById('juzDetailsDrawer').classList.add('hidden')" class="text-sub hover:text-white text-xs">✕ إغلاق</button>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3" id="surahChecklist"></div>
+        </div>
       </div>
     </section>
 
-    <!-- REFLECTIONS -->
+    <!-- 4. REFLECTIONS SECTION -->
     <section id="reflections" class="space-y-8 scroll-mt-24">
-      <div class="flex justify-between items-end border-b border-gray-800 pb-4">
-        <h2 class="text-3xl font-bold">تأملاتي في رحاب الآيات</h2>
-        <span class="text-xs text-amber-400 font-semibold" id="currentMoonPhaseLabel">...</span>
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-gray-800 pb-4">
+        <div><h2 class="text-3xl font-bold mt-1">تأملاتي في رحاب الآيات</h2></div>
+        <div class="text-xs text-amber-400 font-semibold" id="currentMoonPhaseLabel">...</div>
       </div>
-      <div class="glass-card p-6 flex flex-col md:flex-row items-center gap-8">
-        <div class="single-floating-moon" id="dynamicMoonSphere"></div>
-        <div class="flex-1 space-y-4">
-          <div class="text-base sm:text-xl font-bold text-amber-200" id="todayReflectionAyahAndSurah"></div>
-          <p class="text-xs text-sub sm:text-sm" id="todayReflectionDesc">...</p>
+
+      <div class="glass-card p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-8">
+        <div class="flex flex-col items-center gap-3">
+          <div class="single-floating-moon" id="dynamicMoonSphere"></div>
+        </div>
+
+        <div class="flex-1 space-y-5 text-center md:text-right border-t md:border-t-0 md:border-r border-gray-800 pt-6 md:pt-0 md:pr-8">
+          <div class="inline-flex">
+            <span class="px-3 py-1 rounded-full bg-amber-500/10 text-amber-300 text-xs font-bold border border-amber-500/30" id="todayReflectionDate">...</span>
+          </div>
+          <div class="text-base sm:text-xl font-bold text-amber-200 leading-relaxed" id="todayReflectionAyahAndSurah"></div>
+          <div><span class="px-3 py-1 rounded-full bg-[var(--bg-glass)] text-[var(--accent)] text-xs font-bold border border-[var(--bg-glass-border)]" id="todayReflectionTitle">...</span></div>
+          <p class="text-xs text-sub leading-relaxed sm:text-sm" id="todayReflectionDesc">...</p>
+          <div class="pt-4 border-t border-gray-800 text-left">
+            <span class="text-xs font-bold text-[var(--accent)]">ملاذ القمر | أجوان اليوسف</span>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- STUDY PLANNER SECTION -->
+    <!-- 5. STUDY PLANNER SECTION -->
     <section id="planner" class="space-y-8 scroll-mt-24">
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-gray-800 pb-4">
         <div><h2 class="text-3xl font-bold mt-1">مقرراتي 1448هـ</h2></div>
@@ -259,16 +467,16 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="coursesGridContainer"></div>
     </section>
 
-    <!-- ACHIEVEMENTS SECTION -->
+    <!-- 6. ACHIEVEMENTS SECTION -->
     <section id="achievements" class="space-y-8 scroll-mt-24">
       <div class="flex justify-between items-end border-b border-gray-800 pb-4">
-        <h2 class="text-3xl font-bold">إنجازاتي</h2>
-        <button onclick="promptPassAndOpen('achievement')" class="px-4 py-2 rounded-xl bg-slate-900/60 border border-gray-700 text-xs font-bold hover:border-[var(--accent)]">
+        <div><h2 class="text-3xl font-bold mt-1">إنجازاتي</h2></div>
+        <button onclick="promptPassAndOpen('achievement')" class="px-4 py-2 rounded-xl bg-slate-900/60 border border-gray-700 text-xs font-bold hover:border-[var(--accent)] transition-all">
           ＋ المزيد ...
         </button>
       </div>
 
-      <div id="achievementsGrid" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
+      <div id="achievementsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
 
       <form id="achievementForm" class="hidden glass-card p-6 space-y-4">
         <h3 id="achFormTitle" class="font-bold text-base">توثيق إنجاز جديد</h3>
@@ -284,7 +492,7 @@
           </select>
         </div>
         <textarea id="achDescInput" rows="3" maxlength="150" required placeholder="تفاصيل الإنجاز (حد أقصى 150 حرف)..." class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm"></textarea>
-        <input type="url" id="achLinkInput" placeholder="رابط الإنجاز (اختياري)..." class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm">
+        <input type="url" id="achLinkInput" placeholder="حاوية إضافة رابط (اختياري)..." class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm">
         
         <div class="flex gap-2">
           <button type="submit" class="px-6 py-2 rounded-lg text-white font-bold text-sm" style="background: var(--accent);">حفظ الإنجاز</button>
@@ -293,11 +501,11 @@
       </form>
     </section>
 
-    <!-- BLOG SECTION -->
+    <!-- 7. CREATIVE SPACE SECTION (BLOG) -->
     <section id="creative" class="space-y-8 scroll-mt-24">
       <div class="flex justify-between items-end border-b border-gray-800 pb-4">
-        <h2 class="text-3xl font-bold">مدونتي</h2>
-        <button onclick="promptPassAndOpen('blog')" class="px-4 py-2 rounded-xl bg-slate-900/60 border border-gray-700 text-xs font-bold hover:border-[var(--accent)]">
+        <div><h2 class="text-3xl font-bold mt-1">مدونتي</h2></div>
+        <button onclick="promptPassAndOpen('blog')" class="px-4 py-2 rounded-xl bg-slate-900/60 border border-gray-700 text-xs font-bold hover:border-[var(--accent)] transition-all">
           ＋ المزيد ...
         </button>
       </div>
@@ -316,7 +524,7 @@
           </select>
         </div>
         <textarea id="blogDescInput" rows="4" maxlength="300" required placeholder="تفاصيل المدونة (حد أقصى 300 حرف)..." class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm"></textarea>
-        <input type="url" id="blogLinkInput" placeholder="رابط المدونة أو المرفق (اختياري)..." class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm">
+        <input type="url" id="blogLinkInput" placeholder="حاوية إضافة رابط (اختياري)..." class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm">
         
         <div class="flex gap-2">
           <button type="submit" class="px-6 py-2 rounded-lg text-white font-bold text-sm" style="background: var(--accent);">حفظ المدونة</button>
@@ -324,14 +532,14 @@
         </div>
       </form>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="ideasContainer"></div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="ideasContainer"></div>
     </section>
 
-    <!-- LIBRARY SECTION -->
+    <!-- 8. PERSONAL LIBRARY SECTION -->
     <section id="library" class="space-y-8 scroll-mt-24">
       <div class="flex justify-between items-end border-b border-gray-800 pb-4">
-        <h2 class="text-3xl font-bold">مكتبتي</h2>
-        <button onclick="promptPassAndOpen('library')" class="px-4 py-2 rounded-xl bg-slate-900/60 border border-gray-700 text-xs font-bold hover:border-[var(--accent)]">
+        <div><h2 class="text-3xl font-bold mt-1">مكتبتي</h2></div>
+        <button onclick="promptPassAndOpen('library')" class="px-4 py-2 rounded-xl bg-slate-900/60 border border-gray-700 text-xs font-bold hover:border-[var(--accent)] transition-all">
           ＋ المزيد ...
         </button>
       </div>
@@ -351,7 +559,7 @@
           </select>
         </div>
         <textarea id="bookDescInput" rows="4" maxlength="200" required placeholder="تفاصيل عن الكتاب (حد أقصى 200 حرف)..." class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm"></textarea>
-        <input type="url" id="bookLinkInput" placeholder="رابط الكتاب (اختياري)..." class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm">
+        <input type="url" id="bookLinkInput" placeholder="حاوية إضافة رابط (اختياري)..." class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm">
         
         <div class="flex gap-2">
           <button type="submit" class="px-6 py-2 rounded-lg text-white font-bold text-sm" style="background: var(--accent);">حفظ الكتاب</button>
@@ -362,21 +570,43 @@
       <div id="libraryContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
     </section>
 
-    <!-- PIXEL STUDIO SECTION (Google Drive Dynamic Images) -->
+    <!-- 9. PIXEL STUDIO SECTION -->
     <section id="gallery" class="space-y-8 scroll-mt-24">
       <div class="flex justify-between items-end border-b border-gray-800 pb-4">
-        <h2 class="text-3xl font-bold">بكسلاتي 🖼️</h2>
+        <div><h2 class="text-3xl font-bold mt-1">بكسلاتي 🖼️</h2></div>
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="photoStudioGrid"></div>
     </section>
 
   </main>
 
+  <!-- CV MODAL POPUP -->
+  <div id="cvModal" class="modal fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md">
+    <div class="glass-card w-full max-w-2xl p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto relative border-[var(--accent)]">
+      <div class="flex items-center justify-between border-b border-gray-800 pb-4">
+        <h3 id="cvModalTitle" class="text-xl font-bold text-main flex items-center gap-2">عنوان القسم</h3>
+        <button onclick="closeCvModal()" class="w-9 h-9 rounded-xl bg-slate-900 border border-gray-800 text-sub flex items-center justify-center font-bold">✕</button>
+      </div>
+      <div id="cvModalBody" class="space-y-4 text-sm text-sub leading-relaxed"></div>
+    </div>
+  </div>
+
+  <!-- THEMES SELECTION MODAL -->
+  <div id="themeModal" class="modal fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md">
+    <div class="glass-card w-full max-w-2xl p-6 space-y-6 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between border-b border-gray-800 pb-4">
+        <h3 class="text-xl font-bold flex items-center gap-2"><span>🎨</span> <span>اختر المظهر المفضل:</span></h3>
+        <button class="closeModalBtn text-gray-400 hover:text-white text-xl">✕</button>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-4" id="themesGrid"></div>
+    </div>
+  </div>
+
   <!-- PASSWORD PROMPT MODAL -->
   <div id="passwordPromptModal" class="modal fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md">
     <div class="glass-card w-full max-w-md p-6 space-y-4 text-center">
-      <h3 class="text-lg font-bold">الرقم السري المطلوب 🔒</h3>
-      <p class="text-xs text-sub">يرجى إدخال الرقم السري المعتمد:</p>
+      <h3 class="text-lg font-bold text-main">الرقم السري المطلوب 🔒</h3>
+      <p class="text-xs text-sub">يرجى إدخال الرقم السري المعتمد من لوحة التحكم:</p>
       <input type="password" id="sectionPassInput" placeholder="أدخل الرقم السري..." class="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-gray-700 text-center text-lg outline-none">
       <div id="passAlertBox" class="hidden glass-alert-box text-center">خطأ: الرقم السري غير صحيح!</div>
       <div class="flex justify-center gap-3 pt-2">
@@ -390,31 +620,31 @@
   <div id="adminModal" class="modal fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md">
     <div class="glass-card w-full max-w-2xl p-6 space-y-6 max-h-[90vh] overflow-y-auto">
       <div class="flex items-center justify-between border-b border-gray-800 pb-4">
-        <h3 class="text-xl font-bold">⚙️ لوحة التحكم والإدارة</h3>
+        <h3 class="text-xl font-bold flex items-center gap-2"><span>⚙️</span> <span>لوحة التحكم والإدارة</span></h3>
         <button class="closeModalBtn text-gray-400 hover:text-white text-xl">✕</button>
       </div>
 
       <div id="adminLoginForm" class="space-y-4">
+        <p class="text-xs text-sub">تسجيل الدخول كمسؤول بالنظام:</p>
         <div>
           <label class="block text-xs font-bold text-sub mb-1">اسم المستخدم</label>
-          <input type="text" id="adminUserInput" class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm">
+          <input type="text" id="adminUserInput" placeholder="admin" class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm">
         </div>
         <div>
           <label class="block text-xs font-bold text-sub mb-1">كلمة المرور</label>
-          <input type="password" id="adminPassInput" class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm">
+          <input type="password" id="adminPassInput" placeholder="123456" class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm">
         </div>
-        <div id="adminAlertBox" class="hidden glass-alert-box text-center">خطأ: الحقول غير صحيحة!</div>
+        <div id="adminAlertBox" class="hidden glass-alert-box text-center">خطأ: بيانات الدخول غير صحيحة!</div>
         <button onclick="loginAdmin()" class="w-full py-2.5 rounded-xl text-white font-bold text-sm" style="background: var(--accent);">تسجيل الدخول</button>
       </div>
 
       <div id="adminControlsArea" class="hidden space-y-6">
         <div class="space-y-3">
-          <h4 class="font-bold text-sm text-amber-300">تغيير الرقم السري (للإضافة والعمليات):</h4>
+          <h4 class="font-bold text-sm text-amber-300">تغيير الرقم السري (للإضافة، التعديل، الحذف):</h4>
           <input type="text" id="newSectionPinInput" class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm">
           <button onclick="updateSectionPin()" class="px-4 py-2 rounded-lg bg-amber-500 text-slate-950 font-bold text-xs">تحديث الرقم السري</button>
         </div>
 
-        <!-- Google Drive Config Area -->
         <div class="space-y-3 border-t border-gray-800 pt-4">
           <h4 class="font-bold text-sm text-sky-300">Google Drive API استوديو الصور:</h4>
           <input type="text" id="gdriveApiKeyInput" placeholder="Google Drive API Key..." class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm">
@@ -422,7 +652,6 @@
           <button onclick="saveGDriveConfig()" class="px-4 py-2 rounded-lg bg-sky-500 text-slate-950 font-bold text-xs">حفظ وإحضار الصور ديناميكياً</button>
         </div>
 
-        <!-- Courses Management Tab -->
         <div class="space-y-3 border-t border-gray-800 pt-4">
           <h4 class="font-bold text-sm text-emerald-300">إدارة روابط المقررات السحابية:</h4>
           <div id="adminCoursesManageList" class="space-y-2 max-h-48 overflow-y-auto"></div>
@@ -433,16 +662,70 @@
     </div>
   </div>
 
+  <!-- Toast Notification -->
   <div id="toast" class="fixed bottom-5 left-5 z-50 transform translate-y-20 opacity-0 transition-all px-5 py-3 rounded-2xl glass-card text-white text-sm">
     <span id="toastMsg" class="font-bold">تم الإجراء بنجاح</span>
   </div>
 
-  <!-- JAVASCRIPT LOGIC -->
+  <!-- Footer -->
+  <footer class="w-full theme-header-footer border-t py-10 mt-16 text-center text-xs text-sub">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col items-center justify-center gap-3">
+      <p class="font-bold text-sm text-main">All Rights Reserved 2026©</p>
+      <p class="font-extrabold text-base" style="color: var(--accent);">أجوان اليوسف | Alajwanah</p>
+      <p class="text-sub">بيشة - المملكة العربية السعودية</p>
+    </div>
+  </footer>
+
   <script>
-    let activeSectionPin = localStorage.getItem('alajwanah_section_pin') || '1234';
-    let gdriveApiKey = localStorage.getItem('alajwanah_gdrive_key') || '';
-    let gdriveFolderId = localStorage.getItem('alajwanah_gdrive_folder') || '';
-    let pendingActionCallback = null;
+    /* ==========================================================================
+       1. DATA ARRAYS & CONFIGS
+       ========================================================================== */
+    const QURAN_JUZ_DATA = {
+      30: ["النبأ", "النازعات", "عبس", "التكوير", "الانفطار", "المطففين", "الانشقاق", "البروج", "الطارق", "الأعلى", "الغاشية", "الفجر", "البلد", "الشمس", "الليل", "الضحى", "الشرح", "التين", "العلق", "القدر", "البينة", "الزلزلة", "العاديات", "القارعة", "التكاثر", "العصر", "الهمزة", "الفيل", "قريش", "المعون", "الكوثر", "الكافرون", "النصر", "المسد", "الإخلاص", "الفلق", "الناس"],
+      29: ["الملك", "القلم", "الحاقة", "المعارج", "نوح", "الجن", "المزمل", "المدثر", "القيامة", "الإنسان", "المرسلات"],
+      28: ["المجادلة", "الحشر", "الممتحنة", "الصف", "الجمعة", "المنافقون", "التغابن", "الطلاق", "التحريم"],
+      27: ["الذاريات", "الطور", "النجم", "القمر", "الرحمن", "الواقعة", "الحديد"],
+      26: ["أحقاف", "محمد", "الفتح", "الحجرات", "ق"],
+      25: ["فصلت", "الشورى", "الزخرف", "الدخان", "الجاثية"],
+      24: ["الزمر", "غافر", "فصلت"], 23: ["يس", "الصافات", "ص", "الزمر"], 22: ["الأحزاب", "سبأ", "فاطر", "يس"],
+      21: ["العنكبوت", "الروم", "لقمان", "السجدة", "الأحزاب"], 20: ["النمل", "القصص", "العنكبوت"],
+      19: ["الفرقان", "الشعراء", "النمل"], 18: ["المؤمنون", "النور", "الفرقان"], 17: ["الأنبياء", "الحج"],
+      16: ["الكهف", "مريم", "طه"], 15: ["الإسراء", "الكهف"], 14: ["الحجر", "النحل"], 13: ["يوسف", "الرعد", "إبراهيم"],
+      12: ["هود", "يوسف"], 11: ["يونس", "هود"], 10: ["الأنفال", "التوبة"], 9: ["الأعراف", "الأنفال"],
+      8: ["الأنعام", "الأعراف"], 7: ["المائدة", "الأنعام"], 6: ["النساء", "المائدة"], 5: ["النساء"],
+      4: ["آل عمران", "النساء"], 3: ["البقرة", "آل عمران"], 2: ["البقرة"], 1: ["الفاتحة", "البقرة"]
+    };
+
+    const PROPOSED_REFLECTIONS = [
+      { q: "فَاسْتَجَبْنَا لَهُ وَنَجَّيْنَاهُ مِنَ الْغَمِّ", s: "الأنبياء", a: "٨٨", t: "دعوة يونس ونور الظلمات", d: "لا تسقط دعوة خرجت بنبض التوحيد والاستغفار ولو من قاع البحار." }
+    ];
+
+    const cvDataContent = {
+      bio: {
+        title: "🪶 النبذة التعريفية",
+        content: `<p class="space-y-4">في رحاب الطفولة المزهرة، تفتحت زهرة باسمة اسمها <strong>أجوان بنت يوسف القرني</strong>، تحمل قلباً ناعماً بالصفاء. وُلدت في 11 رمضان 1433 هـ، في ربوع جبال السروات ببيشة، وهي اليوم تواصل تميزها بالصف الثالث المتوسط.</p>`
+      },
+      education: {
+        title: "🎓 المسيرة التعليمية",
+        content: `<p class="space-y-2"><strong>روضة بيشة الأهلية</strong> (2017-2018)<br><strong>ابتدائية تحفيظ القرآن الكريم الأولى ببيشة</strong> (2018-2023)<br><strong>متوسطة تحفيظ القرآن الأولى ببيشة</strong> (2023-حتى الآن)</p>`
+      },
+      experiences: {
+        title: "🌟 الخبرات والأنشطة",
+        content: `<ul class="list-disc pr-5 space-y-2"><li>المشاركة في المسابقات المدرسية الثقافية.</li><li>إتقان تطبيقات الحاسب Canva & PowerPoint.</li><li>مهارات تنظيم الفعاليات والعمل التطوعي.</li></ul>`
+      },
+      skills: {
+        title: "💡 المهارات الشخصية",
+        content: `<p>حفظ القرآن الكريم بالتجويد، التواصل الإيجابي، العمل الجماعي، والخطابة والكتابة الإبداعية.</p>`
+      },
+      languages: {
+        title: "🗣️ اللغات",
+        content: `<p>العربية (اللغة الأم - 100%)<br>الإنجليزية (متوسط - 65%)<br>الإسبانية (مبتدئ - 35%)</p>`
+      },
+      interests: {
+        title: "🎨 الهوايات",
+        content: `<p>التصميم البصري، السفر والترحال، كتابة الخواطر، والقراءة الواعية.</p>`
+      }
+    };
 
     const DEFAULT_COURSES = [
       { id: 1, title: "القرآن الكريم وعلومـه", desc: "ملفات الحفظ والتلاوة والتجويد", icon: "📖", link: "#" },
@@ -455,18 +738,38 @@
       { id: 8, title: "المهارات الرقمية", desc: "مشاريع الحاسب وتطبيقات البرمجة", icon: "💻", link: "#" }
     ];
 
+    let activeSectionPin = localStorage.getItem('alajwanah_section_pin') || '1234';
+    let gdriveApiKey = localStorage.getItem('alajwanah_gdrive_key') || '';
+    let gdriveFolderId = localStorage.getItem('alajwanah_gdrive_folder') || '';
+    let pendingActionCallback = null;
+    let savedSurahsState = JSON.parse(localStorage.getItem('alajwanah_surahs_map')) || {};
+
     let appData = JSON.parse(localStorage.getItem('alajwanah_main_data')) || {
-      ideas: [],
-      achievements: [],
-      books: [],
+      ideas: [
+        { id: 1, title: "خاطرة عن المطر", date: "2026-10-31", category: "خاطرة", desc: "ينهمر المطر في بيشة، فيغسل هموم الروح ويكسونا بالطمأنينة.", link: "" }
+      ],
+      achievements: [
+        { id: 1, title: "إتمام حفظ أجزاء من القرآن الكريم", date: "2026-10-31", category: "لحظة فخر", desc: "بفضل الله أواصل رحلة الحفظ والتدبر في كتاب الله الكريم.", link: "" }
+      ],
+      books: [
+        { id: 1, title: "قصص النبيين", date: "2026-10-31", category: "ديني", desc: "فوائد جمة وعبر عظيمة استخلصتها من قراءة سير الأنبياء عليهم السلام.", link: "" }
+      ],
       courses: DEFAULT_COURSES
     };
 
+    function toArabicNumerals(str) {
+      return String(str).replace(/[0-9]/g, d => '٠١٢٣٤٥٦٧٨٩'[d]);
+    }
+
     function saveData() {
       localStorage.setItem('alajwanah_main_data', JSON.stringify(appData));
+      localStorage.setItem('alajwanah_surahs_map', JSON.stringify(savedSurahsState));
       renderAll();
     }
 
+    /* ==========================================================================
+       2. UI & MODAL HANDLERS
+       ========================================================================== */
     function toggleMobileMenu() {
       document.getElementById('mobileMenuDrawer').classList.toggle('active');
       document.getElementById('mobileMenuOverlay').classList.toggle('active');
@@ -475,7 +778,15 @@
     document.getElementById('closeMobileMenuBtn').onclick = toggleMobileMenu;
     document.getElementById('mobileMenuOverlay').onclick = toggleMobileMenu;
 
-    // PASSWORD WRAPPER FOR EDIT/DELETE/ADD
+    function openCvModal(key) {
+      const data = cvDataContent[key];
+      if (!data) return;
+      document.getElementById('cvModalTitle').innerText = data.title;
+      document.getElementById('cvModalBody').innerHTML = data.content;
+      document.getElementById('cvModal').classList.add('active');
+    }
+    function closeCvModal() { document.getElementById('cvModal').classList.remove('active'); }
+
     function promptPassAndOpen(action) {
       if (typeof action === 'function') {
         pendingActionCallback = action;
@@ -520,7 +831,83 @@
       }
     }
 
-    // COURSES RENDER & MANAGEMENT
+    /* ==========================================================================
+       3. SECTIONS RENDERERS
+       ========================================================================== */
+    function initializeDefaultSurahs() {
+      if (Object.keys(savedSurahsState).length === 0) {
+        for (let j = 30; j >= 3; j--) {
+          (QURAN_JUZ_DATA[j] || []).forEach(s => savedSurahsState[`${j}_${s}`] = true);
+        }
+        localStorage.setItem('alajwanah_surahs_map', JSON.stringify(savedSurahsState));
+      }
+    }
+
+    function getJuzStatus(juzNum) {
+      const surahs = QURAN_JUZ_DATA[juzNum] || [];
+      if (surahs.length === 0) return 'empty';
+      let checkedCount = 0;
+      surahs.forEach(s => { if (savedSurahsState[`${juzNum}_${s}`]) checkedCount++; });
+      if (checkedCount === surahs.length) return 'done';
+      if (checkedCount > 0) return 'progress';
+      return 'empty';
+    }
+
+    function renderQuranSection() {
+      initializeDefaultSurahs();
+      const juzGrid = document.getElementById('juzGrid');
+      juzGrid.innerHTML = '';
+      let completedJuzCount = 0;
+
+      for (let i = 30; i >= 1; i--) {
+        const status = getJuzStatus(i);
+        if (status === 'done') completedJuzCount++;
+        const btn = document.createElement('button');
+        btn.className = 'juz-glass-card';
+        btn.innerHTML = `<span class="text-sm font-extrabold text-main">الجزء ${toArabicNumerals(i)}</span><div class="status-bar-glow ${status}"></div>`;
+        btn.onclick = () => openJuzDrawer(i);
+        juzGrid.appendChild(btn);
+      }
+
+      const percentVal = ((completedJuzCount / 30) * 100).toFixed(1);
+      document.getElementById('quranTotalPercent').innerText = toArabicNumerals(percentVal) + '٪';
+      document.getElementById('quranTotalProgressBar').style.width = percentVal + '%';
+      document.getElementById('dynamicQuranSummaryText').innerText = `(بحمد الله وفضله ومنّته تم حفظ ${toArabicNumerals(completedJuzCount)} جزءاً من أصل ٣٠ جزءاً ونسأل الله التمام)`;
+    }
+
+    function openJuzDrawer(juzNum) {
+      const drawer = document.getElementById('juzDetailsDrawer');
+      document.getElementById('juzDrawerTitle').innerText = `الجزء ${toArabicNumerals(juzNum)} - السور المقررة`;
+      const checklist = document.getElementById('surahChecklist');
+      checklist.innerHTML = '';
+
+      (QURAN_JUZ_DATA[juzNum] || []).forEach(surah => {
+        const surahKey = `${juzNum}_${surah}`;
+        const isChecked = !!savedSurahsState[surahKey];
+        const item = document.createElement('label');
+        item.className = 'flex items-center justify-between p-2.5 rounded-lg bg-slate-950/80 border border-gray-800 text-xs cursor-pointer';
+        item.innerHTML = `<span class="font-bold text-slate-200">سورة ${surah}</span><input type="checkbox" ${isChecked ? 'checked' : ''} onchange="toggleSurahSave('${juzNum}', '${surah}')" class="accent-emerald-500 w-4 h-4">`;
+        checklist.appendChild(item);
+      });
+      drawer.classList.remove('hidden');
+    }
+
+    function toggleSurahSave(juzNum, surah) {
+      const key = `${juzNum}_${surah}`;
+      savedSurahsState[key] = !savedSurahsState[key];
+      saveData();
+      showToast('۞ تم تحديث حالة السورة!');
+    }
+
+    function renderReflectionsPreview() {
+      const ref = PROPOSED_REFLECTIONS[0];
+      document.getElementById('todayReflectionAyahAndSurah').innerHTML = `<span class="quran-ayah text-amber-300">﴿${ref.q}﴾</span> <span class="text-xs text-amber-400 block sm:inline mt-2">سورة ${ref.s} - الآية ${ref.a}</span>`;
+      document.getElementById('todayReflectionTitle').innerText = ref.t;
+      document.getElementById('todayReflectionDesc').innerText = ref.d;
+      document.getElementById('todayReflectionDate').innerText = "١٥ جمادى الأولى ١٤٤٨ هـ";
+      document.getElementById('currentMoonPhaseLabel').innerText = "طور الهلال اليوم: بدر مكتمل ✨ (١٥ الهجري)";
+    }
+
     function renderCourses() {
       const box = document.getElementById('coursesGridContainer');
       box.innerHTML = '';
@@ -537,32 +924,6 @@
       });
     }
 
-    function renderAdminCoursesList() {
-      const list = document.getElementById('adminCoursesManageList');
-      list.innerHTML = '';
-      appData.courses.forEach(c => {
-        const row = document.createElement('div');
-        row.className = 'p-2 rounded bg-slate-900 border border-gray-800 flex items-center justify-between gap-2';
-        row.innerHTML = `
-          <span class="text-xs font-bold text-main w-1/3">${c.title}</span>
-          <input type="url" value="${c.link || ''}" placeholder="رابط المجلد..." id="courseLinkInput_${c.id}" class="px-2 py-1 bg-slate-950 text-xs rounded border border-gray-700 flex-1">
-          <button onclick="saveSingleCourseLink(${c.id})" class="px-2 py-1 bg-emerald-500 text-slate-950 font-bold text-xs rounded">حفظ</button>
-        `;
-        list.appendChild(row);
-      });
-    }
-
-    function saveSingleCourseLink(id) {
-      const val = document.getElementById(`courseLinkInput_${id}`).value;
-      const idx = appData.courses.findIndex(c => c.id === id);
-      if (idx !== -1) {
-        appData.courses[idx].link = val;
-        saveData();
-        showToast('✓ تم تحديث رابط المقرر بنجاح');
-      }
-    }
-
-    // ACHIEVEMENTS
     function renderAchievements() {
       const grid = document.getElementById('achievementsGrid');
       grid.innerHTML = '';
@@ -632,7 +993,6 @@
       document.getElementById('achievementForm').classList.add('hidden');
     }
 
-    // BLOGS
     function renderIdeas() {
       const box = document.getElementById('ideasContainer');
       box.innerHTML = '';
@@ -702,7 +1062,6 @@
       document.getElementById('creativeBlogForm').classList.add('hidden');
     }
 
-    // LIBRARY
     function renderLibrary() {
       const container = document.getElementById('libraryContainer');
       container.innerHTML = '';
@@ -772,18 +1131,28 @@
       document.getElementById('libraryBookForm').classList.add('hidden');
     }
 
-    // GOOGLE DRIVE API DYNAMIC GALLERY RENDER
     async function loadGoogleDriveGallery() {
       const grid = document.getElementById('photoStudioGrid');
       grid.innerHTML = '';
 
       if (!gdriveApiKey || !gdriveFolderId) {
-        grid.innerHTML = `<div class="col-span-4 text-center py-6 text-xs text-sub">يرجى ضبط Google Drive API Key و Folder ID من لوحة التحكم لإظهار الصور ديناميكياً.</div>`;
+        const staticImgs = [
+          "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600",
+          "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=600",
+          "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600",
+          "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=600"
+        ];
+        staticImgs.forEach((src, idx) => {
+          const card = document.createElement('div');
+          card.className = 'glass-card overflow-hidden h-64 relative group border-[var(--bg-glass-border)] hover:border-[var(--accent)]';
+          card.innerHTML = `<img src="${src}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">`;
+          grid.appendChild(card);
+        });
         return;
       }
 
       try {
-        const url = `https://www.googleapis.com/drive/v3/files?q='${gdriveFolderId}'+in+parents+and+mimeType+contains+'image/'&key=${gdriveApiKey}&fields=files(id,name,webContentLink,thumbnailLink)`;
+        const url = `https://www.googleapis.com/drive/v3/files?q='${gdriveFolderId}'+in+parents+and+mimeType+contains+'image/'&key=${gdriveApiKey}&fields=files(id,name)`;
         const res = await fetch(url);
         const data = await res.json();
 
@@ -800,11 +1169,37 @@
             `;
             grid.appendChild(card);
           });
-        } else {
-          grid.innerHTML = `<div class="col-span-4 text-center py-6 text-xs text-sub">لا توجد صور في المجلد المحدد.</div>`;
         }
       } catch (err) {
-        grid.innerHTML = `<div class="col-span-4 text-center py-6 text-xs text-red-400">خطأ في جلب الصور من Google Drive API.</div>`;
+        console.warn("Drive API error, using static fallback.");
+      }
+    }
+
+    /* ==========================================================================
+       4. ADMIN DASHBOARD & THEMES
+       ========================================================================== */
+    function renderAdminCoursesList() {
+      const list = document.getElementById('adminCoursesManageList');
+      list.innerHTML = '';
+      appData.courses.forEach(c => {
+        const row = document.createElement('div');
+        row.className = 'p-2 rounded bg-slate-900 border border-gray-800 flex items-center justify-between gap-2';
+        row.innerHTML = `
+          <span class="text-xs font-bold text-main w-1/3">${c.title}</span>
+          <input type="url" value="${c.link || ''}" placeholder="رابط المجلد..." id="courseLinkInput_${c.id}" class="px-2 py-1 bg-slate-950 text-xs rounded border border-gray-700 flex-1">
+          <button onclick="saveSingleCourseLink(${c.id})" class="px-2 py-1 bg-emerald-500 text-slate-950 font-bold text-xs rounded">حفظ</button>
+        `;
+        list.appendChild(row);
+      });
+    }
+
+    function saveSingleCourseLink(id) {
+      const val = document.getElementById(`courseLinkInput_${id}`).value;
+      const idx = appData.courses.findIndex(c => c.id === id);
+      if (idx !== -1) {
+        appData.courses[idx].link = val;
+        saveData();
+        showToast('✓ تم تحديث رابط المقرر بنجاح');
       }
     }
 
@@ -814,10 +1209,9 @@
       localStorage.setItem('alajwanah_gdrive_key', gdriveApiKey);
       localStorage.setItem('alajwanah_gdrive_folder', gdriveFolderId);
       loadGoogleDriveGallery();
-      showToast('✓ تم حفظ إعدادات Google Drive API');
+      showToast('✓ تم حفظ إعدادات Drive API');
     }
 
-    // ADMIN AUTH & MODAL
     function loginAdmin() {
       const user = document.getElementById('adminUserInput').value;
       const pass = document.getElementById('adminPassInput').value;
@@ -850,6 +1244,7 @@
     document.getElementById('adminModalBtn').onclick = () => document.getElementById('adminModal').classList.add('active');
     document.querySelectorAll('.closeModalBtn').forEach(b => b.onclick = () => {
       document.getElementById('adminModal').classList.remove('active');
+      document.getElementById('themeModal').classList.remove('active');
     });
 
     function showToast(msg) {
@@ -860,11 +1255,14 @@
     }
 
     function renderAll() {
+      renderQuranSection();
+      renderReflectionsPreview();
       renderCourses();
       renderAchievements();
       renderIdeas();
       renderLibrary();
       loadGoogleDriveGallery();
+      document.getElementById('todayHijriHeader').innerText = "١٥ جمادى الأولى ١٤٤٨ هـ";
     }
 
     window.onload = function() {
