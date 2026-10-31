@@ -1814,43 +1814,40 @@
       document.getElementById('todayHijriHeader').innerText = getFormattedHijriDate();
     }
 
+// دالة عند الضغط على زر المزيد في أي قسم
     function promptPassAndOpen(section) {
       pendingActionCallback = () => {
         if (section === 'achievement') {
           cancelAchForm();
-          document.getElementById('achievementForm').classList.remove('hidden');
+          const form = document.getElementById('achievementForm');
+          form.classList.remove('hidden');
+          form.scrollIntoView({ behavior: 'smooth' });
         } else if (section === 'blog') {
           cancelBlogForm();
-          document.getElementById('creativeBlogForm').classList.remove('hidden');
+          const form = document.getElementById('creativeBlogForm');
+          form.classList.remove('hidden');
+          form.scrollIntoView({ behavior: 'smooth' });
         } else if (section === 'library') {
           cancelBookForm();
-          document.getElementById('libraryBookForm').classList.remove('hidden');
+          const form = document.getElementById('libraryBookForm');
+          form.classList.remove('hidden');
+          form.scrollIntoView({ behavior: 'smooth' });
         }
       };
       document.getElementById('passAlertBox').classList.add('hidden');
-      document.getElementById('passwordPromptModal').classList.add('active');
-    }
-
-    function requestPasswordAndExecute(callback) {
-      pendingActionCallback = callback;
-      document.getElementById('passAlertBox').classList.add('hidden');
-      document.getElementById('passwordPromptModal').classList.add('active');
-    }
-
-    function closePasswordPrompt() {
-      document.getElementById('passwordPromptModal').classList.remove('active');
       document.getElementById('sectionPassInput').value = '';
-      document.getElementById('passAlertBox').classList.add('hidden');
-      pendingActionCallback = null;
+      document.getElementById('passwordPromptModal').classList.add('active');
     }
 
+    // دالة التحقق من الرقم السري وتنفيذ العملية المعلقة (فتح النموذج)
     function verifySectionPassword() {
       const inputPass = document.getElementById('sectionPassInput').value;
       const alertBox = document.getElementById('passAlertBox');
+      
       if (inputPass === activeSectionPin) {
         closePasswordPrompt();
-        if (pendingActionCallback) {
-          pendingActionCallback();
+        if (typeof pendingActionCallback === 'function') {
+          pendingActionCallback(); // هنا يتم تنفيذ فتح النموذج الخاص بالقسم المطلوبة
         }
         showToast('🔓 تم التحقق بنجاح!');
       } else {
