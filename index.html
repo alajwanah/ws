@@ -1840,6 +1840,17 @@
     }
 
     // دالة التحقق من الرقم السري وتنفيذ العملية المعلقة (فتح النموذج)
+    function closePasswordPrompt() {
+      const modal = document.getElementById('passwordPromptModal');
+      modal.classList.remove('active');
+      modal.style.display = 'none'; 
+      setTimeout(() => { modal.style.display = ''; }, 300);
+      
+      document.getElementById('sectionPassInput').value = '';
+      document.getElementById('passAlertBox').classList.add('hidden');
+      pendingActionCallback = null;
+    }
+
     function verifySectionPassword() {
       const inputPass = document.getElementById('sectionPassInput').value;
       const alertBox = document.getElementById('passAlertBox');
@@ -1847,7 +1858,7 @@
       if (inputPass === activeSectionPin) {
         closePasswordPrompt();
         if (typeof pendingActionCallback === 'function') {
-          pendingActionCallback(); // هنا يتم تنفيذ فتح النموذج الخاص بالقسم المطلوبة
+          pendingActionCallback();
         }
         showToast('🔓 تم التحقق بنجاح!');
       } else {
@@ -1855,7 +1866,6 @@
         alertBox.classList.remove('hidden');
       }
     }
-
     document.getElementById('achievementForm').onsubmit = (e) => {
       e.preventDefault();
       const id = document.getElementById('achEditId').value;
