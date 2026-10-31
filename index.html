@@ -1411,31 +1411,31 @@
       document.getElementById('cvModal').classList.remove('active');
     }
 
-    /* ==========================================================================
-       FIREBASE INITIALIZATION (CONFIG & REALTIME SYNC)
-       ========================================================================== */
-    const firebaseConfig = {
-      apiKey: "AIzaSyYOUR_API_KEY_HERE",
-      authDomain: "alajwanah-maladh.firebaseapp.com",
-      databaseURL: "https://alajwanah-maladh-default-rtdb.firebaseio.com",
-      projectId: "alajwanah-maladh",
-      storageBucket: "alajwanah-maladh.appspot.com",
-      messagingSenderId: "1234567890",
-      appId: "1:1234567890:web:abcdef123456"
-    };
+/* ==========================================================================
+     FIREBASE INITIALIZATION (COMPAT MODE FOR HTML PAGES)
+     ========================================================================== */
+  const firebaseConfig = {
+    apiKey: "AIzaSyDs60FnOxeou_6xCOekRbk3pb_sYzxIBW8",
+    authDomain: "alajwanah-f8bc6.firebaseapp.com",
+    databaseURL: "https://alajwanah-f8bc6-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "alajwanah-f8bc6",
+    storageBucket: "alajwanah-f8bc6.firebasestorage.app",
+    messagingSenderId: "503796969729",
+    appId: "1:503796969729:web:4e6288050034a7743aab00"
+  };
 
-    let db;
-    let isFirebaseReady = false;
+  let db;
+  let isFirebaseReady = false;
 
-    try {
-      if (!firebase.apps.length) {
-        firebase.initializeApp(firebaseConfig);
-      }
-      db = firebase.database();
-      isFirebaseReady = true;
-    } catch (e) {
-      console.warn("Firebase Running in Local-fallback mode until keys configured.");
+  try {
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
     }
+    db = firebase.database();
+    isFirebaseReady = true;
+  } catch (e) {
+    console.warn("Firebase Running in Local-fallback mode.");
+  }
 
     let adminCredentials = JSON.parse(localStorage.getItem('alajwanah_admin_creds')) || { user: 'admin', pass: '123456' };
     let activeSectionPin = localStorage.getItem('alajwanah_section_pin') || '1234';
@@ -1997,12 +1997,14 @@
       document.getElementById('libraryBookForm').classList.add('hidden');
     }
 
-    function loginAdmin() {
-      const user = document.getElementById('adminUserInput').value;
-      const pass = document.getElementById('adminPassInput').value;
-      const alertBox = document.getElementById('adminAlertBox');
+function loginAdmin() {
+    const userEmail = document.getElementById('adminUserInput').value;
+    const pass = document.getElementById('adminPassInput').value;
+    const alertBox = document.getElementById('adminAlertBox');
 
-      if (user === adminCredentials.user && pass === adminCredentials.pass) {
+    // استخدام مصادقة فايربيس المتوافقة مع HTML
+    firebase.auth().signInWithEmailAndPassword(userEmail, pass)
+      .then((userCredential) => {
         isAdminLoggedIn = true;
         alertBox.classList.add('hidden');
         document.getElementById('adminLoginForm').classList.add('hidden');
@@ -2010,11 +2012,12 @@
         document.getElementById('newSectionPinInput').value = activeSectionPin;
         document.getElementById('onedriveFolderUrlInput').value = onedriveFolderUrl;
         showToast('⚙️ مرحبًا بك في لوحة التحكم');
-      } else {
-        alertBox.innerText = '⚠️ خطأ: اسم المستخدم أو كلمة المرور غير صحيحة!';
+      })
+      .catch((error) => {
+        alertBox.innerText = '⚠️ خطأ: البريد أو كلمة المرور غير صحيحة!';
         alertBox.classList.remove('hidden');
-      }
-    }
+      });
+  }
 
     function logoutAdmin() {
       isAdminLoggedIn = false;
