@@ -187,10 +187,23 @@
 
     .glowing-box { background: var(--bg-glass); border: 2px solid var(--accent); box-shadow: 0 0 25px var(--glow-color); }
 
-    .single-floating-moon { position: relative; width: 180px; height: 180px; border-radius: 50%; display: flex; align-items: center; justify-content: center; animation: moonFloatSpin 8s ease-in-out infinite; transition: all 0.4s ease; }
+    .single-floating-moon {
+      position: relative;
+      width: 175px;
+      height: 175px;
+      border-radius: 50%;
+      background-color: #070910;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: moonFloatSpin 8s ease-in-out infinite;
+      transition: all 0.4s ease;
+    }
     @keyframes moonFloatSpin {
-      0%, 100% { transform: translateY(0) rotate(0deg); }
-      50% { transform: translateY(-14px) rotate(4deg); }
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
     }
 
     .juz-glass-card { background: var(--bg-glass); backdrop-filter: blur(12px); border: 1px solid var(--bg-glass-border); border-radius: 1rem; padding: 0.85rem; display: flex; flex-direction: column; align-items: center; justify-content: space-between; gap: 0.5rem; transition: all 0.3s ease; }
@@ -217,6 +230,27 @@
     .mobile-menu-drawer.active { right: 0; }
     .mobile-menu-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); z-index: 90; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
     .mobile-menu-overlay.active { opacity: 1; visibility: visible; }
+
+    .whatsapp-float {
+      position: fixed;
+      bottom: 24px;
+      left: 24px;
+      width: 58px;
+      height: 58px;
+      background-color: #25d366;
+      color: #ffffff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(37, 211, 102, 0.45);
+      z-index: 45;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .whatsapp-float:hover {
+      transform: scale(1.1) translateY(-3px);
+      box-shadow: 0 8px 25px rgba(37, 211, 102, 0.65);
+    }
   </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-purple-500 selection:text-white">
@@ -245,10 +279,7 @@
         <a href="#reflections" class="hover:text-[var(--accent)] transition-colors py-1">تأملاتي</a>
         <a href="#cv" class="text-white hover:text-[var(--accent)] transition-colors py-1">سيرتي</a>
         <a href="#planner" class="hover:text-[var(--accent)] transition-colors py-1">مقرراتي</a>
-        <a href="#achievements" class="hover:text-[var(--accent)] transition-colors py-1">إنجازاتي</a>
-        <a href="#creative" class="hover:text-[var(--accent)] transition-colors py-1">مدونتي</a>
-        <a href="#library" class="hover:text-[var(--accent)] transition-colors py-1">مكتبتي</a>
-        <a href="#gallery" class="hover:text-[var(--accent)] transition-colors py-1">بكسلاتي</a>
+        <a href="#onedrive-section" class="hover:text-[var(--accent)] transition-colors py-1">حكاياتي</a>
       </nav>
 
       <!-- Action Control Buttons -->
@@ -258,7 +289,7 @@
         </button>
 
         <button id="adminModalBtn" class="hidden sm:flex px-3.5 py-2 rounded-xl text-white font-bold text-xs hover:opacity-90 transition-all shadow-md items-center gap-1" style="background: var(--accent);">
-          <span>⚙️</span> <span class="hidden md:inline">لوحة التحكم</span>
+          <span>⚙️</span> <span class="hidden md:inline">بوابتي</span>
         </button>
 
         <button id="burgerMenuBtn" class="lg:hidden p-2.5 rounded-xl border border-gray-700 bg-slate-900/60 text-main hover:border-[var(--accent)] transition-all flex flex-col justify-center gap-1.5 w-11 h-11 items-center" aria-label="القائمة">
@@ -289,17 +320,14 @@
       <a href="#reflections" onclick="toggleMobileMenu()" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-900/60 hover:text-[var(--accent)] transition-colors border border-transparent hover:border-gray-800"><span>✨</span> تأملاتي</a>
       <a href="#cv" onclick="toggleMobileMenu()" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-900/60 hover:text-[var(--accent)] transition-colors border border-transparent hover:border-gray-800"><span>📜</span> سيرتي</a>
       <a href="#planner" onclick="toggleMobileMenu()" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-900/60 hover:text-[var(--accent)] transition-colors border border-transparent hover:border-gray-800"><span>📚</span> مقرراتي</a>
-      <a href="#achievements" onclick="toggleMobileMenu()" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-900/60 hover:text-[var(--accent)] transition-colors border border-transparent hover:border-gray-800"><span>🏆</span> إنجازاتي</a>
-      <a href="#creative" onclick="toggleMobileMenu()" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-900/60 hover:text-[var(--accent)] transition-colors border border-transparent hover:border-gray-800"><span>✧</span> مدونتي</a>
-      <a href="#library" onclick="toggleMobileMenu()" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-900/60 hover:text-[var(--accent)] transition-colors border border-transparent hover:border-gray-800"><span>📖</span> مكتبتي</a>
-      <a href="#gallery" onclick="toggleMobileMenu()" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-900/60 hover:text-[var(--accent)] transition-colors border border-transparent hover:border-gray-800"><span>🖼️</span> بكسلاتي</a>
+      <a href="#onedrive-section" onclick="toggleMobileMenu()" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-900/60 hover:text-[var(--accent)] transition-colors border border-transparent hover:border-gray-800"><span>🔖</span> حكاياتي</a>
 
       <div class="border-t border-gray-800 my-3 pt-3 flex flex-col gap-2">
         <button onclick="toggleMobileMenu(); document.getElementById('themeModalBtn').click();" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-900/60 text-[var(--accent)] transition-colors border border-gray-800 bg-slate-900/40 text-right w-full font-bold">
           <span>🎨</span> <span>المظهر</span>
         </button>
         <button onclick="toggleMobileMenu(); document.getElementById('adminModalBtn').click();" class="flex items-center gap-3 p-3 rounded-xl text-white transition-all shadow-md text-right w-full font-bold" style="background: var(--accent);">
-          <span>⚙️</span> <span>لوحة التحكم</span>
+          <span>⚙️</span> <span>بوابتي</span>
         </button>
       </div>
     </div>
@@ -325,7 +353,7 @@
             أهلًا بكم في <span class="clean-moon-text">ملاذ القمر</span>🌙
           </h1>
           <h2 class="hero-title-sub text-xl sm:text-2xl lg:text-3xl font-bold">
-            وهنا تبدأ حكايتي
+            وهنا تبدأ حكايتي ...
           </h2>
         </div>
         
@@ -360,16 +388,16 @@
           <a href="#cv" class="orbit-star" style="top: 50%; right: -2%;">
             <span>📜</span> <div class="star-tooltip">سيرتي</div>
           </a>
-          <a href="#achievements" class="orbit-star" style="bottom: 12%; right: 8%;">
+          <a href="#onedrive-section" class="orbit-star" style="bottom: 12%; right: 8%;">
             <span>🏆</span> <div class="star-tooltip">إنجازاتي</div>
           </a>
-          <a href="#creative" class="orbit-star" style="bottom: 2%; left: 45%; transform: translateX(-50%);">
+          <a href="#onedrive-section" class="orbit-star" style="bottom: 2%; left: 45%; transform: translateX(-50%);">
             <span>✧</span> <div class="star-tooltip">مدونتي</div>
           </a>
           <a href="#planner" class="orbit-star" style="bottom: 22%; left: 4%;">
             <span>📚</span> <div class="star-tooltip">مقرراتي</div>
           </a>
-          <a href="#library" class="orbit-star" style="top: 22%; left: 8%;">
+          <a href="#onedrive-section" class="orbit-star" style="top: 22%; left: 8%;">
             <span>📖</span> <div class="star-tooltip">المكتبة</div>
           </a>
         </div>
@@ -518,7 +546,7 @@
     <section id="reflections" class="space-y-8 scroll-mt-24">
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-gray-800 pb-4">
         <div><h2 class="text-3xl font-bold mt-1">تأملاتي في رحاب الآيات</h2></div>
-        <div class="text-xs text-amber-400 font-semibold" id="currentMoonPhaseLabel">...</div>
+        <div class="text-xs text-slate-200 font-semibold" id="currentMoonPhaseLabel">...</div>
       </div>
 
       <div class="glass-card p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-8 glowing-box">
@@ -528,9 +556,9 @@
 
         <div class="flex-1 space-y-5 text-center md:text-right border-t md:border-t-0 md:border-r border-gray-800 pt-6 md:pt-0 md:pr-8">
           <div class="inline-flex">
-            <span class="px-3 py-1 rounded-full bg-amber-500/10 text-amber-300 text-xs font-bold border border-amber-500/30" id="todayReflectionDate">...</span>
+            <span class="px-3 py-1 rounded-full bg-slate-800/80 text-white text-xs font-bold border border-white/20" id="todayReflectionDate">...</span>
           </div>
-          <div class="text-base sm:text-xl font-bold text-amber-200 leading-relaxed" id="todayReflectionAyahAndSurah"></div>
+          <div class="text-base sm:text-xl font-bold text-slate-100 leading-relaxed" id="todayReflectionAyahAndSurah"></div>
           <div><span class="px-3 py-1 rounded-full bg-[var(--bg-glass)] text-[var(--accent)] text-xs font-bold border border-[var(--bg-glass-border)]" id="todayReflectionTitle">...</span></div>
           <p class="text-xs text-sub leading-relaxed sm:text-sm" id="todayReflectionDesc">...</p>
           <div class="pt-4 border-t border-gray-800 text-left">
@@ -615,7 +643,7 @@
               <div class="w-14 h-14 rounded-2xl bg-[var(--bg-secondary)] border border-[var(--bg-glass-border)] shadow-md flex items-center justify-center text-2xl flex-shrink-0 group-hover:scale-110 transition-transform text-sky-400">💬</div>
               <div>
                 <h4 class="font-bold text-base text-main">الكلم الطيب</h4>
-                <p class="text-xs text-sub mt-1">«الكلم الطيب يرفع صاحبه إلى أعلى درجات القرب، فالذكر للقلب مثل الماء للسمك..»</p>
+                <p class="text-xs text-sub mt-1">«الكلم الطيب يرفع صاحبه إلى أعلى درجات القرب، فالذكر للقلب مثل الماء للحياة..»</p>
               </div>
             </div>
             <span class="px-5 py-2.5 rounded-xl bg-slate-900/60 border border-gray-700 text-xs font-bold text-main group-hover:bg-[var(--accent)] group-hover:text-white transition-all whitespace-nowrap">زيارة موسوعة الكلم الطيب</span>
@@ -624,117 +652,26 @@
       </div>
     </section>
 
-    <!-- 5. ACHIEVEMENTS SECTION -->
-    <section id="achievements" class="space-y-8 scroll-mt-24">
-      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-gray-800 pb-4">
-        <div><h2 class="text-3xl font-bold mt-1">إنجازاتي</h2></div>
-        <button onclick="promptPassAndOpen('achievement')" class="px-4 py-2 rounded-xl bg-slate-900/60 border border-gray-700 text-xs font-bold hover:border-[var(--accent)] transition-all">
-          ＋ المزيد ...
-        </button>
-      </div>
-
-      <div id="achievementsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-
-      <form id="achievementForm" class="hidden glass-card p-6 space-y-4 border-[var(--bg-glass-border)]">
-        <h3 id="achFormTitle" class="font-bold text-base">توثيق إنجاز جديد</h3>
-        <input type="hidden" id="achEditId">
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <input type="text" id="achTitleInput" required placeholder="عنوان الإنجاز..." class="px-3 py-2 rounded-lg bg-slate-900/80 border border-gray-800 text-sm">
-          <select id="achCategoryInput" class="px-3 py-2 rounded-lg bg-slate-900/80 border border-gray-800 text-sm">
-            <option value="مشروع مدرسي">مشروع مدرسي</option>
-            <option value="شهادة تفوق">شهادة تفوق</option>
-            <option value="مهارة جديدة">مهارة جديدة</option>
-            <option value="لحظة فخر">لحظة فخر</option>
-          </select>
-        </div>
-        <textarea id="achDescInput" rows="3" maxlength="150" required placeholder="تفاصيل الإنجاز (حد أقصى 150 حرف)..." class="w-full px-3 py-2 rounded-lg bg-slate-900/80 border border-gray-800 text-sm"></textarea>
-        <input type="url" id="achLinkInput" placeholder="رابط تفاصيل الإنجاز (اختياري)..." class="w-full px-3 py-2 rounded-lg bg-slate-900/80 border border-gray-800 text-sm">
-        
-        <div class="flex gap-2">
-          <button type="submit" class="px-6 py-2 rounded-lg text-white font-bold text-sm" style="background: var(--accent);">حفظ الإنجاز</button>
-          <button type="button" onclick="cancelAchForm()" class="px-4 py-2 rounded-lg bg-slate-800 text-sub text-sm">إلغاء</button>
-        </div>
-      </form>
-    </section>
-
-    <!-- 6. CREATIVE SPACE SECTION (BLOG) -->
-    <section id="creative" class="space-y-8 scroll-mt-24">
-      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-gray-800 pb-4">
-        <div><h2 class="text-3xl font-bold mt-1">مدونتي</h2></div>
-        <button onclick="promptPassAndOpen('blog')" class="px-4 py-2 rounded-xl bg-slate-900/60 border border-gray-700 text-xs font-bold hover:border-[var(--accent)] transition-all">
-          ＋ المزيد ...
-        </button>
-      </div>
-
-      <form id="creativeBlogForm" class="hidden glass-card p-6 space-y-4 border-[var(--bg-glass-border)]">
-        <h3 id="blogFormTitle" class="font-bold text-base">تدوين مدونة جديدة</h3>
-        <input type="hidden" id="blogEditId">
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <input type="text" id="blogTitleInput" required placeholder="عنوان المدونة..." class="px-3 py-2 rounded-lg bg-slate-900/80 border border-gray-800 text-sm">
-          <select id="blogCategoryInput" class="px-3 py-2 rounded-lg bg-slate-900/80 border border-gray-800 text-sm">
-            <option value="فكرة">فكرة</option>
-            <option value="خاطرة">خاطرة</option>
-            <option value="صورة معبرة">صورة معبرة</option>
-          </select>
-        </div>
-        <textarea id="blogDescInput" rows="4" maxlength="700" required placeholder="تفاصيل المدونة (حد أقصى 700 حرف)..." class="w-full px-3 py-2 rounded-lg bg-slate-900/80 border border-gray-800 text-sm"></textarea>
-        <input type="url" id="blogLinkInput" placeholder="رابط المدونة أو المرفق (اختياري)..." class="w-full px-3 py-2 rounded-lg bg-slate-900/80 border border-gray-800 text-sm">
-        
-        <div class="flex gap-2">
-          <button type="submit" class="px-6 py-2 rounded-lg text-white font-bold text-sm" style="background: var(--accent);">حفظ المدونة</button>
-          <button type="button" onclick="cancelBlogForm()" class="px-4 py-2 rounded-lg bg-slate-800 text-sub text-sm">إلغاء</button>
-        </div>
-      </form>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="ideasContainer"></div>
-    </section>
-
-    <!-- 7. PERSONAL LIBRARY SECTION -->
-    <section id="library" class="space-y-8 scroll-mt-24">
-      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-gray-800 pb-4">
-        <div><h2 class="text-3xl font-bold mt-1">مكتبتي</h2></div>
-        <button onclick="promptPassAndOpen('library')" class="px-4 py-2 rounded-xl bg-slate-900/60 border border-gray-700 text-xs font-bold hover:border-[var(--accent)] transition-all">
-          ＋ المزيد ...
-        </button>
-      </div>
-
-      <form id="libraryBookForm" class="hidden glass-card p-6 space-y-4 border-[var(--bg-glass-border)]">
-        <h3 id="bookFormTitle" class="font-bold text-base">إضافة كتاب جديد</h3>
-        <input type="hidden" id="bookEditId">
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <input type="text" id="bookTitleInput" required placeholder="عنوان الكتاب..." class="px-3 py-2 rounded-lg bg-slate-900/80 border border-gray-800 text-sm">
-          <select id="bookCategoryInput" class="px-3 py-2 rounded-lg bg-slate-900/80 border border-gray-800 text-sm">
-            <option value="ديني">ديني</option>
-            <option value="ثقافي">ثقافي</option>
-            <option value="تاريخي">تاريخي</option>
-            <option value="رواية">رواية</option>
-            <option value="علمي">علمي</option>
-          </select>
-        </div>
-        <textarea id="bookDescInput" rows="4" maxlength="700" required placeholder="تفاصيل الكتاب والفوائد (حد أقصى 700 حرف)..." class="w-full px-3 py-2 rounded-lg bg-slate-900/80 border border-gray-800 text-sm"></textarea>
-        <input type="url" id="bookLinkInput" placeholder="رابط التحميل أو تفاصيل الكتاب (اختياري)..." class="w-full px-3 py-2 rounded-lg bg-slate-900/80 border border-gray-800 text-sm">
-        
-        <div class="flex gap-2">
-          <button type="submit" class="px-6 py-2 rounded-lg text-white font-bold text-sm" style="background: var(--accent);">حفظ الكتاب</button>
-          <button type="button" onclick="cancelBookForm()" class="px-4 py-2 rounded-lg bg-slate-800 text-sub text-sm">إلغاء</button>
-        </div>
-      </form>
-
-      <div id="libraryContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
-    </section>
-
-    <!-- 8. PIXEL STUDIO SECTION -->
-    <section id="gallery" class="space-y-8 scroll-mt-24">
+    <!-- ONEDRIVE ADJACENT BOXES -->
+    <section id="onedrive-section" class="space-y-8 scroll-mt-24">
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-gray-800 pb-4">
         <div>
-          <h2 class="text-3xl font-bold mt-1">بكسلاتي 🖼️</h2>
+          <h2 class="text-3xl font-bold mt-1">حكاياتي 🔖</h2>
+          <p class="text-xs text-sub mt-1">انقر على أي قسم للانتقال الفوري إلى فصل من حكاياتي</p>
         </div>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="photoStudioGrid"></div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="onedriveBoxesGrid"></div>
     </section>
 
   </main>
+
+  <!-- Floating WhatsApp Icon -->
+  <a href="https://wa.me/966565588869" target="_blank" rel="noopener noreferrer" class="whatsapp-float" title="تواصل عبر واتساب" aria-label="واتساب">
+    <svg viewBox="0 0 32 32" width="32" height="32" fill="currentColor">
+      <path d="M16.004 3.2c-7.06 0-12.8 5.74-12.8 12.8 0 2.256.588 4.458 1.708 6.4L3.2 28.8l6.586-1.728c1.868 1.018 3.972 1.556 6.218 1.556h.006c7.058 0 12.796-5.74 12.796-12.8 0-3.42-1.332-6.636-3.75-9.054C22.638 4.534 19.422 3.2 16.004 3.2zm0 23.43h-.004c-1.91 0-3.784-.514-5.418-1.484l-.388-.23-3.908 1.026 1.044-3.81-.252-.402c-1.064-1.694-1.626-3.652-1.626-5.67 0-5.868 4.774-10.642 10.646-10.642 2.842 0 5.514 1.108 7.524 3.118 2.01 2.01 3.116 4.682 3.116 7.526-.002 5.87-4.776 10.642-10.634 10.642zm5.836-7.97c-.32-.16-1.894-.934-2.188-1.042-.294-.106-.508-.16-.722.16-.214.32-.828 1.042-1.014 1.256-.186.214-.374.24-.694.08-.32-.16-1.352-.498-2.574-1.588-.952-.848-1.594-1.896-1.78-2.216-.186-.32-.02-.494.14-.654.144-.144.32-.374.48-.56.16-.186.214-.32.32-.534.106-.214.054-.4-.026-.56-.08-.16-.722-1.738-.988-2.38-.26-.624-.524-.54-.722-.55-.186-.01-.4-.01-.614-.01s-.56.08-.854.4c-.294.32-1.122 1.096-1.122 2.672s1.148 3.1 1.308 3.314c.16.214 2.26 3.45 5.474 4.838.764.33 1.36.528 1.826.676.768.244 1.466.21 2.018.128.616-.092 1.894-.774 2.16-1.522.266-.748.266-1.39.186-1.522-.08-.134-.294-.214-.614-.374z"/>
+    </svg>
+  </a>
 
   <!-- CV MODAL POPUP -->
   <div id="cvModal" class="modal fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md">
@@ -758,38 +695,24 @@
     </div>
   </div>
 
-  <!-- PASSWORD PROMPT MODAL -->
-  <div id="passwordPromptModal" class="modal fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md">
-    <div class="glass-card w-full max-w-md p-6 space-y-4 text-center">
-      <h3 class="text-lg font-bold text-main">الرقم السري المطلوب 🔒</h3>
-      <p class="text-xs text-sub">يرجى إدخال الرقم السري المعتمد من لوحة التحكم:</p>
-      <input type="password" id="sectionPassInput" placeholder="أدخل الرقم السري..." class="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-gray-700 text-center text-lg outline-none focus:border-[var(--accent)]">
-      <div id="passAlertBox" class="hidden glass-alert-box text-center">خطأ: الرقم السري غير صحيح!</div>
-      <div class="flex justify-center gap-3 pt-2">
-        <button onclick="verifySectionPassword()" class="px-6 py-2 rounded-xl text-white font-bold text-sm" style="background: var(--accent);">تأكيد</button>
-        <button onclick="closePasswordPrompt()" class="px-4 py-2 rounded-xl bg-slate-800 text-sub text-sm">إلغاء</button>
-      </div>
-    </div>
-  </div>
-
   <!-- ADMIN DASHBOARD MODAL -->
   <div id="adminModal" class="modal fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md">
     <div class="glass-card w-full max-w-2xl p-6 space-y-6 max-h-[90vh] overflow-y-auto">
       <div class="flex items-center justify-between border-b border-gray-800 pb-4">
-        <h3 class="text-xl font-bold flex items-center gap-2"><span>⚙️</span> <span>لوحة التحكم والإدارة الإدارية</span></h3>
+        <h3 class="text-xl font-bold flex items-center gap-2"><span>⚙️</span> <span>بوابتي</span></h3>
         <button class="closeModalBtn text-gray-400 hover:text-white text-xl">✕</button>
       </div>
 
       <!-- Login Form View -->
       <div id="adminLoginForm" class="space-y-4">
-        <p class="text-xs text-sub">يرجى تسجيل الدخول للوصول لإعدادات الأمان وإدارة المواد:</p>
+        <p class="text-xs text-sub">يرجى تسجيل الدخول للوصول للإعدادات:</p>
         <div>
-          <label class="block text-xs font-bold text-sub mb-1">اسم المستخدم</label>
-          <input type="text" id="adminUserInput" placeholder="admin" class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm">
+          <label class="block text-xs font-bold text-sub mb-1">اسم المستخدم (البريد الإلكتروني)</label>
+          <input type="email" id="adminUserInput" placeholder="admin@alajwanah.sa" class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm text-main">
         </div>
         <div>
           <label class="block text-xs font-bold text-sub mb-1">كلمة المرور</label>
-          <input type="password" id="adminPassInput" placeholder="123456" class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm">
+          <input type="password" id="adminPassInput" placeholder="********" class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm text-main">
         </div>
         <div id="adminAlertBox" class="hidden glass-alert-box text-center">خطأ: اسم المستخدم أو كلمة المرور غير صحيحة!</div>
         <button onclick="loginAdmin()" class="w-full py-2.5 rounded-xl text-white font-bold text-sm" style="background: var(--accent);">تسجيل الدخول</button>
@@ -801,21 +724,35 @@
           ✓ تم تسجيل الدخول بنجاح كمسؤول بالنظام.
         </div>
 
-        <div class="space-y-3">
-          <h4 class="font-bold text-sm text-amber-300">تغيير الرقم السري (للإضافة، التعديل، الحذف):</h4>
-          <input type="text" id="newSectionPinInput" placeholder="الرقم السري الجديد..." class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm">
-          <button onclick="updateSectionPin()" class="px-4 py-2 rounded-lg bg-amber-500 text-slate-950 font-bold text-xs">تحديث الرقم السري</button>
+        <!-- OneDrive Links Section -->
+        <div class="space-y-4 border-t border-gray-800 pt-4">
+          <h4 class="font-bold text-sm text-[var(--accent)]">إدارة روابط حكاياتي (إنجازاتي - مدونتي - مكتبتي - بكسلاتي):</h4>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-bold text-sub mb-1">🏆 رابط إنجازاتي:</label>
+              <input type="url" id="onedriveAchLink" placeholder="https://..." class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm text-main">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-sub mb-1">✧ رابط مدونتي:</label>
+              <input type="url" id="onedriveBlogLink" placeholder="https://..." class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm text-main">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-sub mb-1">📖 رابط مكتبتي:</label>
+              <input type="url" id="onedriveLibLink" placeholder="https://..." class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm text-main">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-sub mb-1">🖼️ رابط بكسلاتي:</label>
+              <input type="url" id="onedrivePixLink" placeholder="https://..." class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm text-main">
+            </div>
+          </div>
+          <button onclick="saveOneDriveLinks()" class="px-4 py-2 rounded-lg font-bold text-xs text-white" style="background: var(--accent);">حفظ روابط حكاياتي</button>
         </div>
 
-        <div class="space-y-3 border-t border-gray-800 pt-4">
-          <h4 class="font-bold text-sm text-sky-300">روابط صور بكسلاتي (افصل بين الروابط بفاصلة ,):</h4>
-          <textarea id="galleryLinksInput" rows="3" placeholder="https://image1.jpg, https://image2.jpg..." class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm text-main"></textarea>
-          <button onclick="saveGalleryLinks()" class="px-4 py-2 rounded-lg bg-sky-500 text-slate-950 font-bold text-xs">حفظ وعرض الصور فوراً</button>
-        </div>
-
-        <div class="space-y-3 border-t border-gray-800 pt-4">
-          <h4 class="font-bold text-sm text-emerald-300">إدارة روابط مقرراتي الدراسية (ثمان مواد):</h4>
-          <div id="adminCoursesManageList" class="space-y-3 max-h-60 overflow-y-auto"></div>
+        <!-- Courses Links Section -->
+        <div class="space-y-4 border-t border-gray-800 pt-4">
+          <h4 class="font-bold text-sm text-[var(--accent)]">إدارة روابط مقرراتي 1448هـ:</h4>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="adminCoursesInputs"></div>
+          <button onclick="saveCoursesLinks()" class="px-4 py-2 rounded-lg font-bold text-xs text-white" style="background: var(--accent);">حفظ روابط المقررات</button>
         </div>
 
         <div class="border-t border-gray-800 pt-4 flex justify-between items-center">
@@ -840,6 +777,90 @@
       <p class="text-sub">بيشة - المملكة العربية السعودية</p>
     </div>
   </footer>
+
+  <!-- FIREBASE INTEGRATION & JAVASCRIPT LOGIC -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, doc, getDoc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDs60FnOxeou_6xCOekRbk3pb_sYzxIBW8",
+      authDomain: "alajwanah-f8bc6.firebaseapp.com",
+      databaseURL: "https://alajwanah-f8bc6-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "alajwanah-f8bc6",
+      storageBucket: "alajwanah-f8bc6.firebasestorage.app",
+      messagingSenderId: "503796969729",
+      appId: "1:503796969729:web:4e6288050034a7743aab00"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const docRef = doc(db, "settings", "mainData");
+
+    window.oneDriveLinks = {
+      achievements: "https://onedrive.live.com/",
+      blog: "https://onedrive.live.com/",
+      library: "https://onedrive.live.com/",
+      gallery: "https://onedrive.live.com/"
+    };
+
+    window.appData = {
+      courses: [
+        { id: 1, title: "القرآن الكريم وعلومـه", desc: "ملفات الحفظ والتلاوة والتجويد", icon: "📖", link: "#" },
+        { id: 2, title: "التربية الإسلامية", desc: "التفسير والحديث والفقه والتوحيد", icon: "💡", link: "#" },
+        { id: 3, title: "لغتي الخالدة", desc: "النصوص والنحو والإنشاء", icon: "✍️", link: "#" },
+        { id: 4, title: "الرياضيات", desc: "التمارين والواجبات والمذكرات", icon: "📐", link: "#" },
+        { id: 5, title: "العلوم", desc: "التجارب والبحوث وملخصات الفصول", icon: "🔬", link: "#" },
+        { id: 6, title: "اللغة الإنجليزية", desc: "المفردات والقواعد وأوراق العمل", icon: "🗣️", link: "#" },
+        { id: 7, title: "الدراسات الاجتماعية", desc: "الخرائط والدرس والخرائط الذهنية", icon: "🌍", link: "#" },
+        { id: 8, title: "المهارات الرقمية", desc: "مشاريع الحاسب وتطبيقات البرمجة", icon: "💻", link: "#" }
+      ]
+    };
+
+    // Real-time synchronization with Firestore
+    onSnapshot(docRef, (docSnap) => {
+      if (docSnap.exists()) {
+        const remoteData = docSnap.data();
+        if (remoteData.onedrive) window.oneDriveLinks = remoteData.onedrive;
+        if (remoteData.courses) window.appData.courses = remoteData.courses;
+        if (typeof renderAll === 'function') renderAll();
+      } else {
+        setDoc(docRef, {
+          adminUser: "admin@alajwanah.sa",
+          adminPass: "Ajwan@1448!",
+          onedrive: window.oneDriveLinks,
+          courses: window.appData.courses
+        });
+      }
+    });
+
+    window.verifyFirebaseLogin = async function(email, pass) {
+      try {
+        const snap = await getDoc(docRef);
+        if (snap.exists()) {
+          const data = snap.data();
+          return email === data.adminUser && pass === data.adminPass;
+        }
+      } catch (e) {
+        console.error("خطأ في الاتصال بقاعدة البيانات", e);
+      }
+      return false;
+    };
+
+    window.saveToFirebase = async function(newOnedrive, newCourses) {
+      try {
+        await setDoc(docRef, {
+          adminUser: "admin@alajwanah.sa",
+          adminPass: "Ajwan@1448!",
+          onedrive: newOnedrive,
+          courses: newCourses
+        }, { merge: true });
+        if (typeof showToast === 'function') showToast('✓ تم الحفظ والمزامنة سحابياً بنجاح!');
+      } catch (e) {
+        if (typeof showToast === 'function') showToast('❌ حدث خطأ أثناء الحفظ السحابي');
+      }
+    };
+  </script>
 
   <!-- JAVASCRIPT LOGIC -->
   <script>
@@ -1026,76 +1047,64 @@
       4: ["آل عمران", "النساء"], 3: ["البقرة", "آل عمران"], 2: ["البقرة"], 1: ["الفاتحة", "البقرة"]
     };
 
-    const MOON_PHASES_TABLE = {
-      1: { name: "الهلال المتزايد 🌒", grad: "radial-gradient(circle at 85% 50%, #fef3c7 0%, #f59e0b 20%, #0d111e 70%)" },
-      2: { name: "الهلال المتزايد 🌒", grad: "radial-gradient(circle at 80% 50%, #fef3c7 0%, #f59e0b 22%, #0d111e 70%)" },
-      3: { name: "الهلال المتزايد 🌒", grad: "radial-gradient(circle at 75% 50%, #fef3c7 0%, #f59e0b 25%, #0d111e 70%)" },
-      4: { name: "الهلال المتزايد 🌒", grad: "radial-gradient(circle at 70% 50%, #fef3c7 0%, #f59e0b 28%, #0d111e 75%)" },
-      5: { name: "الهلال المتزايد 🌒", grad: "radial-gradient(circle at 65% 50%, #fef3c7 0%, #f59e0b 32%, #0d111e 75%)" },
-      6: { name: "التربيع الأول 🌓", grad: "linear-gradient(90deg, #fef3c7 50%, #0d111e 50%)" },
-      7: { name: "الأحدب المتزايد 🌔", grad: "radial-gradient(circle at 45% 50%, #fef3c7 0%, #f59e0b 55%, #0d111e 85%)" },
-      8: { name: "الأحدب المتزايد 🌔", grad: "radial-gradient(circle at 40% 50%, #fef3c7 0%, #f59e0b 60%, #0d111e 85%)" },
-      9: { name: "الأحدب المتزايد 🌔", grad: "radial-gradient(circle at 35% 50%, #fef3c7 0%, #f59e0b 65%, #0d111e 90%)" },
-      10: { name: "الأحدب المتزايد 🌔", grad: "radial-gradient(circle at 30% 50%, #fef3c7 0%, #f59e0b 70%, #0d111e 90%)" },
-      11: { name: "الأحدب المتزايد 🌔", grad: "radial-gradient(circle at 25% 50%, #fef3c7 0%, #f59e0b 75%, #0d111e 95%)" },
-      12: { name: "الأحدب المتزايد 🌔", grad: "radial-gradient(circle at 20% 50%, #fef3c7 0%, #f59e0b 80%, #0d111e 95%)" },
-      13: { name: "الأحدب المتزايد 🌔", grad: "radial-gradient(circle at 15% 50%, #fef3c7 0%, #f59e0b 85%, #0d111e 98%)" },
-      14: { name: "البدر 🌕", grad: "radial-gradient(circle at 50% 50%, #fffbeb 0%, #fde68a 50%, #d97706 100%)" },
-      15: { name: "البدر 🌕", grad: "radial-gradient(circle at 50% 50%, #fffbeb 0%, #fde68a 50%, #d97706 100%)" },
-      16: { name: "الأحدب المتناقص 🌖", grad: "radial-gradient(circle at 85% 50%, #0d111e 0%, #f59e0b 20%, #fef3c7 85%)" },
-      17: { name: "الأحدب المتناقص 🌖", grad: "radial-gradient(circle at 80% 50%, #0d111e 0%, #f59e0b 25%, #fef3c7 80%)" },
-      18: { name: "الأحدب المتناقص 🌖", grad: "radial-gradient(circle at 75% 50%, #0d111e 0%, #f59e0b 30%, #fef3c7 75%)" },
-      19: { name: "الأحدب المتناقص 🌖", grad: "radial-gradient(circle at 70% 50%, #0d111e 0%, #f59e0b 35%, #fef3c7 70%)" },
-      20: { name: "الأحدب المتناقص 🌖", grad: "radial-gradient(circle at 65% 50%, #0d111e 0%, #f59e0b 40%, #fef3c7 65%)" },
-      21: { name: "التربيع الأخير 🌗", grad: "linear-gradient(270deg, #fef3c7 50%, #0d111e 50%)" },
-      22: { name: "الهلال المتناقص 🌘", grad: "radial-gradient(circle at 35% 50%, #fef3c7 0%, #f59e0b 25%, #0d111e 70%)" },
-      23: { name: "الهلال المتناقص 🌘", grad: "radial-gradient(circle at 30% 50%, #fef3c7 0%, #f59e0b 22%, #0d111e 70%)" },
-      24: { name: "الهلال المتناقص 🌘", grad: "radial-gradient(circle at 25% 50%, #fef3c7 0%, #f59e0b 20%, #0d111e 75%)" },
-      25: { name: "الهلال المتناقص 🌘", grad: "radial-gradient(circle at 20% 50%, #fef3c7 0%, #f59e0b 18%, #0d111e 75%)" },
-      26: { name: "الهلال المتناقص 🌘", grad: "radial-gradient(circle at 15% 50%, #fef3c7 0%, #f59e0b 15%, #0d111e 80%)" },
-      27: { name: "الهلال المتناقص 🌘", grad: "radial-gradient(circle at 12% 50%, #fef3c7 0%, #f59e0b 12%, #0d111e 85%)" },
-      28: { name: "الهلال المتناقص 🌘", grad: "radial-gradient(circle at 10% 50%, #fef3c7 0%, #f59e0b 10%, #0d111e 90%)" },
-      29: { name: "المحاق 🌑", grad: "radial-gradient(circle at 50% 50%, #171d31 0%, #0d111e 100%)" },
-      30: { name: "المحاق 🌑", grad: "radial-gradient(circle at 50% 50%, #171d31 0%, #0d111e 100%)" }
-    };
+    function getRealisticMoonPhase(day) {
+      const phaseAngle = ((day - 1) / 29.53) * 2 * Math.PI;
+      const illumination = (1 - Math.cos(phaseAngle)) / 2;
+      const isWaxing = day <= 15;
 
-    const DEFAULT_COURSES = [
-      { id: 1, title: "القرآن الكريم وعلومـه", desc: "ملفات الحفظ والتلاوة والتجويد", icon: "📖", link: "#" },
-      { id: 2, title: "التربية الإسلامية", desc: "التفسير والحديث والفقه والتوحيد", icon: "💡", link: "#" },
-      { id: 3, title: "لغتي الخالدة", desc: "النصوص والنحو والإنشاء", icon: "✍️", link: "#" },
-      { id: 4, title: "الرياضيات", desc: "التمارين والواجبات والمذكرات", icon: "📐", link: "#" },
-      { id: 5, title: "العلوم", desc: "التجارب والبحوث وملخصات الفصول", icon: "🔬", link: "#" },
-      { id: 6, title: "اللغة الإنجليزية", desc: "المفردات والقواعد وأوراق العمل", icon: "🗣️", link: "#" },
-      { id: 7, title: "الدراسات الاجتماعية", desc: "الخرائط والدروس والخرائط الذهنية", icon: "🌍", link: "#" },
-      { id: 8, title: "المهارات الرقمية", desc: "مشاريع الحاسب وتطبيقات البرمجة", icon: "💻", link: "#" }
-    ];
+      let phaseName = "";
+      if (day === 1 || day >= 29) phaseName = "المحاق 🌑";
+      else if (day >= 2 && day <= 6) phaseName = "الهلال المتزايد 🌒";
+      else if (day >= 7 && day <= 8) phaseName = "التربيع الأول 🌓";
+      else if (day >= 9 && day <= 13) phaseName = "الأحدب المتزايد 🌔";
+      else if (day >= 14 && day <= 16) phaseName = "البدر 🌕";
+      else if (day >= 17 && day <= 21) phaseName = "الأحدب المتناقص 🌖";
+      else if (day >= 22 && day <= 23) phaseName = "التربيع الأخير 🌗";
+      else phaseName = "الهلال المتناقص 🌘";
 
-    let activeSectionPin = localStorage.getItem('alajwanah_section_pin') || '1234';
-    let galleryCustomLinks = localStorage.getItem('alajwanah_gallery_links') || '';
-    let pendingActionCallback = null;
+      const r = 86;
+      const cx = 87.5;
+      const cy = 87.5;
+      const rx = Math.abs(Math.cos(phaseAngle)) * r;
+      
+      let d = "";
+      if (day === 1 || day >= 29) {
+        d = "";
+      } else if (day === 14 || day === 15) {
+        d = `M ${cx},${cy - r} A ${r},${r} 0 1,1 ${cx},${cy + r} A ${r},${r} 0 1,1 ${cx},${cy - r} Z`;
+      } else if (isWaxing) {
+        const curveSweep = illumination < 0.5 ? 1 : 0;
+        d = `M ${cx},${cy - r} A ${r},${r} 0 0,1 ${cx},${cy + r} A ${rx},${r} 0 0,${curveSweep} ${cx},${cy - r} Z`;
+      } else {
+        const curveSweep = illumination > 0.5 ? 1 : 0;
+        d = `M ${cx},${cy - r} A ${r},${r} 0 0,0 ${cx},${cy + r} A ${rx},${r} 0 0,${curveSweep} ${cx},${cy - r} Z`;
+      }
+
+      const svg = `
+        <svg viewBox="0 0 175 175" width="175" height="175" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="moonWhiteGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#ffffff" />
+              <stop offset="85%" stop-color="#f1f5f9" />
+              <stop offset="100%" stop-color="#cbd5e1" />
+            </radialGradient>
+            <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="3" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+          </defs>
+          <circle cx="${cx}" cy="${cy}" r="${r}" fill="#070910" />
+          ${d ? `<path d="${d}" fill="url(#moonWhiteGlow)" filter="url(#softGlow)" />` : ''}
+        </svg>
+      `;
+
+      return { name: phaseName, svg: svg, illumination: illumination };
+    }
+
     let savedSurahsState = JSON.parse(localStorage.getItem('alajwanah_surahs_map')) || {};
-
-    let appData = JSON.parse(localStorage.getItem('alajwanah_main_data')) || {
-      ideas: [
-        { id: 1, title: "خاطرة عن المطر", category: "خاطرة", desc: "ينهمر المطر في بيشة، فيغسل هموم الروح ويكسونا بالطمأنينة.", link: "" }
-      ],
-      achievements: [
-        { id: 1, title: "إتمام حفظ أجزاء من القرآن الكريم", category: "لحظة فخر", desc: "بفضل الله أواصل رحلة الحفظ والتدبر في كتاب الله الكريم.", link: "" }
-      ],
-      books: [
-        { id: 1, title: "قصص النبيين", category: "ديني", desc: "فوائد جمة وعبر عظيمة استخلصتها من قراءة سير الأنبياء عليهم السلام.", link: "" }
-      ],
-      courses: DEFAULT_COURSES
-    };
 
     function toArabicNumerals(str) {
       return String(str).replace(/[0-9]/g, d => '٠١٢٣٤٥٦٧٨٩'[d]);
-    }
-
-    function saveData() {
-      localStorage.setItem('alajwanah_main_data', JSON.stringify(appData));
-      localStorage.setItem('alajwanah_surahs_map', JSON.stringify(savedSurahsState));
-      renderAll();
     }
 
     function toggleMobileMenu() {
@@ -1106,75 +1115,35 @@
     document.getElementById('closeMobileMenuBtn').onclick = toggleMobileMenu;
     document.getElementById('mobileMenuOverlay').onclick = toggleMobileMenu;
 
-    function promptPassAndOpen(action) {
-      if (typeof action === 'function') {
-        pendingActionCallback = action;
-      } else if (action === 'achievement') {
-        pendingActionCallback = () => {
-          cancelAchForm();
-          document.getElementById('achievementForm').classList.remove('hidden');
-          document.getElementById('achievementForm').scrollIntoView({ behavior: 'smooth' });
-        };
-      } else if (action === 'blog') {
-        pendingActionCallback = () => {
-          cancelBlogForm();
-          document.getElementById('creativeBlogForm').classList.remove('hidden');
-          document.getElementById('creativeBlogForm').scrollIntoView({ behavior: 'smooth' });
-        };
-      } else if (action === 'library') {
-        pendingActionCallback = () => {
-          cancelBookForm();
-          document.getElementById('libraryBookForm').classList.remove('hidden');
-          document.getElementById('libraryBookForm').scrollIntoView({ behavior: 'smooth' });
-        };
-      }
-      document.getElementById('passAlertBox').classList.add('hidden');
-      document.getElementById('sectionPassInput').value = '';
-      document.getElementById('passwordPromptModal').classList.add('active');
-    }
-
-    function closePasswordPrompt() {
-      document.getElementById('passwordPromptModal').classList.remove('active');
-      pendingActionCallback = null;
-    }
-
-    function verifySectionPassword() {
-      const inputPass = document.getElementById('sectionPassInput').value;
-      if (inputPass === activeSectionPin) {
-        const cb = pendingActionCallback;
-        closePasswordPrompt();
-        if (typeof cb === 'function') cb();
-        showToast('🔓 تم التحقق بنجاح!');
-      } else {
-        document.getElementById('passAlertBox').classList.remove('hidden');
-      }
-    }
-
-    function getHijriDayNumber() {
+    function getHijriDateDetails() {
       try {
         const today = new Date();
-        const formatter = new Intl.DateTimeFormat('en-US-u-ca-islamic-umalqura', { day: 'numeric' });
-        return parseInt(formatter.format(today)) || 15;
+        const dayNum = parseInt(new Intl.DateTimeFormat('en-US-u-ca-islamic-umalqura', { day: 'numeric' }).format(today)) || 7;
+        const fullHijri = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura', { day: 'numeric', month: 'long', year: 'numeric' }).format(today);
+        return { day: dayNum, formatted: fullHijri };
       } catch (e) {
-        return 15;
+        return { day: 7, formatted: '٧ جمادى الآخرة ١٤٤٨ هـ' };
       }
     }
 
     function renderReflectionsPreview() {
-      const day = getHijriDayNumber();
-      const phaseInfo = MOON_PHASES_TABLE[day] || MOON_PHASES_TABLE[15];
+      const hijri = getHijriDateDetails();
+      const day = hijri.day;
+      const phaseInfo = getRealisticMoonPhase(day);
       const moonSphere = document.getElementById('dynamicMoonSphere');
       
       if (moonSphere) {
-        moonSphere.style.background = phaseInfo.grad;
-        moonSphere.style.boxShadow = '0 0 35px var(--glow-color)';
+        moonSphere.innerHTML = phaseInfo.svg;
+        const glowBlur = Math.round(10 + phaseInfo.illumination * 35);
+        const glowAlpha = (0.15 + phaseInfo.illumination * 0.45).toFixed(2);
+        moonSphere.style.boxShadow = `0 0 ${glowBlur}px rgba(255, 255, 255, ${glowAlpha})`;
       }
       
       document.getElementById('currentMoonPhaseLabel').innerText = `اليوم ${toArabicNumerals(day)} هجرياً: ${phaseInfo.name}`;
-      document.getElementById('todayReflectionAyahAndSurah').innerHTML = `<span class="quran-ayah text-amber-300">﴿فَاسْتَجَبْنَا لَهُ وَنَجَّيْنَاهُ مِنَ الْغَمِّ﴾</span> <span class="text-xs text-amber-400 block sm:inline mt-2">سورة الأنبياء - آية ٨٨</span>`;
+      document.getElementById('todayReflectionAyahAndSurah').innerHTML = `<span class="quran-ayah text-white">﴿فَاسْتَجَبْنَا لَهُ وَنَجَّيْنَاهُ مِنَ الْغَمِّ﴾</span> <span class="text-xs text-slate-300 block sm:inline mt-2">سورة الأنبياء - آية ٨٨</span>`;
       document.getElementById('todayReflectionTitle').innerText = "دعوة يونس ونور الظلمات";
       document.getElementById('todayReflectionDesc').innerText = "لا تسقط دعوة خرجت بنبض التوحيد والاستغفار ولو من قاع البحار.";
-      document.getElementById('todayReflectionDate').innerText = `${toArabicNumerals(day)} جمادى الأولى ١٤٤٨ هـ`;
+      document.getElementById('todayReflectionDate').innerText = hijri.formatted;
     }
 
     function renderQuranSection() {
@@ -1239,7 +1208,8 @@
     function toggleSurahSave(juzNum, surah) {
       const surahKey = `${juzNum}_${surah}`;
       savedSurahsState[surahKey] = !savedSurahsState[surahKey];
-      saveData();
+      localStorage.setItem('alajwanah_surahs_map', JSON.stringify(savedSurahsState));
+      renderQuranSection();
       showToast('۞ تم تحديث حالة الحفظ للسورة!');
     }
 
@@ -1247,10 +1217,13 @@
       const box = document.getElementById('coursesGridContainer');
       if (!box) return;
       box.innerHTML = '';
-      appData.courses.forEach(c => {
+      if (!window.appData || !window.appData.courses) return;
+      
+      window.appData.courses.forEach(c => {
+        const hasValidLink = c.link && c.link.trim() !== '' && c.link !== '#';
         const card = document.createElement('a');
-        card.href = c.link || '#';
-        card.target = c.link && c.link !== '#' ? '_blank' : '_self';
+        card.href = hasValidLink ? c.link : '#planner';
+        card.target = hasValidLink ? '_blank' : '_self';
         card.className = 'glass-card p-6 flex flex-col justify-between space-y-4 group hover:border-[var(--accent)]';
         card.innerHTML = `
           <div class="flex justify-between items-center"><span class="text-2xl">${c.icon}</span><span class="text-xs font-bold" style="color: var(--accent);">رابط المقرر ↗</span></div>
@@ -1260,310 +1233,112 @@
       });
     }
 
-    function renderAdminCoursesList() {
-      const list = document.getElementById('adminCoursesManageList');
-      if (!list) return;
-      list.innerHTML = '';
-      appData.courses.forEach(c => {
-        const row = document.createElement('div');
-        row.className = 'p-3 rounded-xl bg-slate-900 border border-gray-800 space-y-2';
-        row.innerHTML = `
-          <div class="flex justify-between items-center">
-            <span class="text-xs font-bold text-main">${c.icon} ${c.title}</span>
-          </div>
-          <div class="flex gap-2">
-            <input type="url" value="${c.link && c.link !== '#' ? c.link : ''}" placeholder="أدخل رابط المقرر السحابي هنا..." id="courseLinkInput_${c.id}" class="px-3 py-1.5 bg-slate-950 text-xs rounded-lg border border-gray-700 flex-1 text-main">
-            <button onclick="saveSingleCourseLink(${c.id})" class="px-3 py-1.5 bg-emerald-500 text-slate-950 font-bold text-xs rounded-lg">حفظ</button>
-          </div>
-        `;
-        list.appendChild(row);
-      });
-    }
-
-    function saveSingleCourseLink(id) {
-      const val = document.getElementById(`courseLinkInput_${id}`).value;
-      const idx = appData.courses.findIndex(c => c.id === id);
-      if (idx !== -1) {
-        appData.courses[idx].link = val;
-        saveData();
-        showToast('✓ تم حفظ رابط المقرر بنجاح');
-      }
-    }
-
-    function renderAchievements() {
-      const grid = document.getElementById('achievementsGrid');
+    function renderOneDriveBoxes() {
+      const grid = document.getElementById('onedriveBoxesGrid');
       if (!grid) return;
       grid.innerHTML = '';
-      appData.achievements.forEach(a => {
-        const card = document.createElement('div');
-        card.className = 'glass-card p-6 flex flex-col justify-between space-y-4';
+
+      const links = window.oneDriveLinks || {};
+      const items = [
+        { key: 'achievements', label: 'إنجازاتي', icon: '🏆', link: links.achievements, desc: 'توثيق المشاريع وشهادات التفوق' },
+        { key: 'blog', label: 'مدونتي', icon: '✧', link: links.blog, desc: 'الأفكار، الخواطر والتدوينات الشخصية' },
+        { key: 'library', label: 'مكتبتي', icon: '📖', link: links.library, desc: 'الكتب والملخصات والفوائد العلمية' },
+        { key: 'gallery', label: 'بكسلاتي', icon: '🖼️', link: links.gallery, desc: 'معرض الصور واللقطات الفنية' }
+      ];
+
+      items.forEach(item => {
+        const card = document.createElement('a');
+        card.href = item.link && item.link.trim() !== '' ? item.link : '#';
+        card.target = '_blank';
+        card.className = 'glass-card p-6 flex flex-col items-center text-center space-y-4 group hover:border-[var(--accent)] cursor-pointer transition-all';
         card.innerHTML = `
-          <div class="space-y-2">
-            <div class="flex justify-between items-center">
-              <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-[var(--bg-glass)] text-[var(--accent)] border border-[var(--bg-glass-border)]">${a.category}</span>
-              <div class="flex gap-2">
-                <button onclick="promptPassAndOpen(() => editAchievement(${a.id}))" class="text-xs text-amber-400 hover:underline">تعديل</button>
-                <button onclick="promptPassAndOpen(() => deleteAchievement(${a.id}))" class="text-xs text-red-400 hover:underline">حذف</button>
-              </div>
-            </div>
-            <h3 class="font-bold text-lg text-main">${a.title}</h3>
-            <p class="text-xs text-sub leading-relaxed max-h-24 overflow-hidden">${a.desc}</p>
-            ${a.link ? `<a href="${a.link}" target="_blank" class="inline-block text-xs font-bold text-sky-400 hover:underline mt-2">عرض التفاصيل ↗</a>` : ''}
+          <div class="w-16 h-16 rounded-2xl bg-[var(--bg-secondary)] border border-[var(--bg-glass-border)] shadow-md flex items-center justify-center text-3xl group-hover:scale-110 transition-transform" style="color: var(--accent);">
+            ${item.icon}
           </div>
+          <div class="space-y-1">
+            <h3 class="font-extrabold text-xl text-main group-hover:text-[var(--accent)] transition-colors">${item.label}</h3>
+            <p class="text-xs text-sub">${item.desc}</p>
+          </div>
+          <span class="text-xs font-bold px-3 py-1 rounded-full bg-slate-900/80 text-[var(--accent)] border border-gray-800 mt-2">الانتقال لـ OneDrive ↗</span>
         `;
         grid.appendChild(card);
       });
     }
 
-    function renderIdeas() {
-      const box = document.getElementById('ideasContainer');
-      if (!box) return;
-      box.innerHTML = '';
-      appData.ideas.forEach(i => {
-        const card = document.createElement('div');
-        card.className = 'glass-card p-6 flex flex-col justify-between space-y-4';
-        card.innerHTML = `
-          <div class="space-y-2">
-            <div class="flex justify-between items-center">
-              <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-purple-500/10 text-purple-300 border border-purple-500/30">${i.category || 'فكرة'}</span>
-              <div class="flex gap-2">
-                <button onclick="promptPassAndOpen(() => editBlog(${i.id}))" class="text-xs text-amber-400 hover:underline">تعديل</button>
-                <button onclick="promptPassAndOpen(() => deleteBlog(${i.id}))" class="text-xs text-red-400 hover:underline">حذف</button>
-              </div>
-            </div>
-            <h3 class="font-bold text-lg text-main">${i.title}</h3>
-            <p class="text-xs text-sub leading-relaxed max-h-36 overflow-hidden">${i.desc}</p>
-            ${i.link ? `<a href="${i.link}" target="_blank" class="inline-block text-xs font-bold text-sky-400 hover:underline mt-2">زيارة الرابط ↗</a>` : ''}
-          </div>
-        `;
-        box.appendChild(card);
-      });
-    }
-
-    function renderLibrary() {
-      const container = document.getElementById('libraryContainer');
+    function renderAdminCoursesInputs() {
+      const container = document.getElementById('adminCoursesInputs');
       if (!container) return;
       container.innerHTML = '';
-      appData.books.forEach(b => {
-        const card = document.createElement('div');
-        card.className = 'glass-card p-6 flex flex-col justify-between space-y-4';
-        card.innerHTML = `
-          <div class="space-y-2">
-            <div class="flex justify-between items-center">
-              <span class="text-xs font-bold px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/30">${b.category}</span>
-              <div class="flex gap-2">
-                <button onclick="promptPassAndOpen(() => editBook(${b.id}))" class="text-xs text-amber-400 hover:underline">تعديل</button>
-                <button onclick="promptPassAndOpen(() => deleteBook(${b.id}))" class="text-xs text-red-400 hover:underline">حذف</button>
-              </div>
-            </div>
-            <h3 class="font-bold text-base text-main">${b.title}</h3>
-            <p class="text-xs text-sub leading-relaxed max-h-36 overflow-hidden">${b.desc}</p>
-            ${b.link ? `<a href="${b.link}" target="_blank" class="inline-block text-xs font-bold text-sky-400 hover:underline mt-2">تفاصيل الكتاب ↗</a>` : ''}
-          </div>
+
+      if (!window.appData || !window.appData.courses) return;
+      window.appData.courses.forEach(c => {
+        const div = document.createElement('div');
+        div.innerHTML = `
+          <label class="block text-xs font-bold text-sub mb-1">${c.icon} ${c.title}:</label>
+          <input type="url" id="courseLinkInput_${c.id}" value="${c.link && c.link !== '#' ? c.link : ''}" placeholder="https://..." class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm text-main">
         `;
-        container.appendChild(card);
+        container.appendChild(div);
       });
     }
 
-    function renderGallery() {
-      const grid = document.getElementById('photoStudioGrid');
-      if (!grid) return;
-      grid.innerHTML = '';
-
-      let links = galleryCustomLinks.split(',').map(l => l.trim()).filter(l => l.length > 0);
-      if (links.length === 0) {
-        links = [
-          "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600",
-          "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=600",
-          "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600",
-          "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=600"
-        ];
+    window.saveCoursesLinks = async function() {
+      if (!window.appData || !window.appData.courses) return;
+      window.appData.courses.forEach(c => {
+        const inputEl = document.getElementById(`courseLinkInput_${c.id}`);
+        if (inputEl) {
+          c.link = inputEl.value.trim() || '#';
+        }
+      });
+      if (typeof window.saveToFirebase === 'function') {
+        await window.saveToFirebase(window.oneDriveLinks, window.appData.courses);
       }
-
-      links.forEach((src, index) => {
-        const card = document.createElement('div');
-        card.className = 'glass-card overflow-hidden h-64 relative group border-[var(--bg-glass-border)] hover:border-[var(--accent)]';
-        card.innerHTML = `
-          <img src="${src}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" onerror="this.src='https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600'">
-          <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
-            <span class="text-xs font-bold text-white">بكسل رقم (${toArabicNumerals(index + 1)}) ✦</span>
-          </div>
-        `;
-        grid.appendChild(card);
-      });
+      renderCourses();
     }
 
-    function saveGalleryLinks() {
-      galleryCustomLinks = document.getElementById('galleryLinksInput').value;
-      localStorage.setItem('alajwanah_gallery_links', galleryCustomLinks);
-      renderGallery();
-      showToast('✓ تم حفظ وعرض صور بكسلاتي بنجاح');
-    }
-
-    function loginAdmin() {
+    window.loginAdmin = async function() {
       const user = document.getElementById('adminUserInput').value;
       const pass = document.getElementById('adminPassInput').value;
-      if (user === 'admin' && pass === '123456') {
+      
+      let isValid = false;
+      if (typeof window.verifyFirebaseLogin === 'function') {
+        isValid = await window.verifyFirebaseLogin(user, pass);
+      } else {
+        isValid = (user === 'admin@alajwanah.sa' && pass === 'Ajwan@1448!');
+      }
+
+      if (isValid) {
         document.getElementById('adminLoginForm').classList.add('hidden');
         document.getElementById('adminControlsArea').classList.remove('hidden');
-        document.getElementById('newSectionPinInput').value = activeSectionPin;
-        document.getElementById('galleryLinksInput').value = galleryCustomLinks;
-        renderAdminCoursesList();
+        document.getElementById('adminAlertBox').classList.add('hidden');
+        
+        const links = window.oneDriveLinks || {};
+        document.getElementById('onedriveAchLink').value = links.achievements || '';
+        document.getElementById('onedriveBlogLink').value = links.blog || '';
+        document.getElementById('onedriveLibLink').value = links.library || '';
+        document.getElementById('onedrivePixLink').value = links.gallery || '';
+
+        renderAdminCoursesInputs();
       } else {
         document.getElementById('adminAlertBox').classList.remove('hidden');
       }
     }
 
-    function logoutAdmin() {
+    window.logoutAdmin = function() {
       document.getElementById('adminLoginForm').classList.remove('hidden');
       document.getElementById('adminControlsArea').classList.add('hidden');
     }
 
-    function updateSectionPin() {
-      const pin = document.getElementById('newSectionPinInput').value;
-      if (pin) {
-        activeSectionPin = pin;
-        localStorage.setItem('alajwanah_section_pin', pin);
-        showToast('✓ تم تحديث الرقم السري بنجاح');
+    window.saveOneDriveLinks = async function() {
+      if (!window.oneDriveLinks) window.oneDriveLinks = {};
+      window.oneDriveLinks.achievements = document.getElementById('onedriveAchLink').value;
+      window.oneDriveLinks.blog = document.getElementById('onedriveBlogLink').value;
+      window.oneDriveLinks.library = document.getElementById('onedriveLibLink').value;
+      window.oneDriveLinks.gallery = document.getElementById('onedrivePixLink').value;
+      
+      if (typeof window.saveToFirebase === 'function') {
+        await window.saveToFirebase(window.oneDriveLinks, window.appData.courses);
       }
-    }
-
-    document.getElementById('achievementForm').onsubmit = (e) => {
-      e.preventDefault();
-      const id = document.getElementById('achEditId').value;
-      const title = document.getElementById('achTitleInput').value;
-      const category = document.getElementById('achCategoryInput').value;
-      const desc = document.getElementById('achDescInput').value;
-      const link = document.getElementById('achLinkInput').value;
-
-      if (id) {
-        const index = appData.achievements.findIndex(a => a.id == id);
-        if (index !== -1) appData.achievements[index] = { id: Number(id), title, category, desc, link };
-      } else {
-        appData.achievements.unshift({ id: Date.now(), title, category, desc, link });
-      }
-      saveData();
-      cancelAchForm();
-      showToast('🎓 تم حفظ الإنجاز بنجاح!');
-    };
-
-    function editAchievement(id) {
-      const item = appData.achievements.find(a => a.id === id);
-      if (!item) return;
-      document.getElementById('achEditId').value = item.id;
-      document.getElementById('achTitleInput').value = item.title;
-      document.getElementById('achCategoryInput').value = item.category;
-      document.getElementById('achDescInput').value = item.desc;
-      document.getElementById('achLinkInput').value = item.link || '';
-      document.getElementById('achFormTitle').innerText = 'تعديل الإنجاز';
-      document.getElementById('achievementForm').classList.remove('hidden');
-    }
-
-    function deleteAchievement(id) {
-      if (confirm('هل أنت متأكد من حذف هذا الإنجاز؟')) {
-        appData.achievements = appData.achievements.filter(a => a.id !== id);
-        saveData();
-        showToast('تم الحذف بنجاح');
-      }
-    }
-
-    function cancelAchForm() {
-      document.getElementById('achievementForm').reset();
-      document.getElementById('achEditId').value = '';
-      document.getElementById('achFormTitle').innerText = 'توثيق إنجاز جديد';
-      document.getElementById('achievementForm').classList.add('hidden');
-    }
-
-    document.getElementById('creativeBlogForm').onsubmit = (e) => {
-      e.preventDefault();
-      const id = document.getElementById('blogEditId').value;
-      const title = document.getElementById('blogTitleInput').value;
-      const category = document.getElementById('blogCategoryInput').value;
-      const desc = document.getElementById('blogDescInput').value;
-      const link = document.getElementById('blogLinkInput').value;
-
-      if (id) {
-        const index = appData.ideas.findIndex(i => i.id == id);
-        if (index !== -1) appData.ideas[index] = { id: Number(id), title, category, desc, link };
-      } else {
-        appData.ideas.unshift({ id: Date.now(), title, category, desc, link });
-      }
-      saveData();
-      cancelBlogForm();
-      showToast('✦ تم حفظ المدونة بنجاح!');
-    };
-
-    function editBlog(id) {
-      const item = appData.ideas.find(i => i.id === id);
-      if (!item) return;
-      document.getElementById('blogEditId').value = item.id;
-      document.getElementById('blogTitleInput').value = item.title;
-      document.getElementById('blogCategoryInput').value = item.category || 'فكرة';
-      document.getElementById('blogDescInput').value = item.desc;
-      document.getElementById('blogLinkInput').value = item.link || '';
-      document.getElementById('blogFormTitle').innerText = 'تعديل المدونة';
-      document.getElementById('creativeBlogForm').classList.remove('hidden');
-    }
-
-    function deleteBlog(id) {
-      if (confirm('هل أنت متأكد من حذف هذه المدونة؟')) {
-        appData.ideas = appData.ideas.filter(i => i.id !== id);
-        saveData();
-        showToast('تم الحذف بنجاح');
-      }
-    }
-
-    function cancelBlogForm() {
-      document.getElementById('creativeBlogForm').reset();
-      document.getElementById('blogEditId').value = '';
-      document.getElementById('blogFormTitle').innerText = 'تدوين مدونة جديدة';
-      document.getElementById('creativeBlogForm').classList.add('hidden');
-    }
-
-    document.getElementById('libraryBookForm').onsubmit = (e) => {
-      e.preventDefault();
-      const id = document.getElementById('bookEditId').value;
-      const title = document.getElementById('bookTitleInput').value;
-      const category = document.getElementById('bookCategoryInput').value;
-      const desc = document.getElementById('bookDescInput').value;
-      const link = document.getElementById('bookLinkInput').value;
-
-      if (id) {
-        const index = appData.books.findIndex(b => b.id == id);
-        if (index !== -1) appData.books[index] = { id: Number(id), title, category, desc, link };
-      } else {
-        appData.books.unshift({ id: Date.now(), title, category, desc, link });
-      }
-      saveData();
-      cancelBookForm();
-      showToast('📖 تم حفظ الكتاب بنجاح!');
-    };
-
-    function editBook(id) {
-      const item = appData.books.find(b => b.id === id);
-      if (!item) return;
-      document.getElementById('bookEditId').value = item.id;
-      document.getElementById('bookTitleInput').value = item.title;
-      document.getElementById('bookCategoryInput').value = item.category;
-      document.getElementById('bookDescInput').value = item.desc;
-      document.getElementById('bookLinkInput').value = item.link || '';
-      document.getElementById('bookFormTitle').innerText = 'تعديل الكتاب';
-      document.getElementById('libraryBookForm').classList.remove('hidden');
-    }
-
-    function deleteBook(id) {
-      if (confirm('هل أنت متأكد من حذف هذا الكتاب؟')) {
-        appData.books = appData.books.filter(b => b.id !== id);
-        saveData();
-        showToast('تم الحذف بنجاح');
-      }
-    }
-
-    function cancelBookForm() {
-      document.getElementById('libraryBookForm').reset();
-      document.getElementById('bookEditId').value = '';
-      document.getElementById('bookFormTitle').innerText = 'إضافة كتاب جديد';
-      document.getElementById('libraryBookForm').classList.add('hidden');
+      renderOneDriveBoxes();
     }
 
     document.getElementById('adminModalBtn').onclick = () => document.getElementById('adminModal').classList.add('active');
@@ -1572,25 +1347,80 @@
       document.getElementById('themeModal').classList.remove('active');
     });
 
-    function showToast(msg) {
+    window.showToast = function(msg) {
       const toast = document.getElementById('toast');
       document.getElementById('toastMsg').innerText = msg;
       toast.classList.remove('translate-y-20', 'opacity-0');
       setTimeout(() => toast.classList.add('translate-y-20', 'opacity-0'), 2500);
     }
 
-    function renderAll() {
+    window.renderAll = function() {
       renderQuranSection();
       renderReflectionsPreview();
       renderCourses();
-      renderAchievements();
-      renderIdeas();
-      renderLibrary();
-      renderGallery();
-      document.getElementById('todayHijriHeader').innerText = `${toArabicNumerals(getHijriDayNumber())} جمادى الأولى ١٤٤٨ هـ`;
+      renderOneDriveBoxes();
+      const hijriHeader = document.getElementById('todayHijriHeader');
+      if (hijriHeader) hijriHeader.innerText = getHijriDateDetails().formatted;
     }
 
+    const THEMES_LIST = [
+      { id: 'moon', name: 'ملاذ القمر', icon: '🌙', color: '#c084fc' },
+      { id: 'quran', name: 'الروضة القرآنية', icon: '۞', color: '#d4af37' },
+      { id: 'homeland', name: 'وطني السعودية', icon: '🇸🇦', color: '#22c55e' },
+      { id: 'travel', name: 'أفق السفر', icon: '✈️', color: '#38bdf8' },
+      { id: 'book', name: 'سحر المخطوطات', icon: '📜', color: '#f59e0b' },
+      { id: 'burgundy', name: 'ترف البورغندي', icon: '🍷', color: '#f43f5e' },
+      { id: 'spring', name: 'زهور الربيع', icon: '🌸', color: '#f472b6' },
+      { id: 'summer', name: 'دفء الصيف', icon: '☀️', color: '#fb923c' },
+      { id: 'autumn', name: 'أوراق الخريف', icon: '🍁', color: '#d97706' },
+      { id: 'winter', name: 'سكون الشتاء', icon: '❄️', color: '#38bdf8' },
+      { id: 'realmadrid', name: 'هلا مدريد', icon: '👑', color: '#eab308' }
+    ];
+
+    function renderThemesModalGrid() {
+      const grid = document.getElementById('themesGrid');
+      if (!grid) return;
+      grid.innerHTML = '';
+      const currentTheme = localStorage.getItem('alajwanah_theme') || 'moon';
+
+      THEMES_LIST.forEach(t => {
+        const card = document.createElement('div');
+        card.className = `theme-card glass-card p-4 flex flex-col items-center text-center gap-2 relative ${currentTheme === t.id ? 'active-theme' : ''}`;
+        card.innerHTML = `
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center text-2xl" style="background: ${t.color}20; color: ${t.color};">${t.icon}</div>
+          <span class="font-bold text-xs text-main">${t.name}</span>
+          <div class="check-badge absolute top-2 right-2 w-5 h-5 rounded-full bg-[var(--accent)] text-slate-950 font-bold items-center justify-center text-xs">✓</div>
+        `;
+        card.onclick = () => setTheme(t.id);
+        grid.appendChild(card);
+      });
+    }
+
+    function setTheme(themeName) {
+      if (themeName === 'moon') {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.removeItem('alajwanah_theme');
+      } else {
+        document.documentElement.setAttribute('data-theme', themeName);
+        localStorage.setItem('alajwanah_theme', themeName);
+      }
+      renderThemesModalGrid();
+      updateParticleColor();
+      showToast('🎨 تم تطبيق المظهر بنجاح!');
+    }
+
+    document.getElementById('themeModalBtn').onclick = () => {
+      renderThemesModalGrid();
+      document.getElementById('themeModal').classList.add('active');
+    };
+
     let particleMaterial;
+    function updateParticleColor() {
+      if (!particleMaterial) return;
+      const computedColor = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#c084fc';
+      particleMaterial.color.set(computedColor);
+    }
+
     function init3DBackground() {
       const container = document.getElementById('canvas-container');
       if (!container) return;
@@ -1640,6 +1470,10 @@
     }
 
     window.onload = function() {
+      const savedTheme = localStorage.getItem('alajwanah_theme');
+      if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      }
       init3DBackground();
       renderAll();
     };
