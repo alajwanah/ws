@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>الملاذ القمر 🌙 | أجوان اليوسف</title>
+  <title>ملاذ القمر 🌙 | أجوان اليوسف</title>
   <meta name="description" content="الموقع الشخصي التعليمي وملف الإنجاز الرقمي للطالبة أجوان اليوسف - متوسطة تحفيظ القرآن الكريم الأولى ببيشة">
   
   <!-- Fonts -->
@@ -187,7 +187,6 @@
 
     .glowing-box { background: var(--bg-glass); border: 2px solid var(--accent); box-shadow: 0 0 25px var(--glow-color); }
 
-    /* شكل القمر الواقعي */
     .single-floating-moon {
       position: relative;
       width: 175px;
@@ -632,7 +631,7 @@
       </div>
     </section>
 
-    <!-- 5, 6, 7, 8. ONEDRIVE ADJACENT BOXES (إنجازاتي - مدونتي - مكتبتي - بكسلاتي) -->
+    <!-- ONEDRIVE ADJACENT BOXES -->
     <section id="onedrive-section" class="space-y-8 scroll-mt-24">
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-gray-800 pb-4">
         <div>
@@ -929,12 +928,11 @@
       4: ["آل عمران", "النساء"], 3: ["البقرة", "آل عمران"], 2: ["البقرة"], 1: ["الفاتحة", "البقرة"]
     };
 
-    // دالة لحساب طور القمر الواقعي باللون الأبيض والأسود بناءً على التاريخ الهجري
+    // دالة رسم القمر بالانحناء الكروي الفلكي الواقعي
     function getRealisticMoonPhase(day) {
-      // حساب نسبة الإضاءة من 0 إلى 1 بناءً على دورة القمر (29.53 يوماً)
       const phaseAngle = ((day - 1) / 29.53) * 2 * Math.PI;
-      const illumination = (1 - Math.cos(phaseAngle)) / 2; // 0 في المحاق، 0.5 في التربيع، 1 في البدر
-      const isWaxing = day <= 15; // متزايد في النصف الأول، متناقص في النصف الثاني
+      const illumination = (1 - Math.cos(phaseAngle)) / 2;
+      const isWaxing = day <= 15;
 
       let phaseName = "";
       if (day === 1 || day >= 29) phaseName = "المحاق 🌑";
@@ -946,29 +944,23 @@
       else if (day >= 22 && day <= 23) phaseName = "التربيع الأخير 🌗";
       else phaseName = "الهلال المتناقص 🌘";
 
-      // بناء SVG واقعي للقمر (الظل أسود والضوء أبيض ناصع)
       const r = 86;
       const cx = 87.5;
       const cy = 87.5;
 
-      // حساب انحناء الفاصل بين النور والظلام (Terminator)
       const rx = Math.abs(Math.cos(phaseAngle)) * r;
       
       let d = "";
       if (day === 1 || day >= 29) {
-        // محاق: أسود بالكامل مع حافة خفيفة جداً
         d = "";
       } else if (day === 14 || day === 15) {
-        // بدر: دائرة بيضاء كاملة
         d = `M ${cx},${cy - r} A ${r},${r} 0 1,1 ${cx},${cy + r} A ${r},${r} 0 1,1 ${cx},${cy - r} Z`;
       } else if (isWaxing) {
-        // القمر المتزايد (الإضاءة من اليمين)
-        const sweep = illumination < 0.5 ? 0 : 1;
-        d = `M ${cx},${cy - r} A ${r},${r} 0 0,1 ${cx},${cy + r} A ${rx},${r} 0 0,${sweep} ${cx},${cy - r} Z`;
+        const curveSweep = illumination < 0.5 ? 1 : 0;
+        d = `M ${cx},${cy - r} A ${r},${r} 0 0,1 ${cx},${cy + r} A ${rx},${r} 0 0,${curveSweep} ${cx},${cy - r} Z`;
       } else {
-        // القمر المتناقص (الإضاءة من اليسار)
-        const sweep = illumination > 0.5 ? 0 : 1;
-        d = `M ${cx},${cy - r} A ${r},${r} 0 0,0 ${cx},${cy + r} A ${rx},${r} 0 0,${sweep} ${cx},${cy - r} Z`;
+        const curveSweep = illumination > 0.5 ? 1 : 0;
+        d = `M ${cx},${cy - r} A ${r},${r} 0 0,0 ${cx},${cy + r} A ${rx},${r} 0 0,${curveSweep} ${cx},${cy - r} Z`;
       }
 
       const svg = `
@@ -976,7 +968,7 @@
           <defs>
             <radialGradient id="moonWhiteGlow" cx="50%" cy="50%" r="50%">
               <stop offset="0%" stop-color="#ffffff" />
-              <stop offset="80%" stop-color="#f1f5f9" />
+              <stop offset="85%" stop-color="#f1f5f9" />
               <stop offset="100%" stop-color="#cbd5e1" />
             </radialGradient>
             <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
@@ -984,9 +976,7 @@
               <feComposite in="SourceGraphic" in2="blur" operator="over" />
             </filter>
           </defs>
-          <!-- قرص القمر المظلم (الأسود) -->
           <circle cx="${cx}" cy="${cy}" r="${r}" fill="#070910" />
-          <!-- الجزء المضيء باللون الأبيض -->
           ${d ? `<path d="${d}" fill="url(#moonWhiteGlow)" filter="url(#softGlow)" />` : ''}
         </svg>
       `;
@@ -1001,7 +991,7 @@
       { id: 4, title: "الرياضيات", desc: "التمارين والواجبات والمذكرات", icon: "📐", link: "#" },
       { id: 5, title: "العلوم", desc: "التجارب والبحوث وملخصات الفصول", icon: "🔬", link: "#" },
       { id: 6, title: "اللغة الإنجليزية", desc: "المفردات والقواعد وأوراق العمل", icon: "🗣️", link: "#" },
-      { id: 7, title: "الدراسات الاجتماعية", desc: "الخرائط والدروس والخرائط الذهنية", icon: "🌍", link: "#" },
+      { id: 7, title: "الدراسات الاجتماعية", desc: "الخرائط والدرس والخرائط الذهنية", icon: "🌍", link: "#" },
       { id: 8, title: "المهارات الرقمية", desc: "مشاريع الحاسب وتطبيقات البرمجة", icon: "💻", link: "#" }
     ];
 
@@ -1056,7 +1046,6 @@
       
       if (moonSphere) {
         moonSphere.innerHTML = phaseInfo.svg;
-        // التوهج يتناسب طردياً مع نسبة إضاءة القمر باللون الأبيض
         const glowBlur = Math.round(10 + phaseInfo.illumination * 35);
         const glowAlpha = (0.15 + phaseInfo.illumination * 0.45).toFixed(2);
         moonSphere.style.boxShadow = `0 0 ${glowBlur}px rgba(255, 255, 255, ${glowAlpha})`;
