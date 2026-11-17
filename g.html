@@ -187,10 +187,24 @@
 
     .glowing-box { background: var(--bg-glass); border: 2px solid var(--accent); box-shadow: 0 0 25px var(--glow-color); }
 
-    .single-floating-moon { position: relative; width: 180px; height: 180px; border-radius: 50%; display: flex; align-items: center; justify-content: center; animation: moonFloatSpin 8s ease-in-out infinite; transition: all 0.4s ease; }
+    /* شكل القمر الواقعي */
+    .single-floating-moon {
+      position: relative;
+      width: 175px;
+      height: 175px;
+      border-radius: 50%;
+      background-color: #070910;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: moonFloatSpin 8s ease-in-out infinite;
+      transition: all 0.4s ease;
+    }
     @keyframes moonFloatSpin {
-      0%, 100% { transform: translateY(0) rotate(0deg); }
-      50% { transform: translateY(-14px) rotate(4deg); }
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
     }
 
     .juz-glass-card { background: var(--bg-glass); backdrop-filter: blur(12px); border: 1px solid var(--bg-glass-border); border-radius: 1rem; padding: 0.85rem; display: flex; flex-direction: column; align-items: center; justify-content: space-between; gap: 0.5rem; transition: all 0.3s ease; }
@@ -512,7 +526,7 @@
     <section id="reflections" class="space-y-8 scroll-mt-24">
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-gray-800 pb-4">
         <div><h2 class="text-3xl font-bold mt-1">تأملاتي في رحاب الآيات</h2></div>
-        <div class="text-xs text-amber-400 font-semibold" id="currentMoonPhaseLabel">...</div>
+        <div class="text-xs text-slate-200 font-semibold" id="currentMoonPhaseLabel">...</div>
       </div>
 
       <div class="glass-card p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-8 glowing-box">
@@ -522,9 +536,9 @@
 
         <div class="flex-1 space-y-5 text-center md:text-right border-t md:border-t-0 md:border-r border-gray-800 pt-6 md:pt-0 md:pr-8">
           <div class="inline-flex">
-            <span class="px-3 py-1 rounded-full bg-amber-500/10 text-amber-300 text-xs font-bold border border-amber-500/30" id="todayReflectionDate">...</span>
+            <span class="px-3 py-1 rounded-full bg-slate-800/80 text-white text-xs font-bold border border-white/20" id="todayReflectionDate">...</span>
           </div>
-          <div class="text-base sm:text-xl font-bold text-amber-200 leading-relaxed" id="todayReflectionAyahAndSurah"></div>
+          <div class="text-base sm:text-xl font-bold text-slate-100 leading-relaxed" id="todayReflectionAyahAndSurah"></div>
           <div><span class="px-3 py-1 rounded-full bg-[var(--bg-glass)] text-[var(--accent)] text-xs font-bold border border-[var(--bg-glass-border)]" id="todayReflectionTitle">...</span></div>
           <p class="text-xs text-sub leading-relaxed sm:text-sm" id="todayReflectionDesc">...</p>
           <div class="pt-4 border-t border-gray-800 text-left">
@@ -627,9 +641,7 @@
         </div>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="onedriveBoxesGrid">
-        <!-- يتم تعبئة البوكسات المتجاورة ديناميكياً بروابط ون درايف -->
-      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="onedriveBoxesGrid"></div>
     </section>
 
   </main>
@@ -917,38 +929,70 @@
       4: ["آل عمران", "النساء"], 3: ["البقرة", "آل عمران"], 2: ["البقرة"], 1: ["الفاتحة", "البقرة"]
     };
 
-    const MOON_PHASES_TABLE = {
-      1: { name: "الهلال المتزايد 🌒", grad: "radial-gradient(circle at 85% 50%, #fef3c7 0%, #f59e0b 20%, #0d111e 70%)" },
-      2: { name: "الهلال المتزايد 🌒", grad: "radial-gradient(circle at 80% 50%, #fef3c7 0%, #f59e0b 22%, #0d111e 70%)" },
-      3: { name: "الهلال المتزايد 🌒", grad: "radial-gradient(circle at 75% 50%, #fef3c7 0%, #f59e0b 25%, #0d111e 70%)" },
-      4: { name: "الهلال المتزايد 🌒", grad: "radial-gradient(circle at 70% 50%, #fef3c7 0%, #f59e0b 28%, #0d111e 75%)" },
-      5: { name: "الهلال المتزايد 🌒", grad: "radial-gradient(circle at 65% 50%, #fef3c7 0%, #f59e0b 32%, #0d111e 75%)" },
-      6: { name: "التربيع الأول 🌓", grad: "linear-gradient(90deg, #fef3c7 50%, #0d111e 50%)" },
-      7: { name: "الأحدب المتزايد 🌔", grad: "radial-gradient(circle at 45% 50%, #fef3c7 0%, #f59e0b 55%, #0d111e 85%)" },
-      8: { name: "الأحدب المتزايد 🌔", grad: "radial-gradient(circle at 40% 50%, #fef3c7 0%, #f59e0b 60%, #0d111e 85%)" },
-      9: { name: "الأحدب المتزايد 🌔", grad: "radial-gradient(circle at 35% 50%, #fef3c7 0%, #f59e0b 65%, #0d111e 90%)" },
-      10: { name: "الأحدب المتزايد 🌔", grad: "radial-gradient(circle at 30% 50%, #fef3c7 0%, #f59e0b 70%, #0d111e 90%)" },
-      11: { name: "الأحدب المتزايد 🌔", grad: "radial-gradient(circle at 25% 50%, #fef3c7 0%, #f59e0b 75%, #0d111e 95%)" },
-      12: { name: "الأحدب المتزايد 🌔", grad: "radial-gradient(circle at 20% 50%, #fef3c7 0%, #f59e0b 80%, #0d111e 95%)" },
-      13: { name: "الأحدب المتزايد 🌔", grad: "radial-gradient(circle at 15% 50%, #fef3c7 0%, #f59e0b 85%, #0d111e 98%)" },
-      14: { name: "البدر 🌕", grad: "radial-gradient(circle at 50% 50%, #fffbeb 0%, #fde68a 50%, #d97706 100%)" },
-      15: { name: "البدر 🌕", grad: "radial-gradient(circle at 50% 50%, #fffbeb 0%, #fde68a 50%, #d97706 100%)" },
-      16: { name: "الأحدب المتناقص 🌖", grad: "radial-gradient(circle at 85% 50%, #0d111e 0%, #f59e0b 20%, #fef3c7 85%)" },
-      17: { name: "الأحدب المتناقص 🌖", grad: "radial-gradient(circle at 80% 50%, #0d111e 0%, #f59e0b 25%, #fef3c7 80%)" },
-      18: { name: "الأحدب المتناقص 🌖", grad: "radial-gradient(circle at 75% 50%, #0d111e 0%, #f59e0b 30%, #fef3c7 75%)" },
-      19: { name: "الأحدب المتناقص 🌖", grad: "radial-gradient(circle at 70% 50%, #0d111e 0%, #f59e0b 35%, #fef3c7 70%)" },
-      20: { name: "الأحدب المتناقص 🌖", grad: "radial-gradient(circle at 65% 50%, #0d111e 0%, #f59e0b 40%, #fef3c7 65%)" },
-      21: { name: "التربيع الأخير 🌗", grad: "linear-gradient(270deg, #fef3c7 50%, #0d111e 50%)" },
-      22: { name: "الهلال المتناقص 🌘", grad: "radial-gradient(circle at 35% 50%, #fef3c7 0%, #f59e0b 25%, #0d111e 70%)" },
-      23: { name: "الهلال المتناقص 🌘", grad: "radial-gradient(circle at 30% 50%, #fef3c7 0%, #f59e0b 22%, #0d111e 70%)" },
-      24: { name: "الهلال المتناقص 🌘", grad: "radial-gradient(circle at 25% 50%, #fef3c7 0%, #f59e0b 20%, #0d111e 75%)" },
-      25: { name: "الهلال المتناقص 🌘", grad: "radial-gradient(circle at 20% 50%, #fef3c7 0%, #f59e0b 18%, #0d111e 75%)" },
-      26: { name: "الهلال المتناقص 🌘", grad: "radial-gradient(circle at 15% 50%, #fef3c7 0%, #f59e0b 15%, #0d111e 80%)" },
-      27: { name: "الهلال المتناقص 🌘", grad: "radial-gradient(circle at 12% 50%, #fef3c7 0%, #f59e0b 12%, #0d111e 85%)" },
-      28: { name: "الهلال المتناقص 🌘", grad: "radial-gradient(circle at 10% 50%, #fef3c7 0%, #f59e0b 10%, #0d111e 90%)" },
-      29: { name: "المحاق 🌑", grad: "radial-gradient(circle at 50% 50%, #171d31 0%, #0d111e 100%)" },
-      30: { name: "المحاق 🌑", grad: "radial-gradient(circle at 50% 50%, #171d31 0%, #0d111e 100%)" }
-    };
+    // دالة لحساب طور القمر الواقعي باللون الأبيض والأسود بناءً على التاريخ الهجري
+    function getRealisticMoonPhase(day) {
+      // حساب نسبة الإضاءة من 0 إلى 1 بناءً على دورة القمر (29.53 يوماً)
+      const phaseAngle = ((day - 1) / 29.53) * 2 * Math.PI;
+      const illumination = (1 - Math.cos(phaseAngle)) / 2; // 0 في المحاق، 0.5 في التربيع، 1 في البدر
+      const isWaxing = day <= 15; // متزايد في النصف الأول، متناقص في النصف الثاني
+
+      let phaseName = "";
+      if (day === 1 || day >= 29) phaseName = "المحاق 🌑";
+      else if (day >= 2 && day <= 6) phaseName = "الهلال المتزايد 🌒";
+      else if (day >= 7 && day <= 8) phaseName = "التربيع الأول 🌓";
+      else if (day >= 9 && day <= 13) phaseName = "الأحدب المتزايد 🌔";
+      else if (day >= 14 && day <= 16) phaseName = "البدر 🌕";
+      else if (day >= 17 && day <= 21) phaseName = "الأحدب المتناقص 🌖";
+      else if (day >= 22 && day <= 23) phaseName = "التربيع الأخير 🌗";
+      else phaseName = "الهلال المتناقص 🌘";
+
+      // بناء SVG واقعي للقمر (الظل أسود والضوء أبيض ناصع)
+      const r = 86;
+      const cx = 87.5;
+      const cy = 87.5;
+
+      // حساب انحناء الفاصل بين النور والظلام (Terminator)
+      const rx = Math.abs(Math.cos(phaseAngle)) * r;
+      
+      let d = "";
+      if (day === 1 || day >= 29) {
+        // محاق: أسود بالكامل مع حافة خفيفة جداً
+        d = "";
+      } else if (day === 14 || day === 15) {
+        // بدر: دائرة بيضاء كاملة
+        d = `M ${cx},${cy - r} A ${r},${r} 0 1,1 ${cx},${cy + r} A ${r},${r} 0 1,1 ${cx},${cy - r} Z`;
+      } else if (isWaxing) {
+        // القمر المتزايد (الإضاءة من اليمين)
+        const sweep = illumination < 0.5 ? 0 : 1;
+        d = `M ${cx},${cy - r} A ${r},${r} 0 0,1 ${cx},${cy + r} A ${rx},${r} 0 0,${sweep} ${cx},${cy - r} Z`;
+      } else {
+        // القمر المتناقص (الإضاءة من اليسار)
+        const sweep = illumination > 0.5 ? 0 : 1;
+        d = `M ${cx},${cy - r} A ${r},${r} 0 0,0 ${cx},${cy + r} A ${rx},${r} 0 0,${sweep} ${cx},${cy - r} Z`;
+      }
+
+      const svg = `
+        <svg viewBox="0 0 175 175" width="175" height="175" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="moonWhiteGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#ffffff" />
+              <stop offset="80%" stop-color="#f1f5f9" />
+              <stop offset="100%" stop-color="#cbd5e1" />
+            </radialGradient>
+            <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="3" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+          </defs>
+          <!-- قرص القمر المظلم (الأسود) -->
+          <circle cx="${cx}" cy="${cy}" r="${r}" fill="#070910" />
+          <!-- الجزء المضيء باللون الأبيض -->
+          ${d ? `<path d="${d}" fill="url(#moonWhiteGlow)" filter="url(#softGlow)" />` : ''}
+        </svg>
+      `;
+
+      return { name: phaseName, svg: svg, illumination: illumination };
+    }
 
     const DEFAULT_COURSES = [
       { id: 1, title: "القرآن الكريم وعلومـه", desc: "ملفات الحفظ والتلاوة والتجويد", icon: "📖", link: "#" },
@@ -963,7 +1007,6 @@
 
     let savedSurahsState = JSON.parse(localStorage.getItem('alajwanah_surahs_map')) || {};
 
-    // روابط ون درايف الافتراضية
     let oneDriveLinks = JSON.parse(localStorage.getItem('alajwanah_onedrive_links')) || {
       achievements: "https://onedrive.live.com/",
       blog: "https://onedrive.live.com/",
@@ -994,31 +1037,36 @@
     document.getElementById('closeMobileMenuBtn').onclick = toggleMobileMenu;
     document.getElementById('mobileMenuOverlay').onclick = toggleMobileMenu;
 
-    function getHijriDayNumber() {
+    function getHijriDateDetails() {
       try {
         const today = new Date();
-        const formatter = new Intl.DateTimeFormat('en-US-u-ca-islamic-umalqura', { day: 'numeric' });
-        return parseInt(formatter.format(today)) || 15;
+        const dayNum = parseInt(new Intl.DateTimeFormat('en-US-u-ca-islamic-umalqura', { day: 'numeric' }).format(today)) || 7;
+        const fullHijri = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura', { day: 'numeric', month: 'long', year: 'numeric' }).format(today);
+        return { day: dayNum, formatted: fullHijri };
       } catch (e) {
-        return 15;
+        return { day: 7, formatted: '٧ جمادى الآخرة ١٤٤٨ هـ' };
       }
     }
 
     function renderReflectionsPreview() {
-      const day = getHijriDayNumber();
-      const phaseInfo = MOON_PHASES_TABLE[day] || MOON_PHASES_TABLE[15];
+      const hijri = getHijriDateDetails();
+      const day = hijri.day;
+      const phaseInfo = getRealisticMoonPhase(day);
       const moonSphere = document.getElementById('dynamicMoonSphere');
       
       if (moonSphere) {
-        moonSphere.style.background = phaseInfo.grad;
-        moonSphere.style.boxShadow = '0 0 35px var(--glow-color)';
+        moonSphere.innerHTML = phaseInfo.svg;
+        // التوهج يتناسب طردياً مع نسبة إضاءة القمر باللون الأبيض
+        const glowBlur = Math.round(10 + phaseInfo.illumination * 35);
+        const glowAlpha = (0.15 + phaseInfo.illumination * 0.45).toFixed(2);
+        moonSphere.style.boxShadow = `0 0 ${glowBlur}px rgba(255, 255, 255, ${glowAlpha})`;
       }
       
       document.getElementById('currentMoonPhaseLabel').innerText = `اليوم ${toArabicNumerals(day)} هجرياً: ${phaseInfo.name}`;
-      document.getElementById('todayReflectionAyahAndSurah').innerHTML = `<span class="quran-ayah text-amber-300">﴿فَاسْتَجَبْنَا لَهُ وَنَجَّيْنَاهُ مِنَ الْغَمِّ﴾</span> <span class="text-xs text-amber-400 block sm:inline mt-2">سورة الأنبياء - آية ٨٨</span>`;
+      document.getElementById('todayReflectionAyahAndSurah').innerHTML = `<span class="quran-ayah text-white">﴿فَاسْتَجَبْنَا لَهُ وَنَجَّيْنَاهُ مِنَ الْغَمِّ﴾</span> <span class="text-xs text-slate-300 block sm:inline mt-2">سورة الأنبياء - آية ٨٨</span>`;
       document.getElementById('todayReflectionTitle').innerText = "دعوة يونس ونور الظلمات";
       document.getElementById('todayReflectionDesc').innerText = "لا تسقط دعوة خرجت بنبض التوحيد والاستغفار ولو من قاع البحار.";
-      document.getElementById('todayReflectionDate').innerText = `${toArabicNumerals(day)} جمادى الأولى ١٤٤٨ هـ`;
+      document.getElementById('todayReflectionDate').innerText = hijri.formatted;
     }
 
     function renderQuranSection() {
@@ -1104,7 +1152,6 @@
       });
     }
 
-    // رندر البوكسات المتجاورة الأربعة (إنجازاتي - مدونتي - مكتبتي - بكسلاتي) المتصلة بون درايف
     function renderOneDriveBoxes() {
       const grid = document.getElementById('onedriveBoxesGrid');
       if (!grid) return;
@@ -1143,7 +1190,6 @@
         document.getElementById('adminLoginForm').classList.add('hidden');
         document.getElementById('adminControlsArea').classList.remove('hidden');
         
-        // تعبئة حقول ون درايف بالقيم الحالية
         document.getElementById('onedriveAchLink').value = oneDriveLinks.achievements || '';
         document.getElementById('onedriveBlogLink').value = oneDriveLinks.blog || '';
         document.getElementById('onedriveLibLink').value = oneDriveLinks.library || '';
@@ -1187,10 +1233,9 @@
       renderReflectionsPreview();
       renderCourses();
       renderOneDriveBoxes();
-      document.getElementById('todayHijriHeader').innerText = `${toArabicNumerals(getHijriDayNumber())} جمادى الأولى ١٤٤٨ هـ`;
+      document.getElementById('todayHijriHeader').innerText = getHijriDateDetails().formatted;
     }
 
-    // نظام الثيمات المطور (11 ثيماً)
     const THEMES_LIST = [
       { id: 'moon', name: 'ملاذ القمر (الافتراضي)', icon: '🌙', color: '#c084fc' },
       { id: 'quran', name: 'الروضة القرآنية', icon: '۞', color: '#d4af37' },
