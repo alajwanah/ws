@@ -1,0 +1,1310 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ملاذ القمر 🌙 | أجوان اليوسف</title>
+  <meta name="description" content="الموقع الشخصي التعليمي وملف الإنجاز الرقمي للطالبة أجوان اليوسف - متوسطة تحفيظ القرآن الكريم الأولى ببيشة">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800;900&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Almarai:wght@400;700;800&family=Amiri+Quran&family=Amiri:ital,wght@0,400;0,700;1,400&family=Reem+Kufi:wght@500;700&family=Aref+Ruqaa:wght@400;700&family=Zain:wght@400;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    @font-face {
+      font-family: 'Ummi Regular';
+      src: local('Ummi Regular'), local('Ummi-Regular'), url('https://fonts.cdnfonts.com/s/93467/Ummi-Regular.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+  </style>
+  
+  <!-- Libraries -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  
+  <style>
+    :root {
+      --bg-primary: #0d111e;
+      --bg-secondary: #171d31;
+      --bg-header-footer: rgba(23, 29, 49, 0.9);
+      --bg-glass: rgba(23, 29, 49, 0.75);
+      --bg-glass-border: rgba(192, 132, 252, 0.25);
+      --text-main: #f1f5f9;
+      --text-sub: #94a3b8;
+      --accent: #c084fc;
+      --accent-secondary: #38bdf8;
+      --accent-gradient: linear-gradient(135deg, #c084fc 0%, #38bdf8 100%);
+      --glow-color: rgba(192, 132, 252, 0.6);
+      --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      
+      --font-ar: 'Alexandria', 'IBM Plex Sans Arabic', sans-serif;
+      --font-title: 'Zain', sans-serif;
+      --font-story: 'Ummi Regular', 'Aref Ruqaa', 'Amiri', serif;
+      --font-signature: 'Almarai', sans-serif;
+      --font-quran: 'Amiri Quran', 'Amiri', serif;
+    }
+
+    [data-theme="quran"] {
+      --bg-primary: #04140d; --bg-secondary: #0a291c;
+      --bg-header-footer: rgba(10, 41, 28, 0.9);
+      --bg-glass: rgba(10, 41, 28, 0.85); --bg-glass-border: rgba(212, 175, 55, 0.35);
+      --text-main: #f2f9f5; --text-sub: #a3c9b8; --accent: #d4af37; --accent-secondary: #34d399;
+      --accent-gradient: linear-gradient(135deg, #d4af37 0%, #10b981 100%);
+      --glow-color: rgba(212, 175, 55, 0.7);
+    }
+    [data-theme="homeland"] {
+      --bg-primary: #021a12; --bg-secondary: #063323;
+      --bg-header-footer: rgba(6, 51, 35, 0.9);
+      --bg-glass: rgba(6, 51, 35, 0.85); --bg-glass-border: rgba(34, 197, 94, 0.35);
+      --text-main: #ffffff; --text-sub: #86efac; --accent: #22c55e; --accent-secondary: #eab308;
+      --accent-gradient: linear-gradient(135deg, #16a34a 0%, #ca8a04 100%);
+      --glow-color: rgba(34, 197, 94, 0.7);
+    }
+    [data-theme="travel"] {
+      --bg-primary: #051321; --bg-secondary: #0b253c;
+      --bg-header-footer: rgba(11, 37, 60, 0.9);
+      --bg-glass: rgba(11, 37, 60, 0.85); --bg-glass-border: rgba(56, 189, 248, 0.35);
+      --text-main: #f0f9ff; --text-sub: #7dd3fc; --accent: #38bdf8; --accent-secondary: #818cf8;
+      --accent-gradient: linear-gradient(135deg, #0284c7 0%, #6366f1 100%);
+      --glow-color: rgba(56, 189, 248, 0.7);
+    }
+    [data-theme="book"] {
+      --bg-primary: #17120e; --bg-secondary: #271f19;
+      --bg-header-footer: rgba(39, 31, 25, 0.9);
+      --bg-glass: rgba(39, 31, 25, 0.85); --bg-glass-border: rgba(217, 119, 6, 0.35);
+      --text-main: #f5f5f4; --text-sub: #d6d3d1; --accent: #f59e0b; --accent-secondary: #d97706;
+      --accent-gradient: linear-gradient(135deg, #f59e0b 0%, #b45309 100%);
+      --glow-color: rgba(245, 158, 11, 0.7);
+    }
+    [data-theme="burgundy"] {
+      --bg-primary: #1a050d; --bg-secondary: #2d0a17;
+      --bg-header-footer: rgba(45, 10, 23, 0.9);
+      --bg-glass: rgba(45, 10, 23, 0.85); --bg-glass-border: rgba(225, 29, 72, 0.35);
+      --text-main: #fff1f2; --text-sub: #fecdd3; --accent: #f43f5e; --accent-secondary: #fb7185;
+      --accent-gradient: linear-gradient(135deg, #e11d48 0%, #be123c 100%);
+      --glow-color: rgba(244, 63, 94, 0.7);
+    }
+    [data-theme="spring"] {
+      --bg-primary: #170814; --bg-secondary: #2b0e25;
+      --bg-header-footer: rgba(43, 14, 37, 0.9);
+      --bg-glass: rgba(43, 14, 37, 0.85); --bg-glass-border: rgba(244, 114, 182, 0.35);
+      --text-main: #fdf2f8; --text-sub: #fbcfe8; --accent: #f472b6; --accent-secondary: #fb7185;
+      --accent-gradient: linear-gradient(135deg, #ec4899 0%, #f43f5e 100%);
+      --glow-color: rgba(244, 114, 182, 0.7);
+    }
+    [data-theme="summer"] {
+      --bg-primary: #1c0f02; --bg-secondary: #331c05;
+      --bg-header-footer: rgba(51, 28, 5, 0.9);
+      --bg-glass: rgba(51, 28, 5, 0.85); --bg-glass-border: rgba(251, 146, 60, 0.35);
+      --text-main: #fff7ed; --text-sub: #ffedd5; --accent: #fb923c; --accent-secondary: #facc15;
+      --accent-gradient: linear-gradient(135deg, #ea580c 0%, #eab308 100%);
+      --glow-color: rgba(251, 146, 60, 0.7);
+    }
+    [data-theme="autumn"] {
+      --bg-primary: #140d07; --bg-secondary: #26180d;
+      --bg-header-footer: rgba(38, 24, 13, 0.9);
+      --bg-glass: rgba(38, 24, 13, 0.85); --bg-glass-border: rgba(217, 119, 6, 0.35);
+      --text-main: #fef3c7; --text-sub: #fde68a; --accent: #d97706; --accent-secondary: #b45309;
+      --accent-gradient: linear-gradient(135deg, #c2410c 0%, #92400e 100%);
+      --glow-color: rgba(217, 119, 6, 0.7);
+    }
+    [data-theme="winter"] {
+      --bg-primary: #070d17; --bg-secondary: #101929;
+      --bg-header-footer: rgba(16, 25, 41, 0.9);
+      --bg-glass: rgba(16, 25, 41, 0.85); --bg-glass-border: rgba(186, 230, 253, 0.35);
+      --text-main: #f0f9ff; --text-sub: #bae6fd; --accent: #38bdf8; --accent-secondary: #e0f2fe;
+      --accent-gradient: linear-gradient(135deg, #0284c7 0%, #bae6fd 100%);
+      --glow-color: rgba(56, 189, 248, 0.7);
+    }
+    [data-theme="realmadrid"] {
+      --bg-primary: #060a14; --bg-secondary: #0f1629;
+      --bg-header-footer: rgba(15, 22, 41, 0.9);
+      --bg-glass: rgba(15, 22, 41, 0.85); --bg-glass-border: rgba(234, 179, 8, 0.35);
+      --text-main: #ffffff; --text-sub: #cbd5e1; --accent: #eab308; --accent-secondary: #6366f1;
+      --accent-gradient: linear-gradient(135deg, #eab308 0%, #4f46e5 100%);
+      --glow-color: rgba(234, 179, 8, 0.7);
+    }
+
+    body {
+      font-family: var(--font-ar);
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      overflow-x: hidden;
+      transition: background-color 0.4s ease, color 0.4s ease;
+    }
+
+    .hero-title-main { font-family: 'Zain', sans-serif; font-weight: 800; display: block; color: var(--text-main); word-break: break-word; }
+    .clean-moon-text { color: var(--accent); text-shadow: 0 0 15px var(--glow-color); font-weight: 900; display: inline-block; transition: color 0.4s ease, text-shadow 0.4s ease; }
+    .hero-title-sub { font-family: 'Ummi Regular', 'Aref Ruqaa', serif; line-height: 1.4 !important; color: var(--text-sub); transition: color 0.4s ease; }
+    .glowing-ajwan { font-family: var(--font-ar); font-weight: 800; color: var(--accent); text-shadow: 0 0 10px var(--glow-color), 0 0 20px var(--glow-color); animation: pulseGlowText 3s infinite alternate ease-in-out; }
+
+    @keyframes pulseGlowText {
+      0% { text-shadow: 0 0 8px var(--glow-color); }
+      100% { text-shadow: 0 0 22px var(--glow-color), 0 0 30px var(--accent); }
+    }
+
+    .quran-ayah { font-family: var(--font-quran); word-spacing: 2px; }
+
+    .glass-card {
+      background: var(--bg-glass);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--bg-glass-border);
+      border-radius: 1.25rem;
+      box-shadow: var(--card-shadow);
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, background 0.4s ease;
+    }
+    .glass-card:hover { transform: translateY(-4px); border-color: var(--accent); }
+
+    .theme-header-footer { background-color: var(--bg-header-footer); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-color: var(--bg-glass-border); transition: background-color 0.4s ease, border-color 0.4s ease; }
+
+    .hero-art-container { position: relative; width: 100%; max-width: 460px; height: 460px; display: flex; align-items: center; justify-content: center; isolation: isolate; margin: 0 auto; }
+    .crystal-planet { position: relative; width: 220px; height: 220px; border-radius: 50%; background: var(--bg-secondary); border: 3px solid var(--accent); box-shadow: 0 0 45px var(--glow-color), inset 0 0 25px rgba(255, 255, 255, 0.2); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); overflow: hidden; display: flex; align-items: center; justify-content: center; animation: floatPlanet 6s ease-in-out infinite; z-index: 5; }
+    .crystal-planet img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+
+    @keyframes floatPlanet {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-10px) rotate(-2deg); }
+    }
+
+    .orbit-ring { position: absolute; border: 1.5px dashed rgba(148, 163, 184, 0.4); opacity: 0.65; border-radius: 50%; pointer-events: none; box-shadow: 0 0 8px rgba(148, 163, 184, 0.2); animation: spinOrbit 35s linear infinite; }
+    .ring-1 { width: 320px; height: 320px; animation-duration: 25s; }
+    .ring-2 { width: 420px; height: 420px; animation-duration: 45s; animation-direction: reverse; }
+    .ring-3 { width: 250px; height: 250px; animation-duration: 20s; }
+    .ring-4 { width: 380px; height: 180px; transform: rotate(45deg); animation-duration: 30s; }
+    .ring-5 { width: 400px; height: 220px; transform: rotate(-35deg); animation-duration: 38s; animation-direction: reverse; }
+
+    @keyframes spinOrbit { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+    .orbit-star { position: absolute; width: 44px; height: 44px; border-radius: 50%; background: var(--bg-secondary); border: 2px solid var(--accent); color: var(--text-main); display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 0 20px var(--glow-color); transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease; z-index: 10; pointer-events: auto; text-decoration: none; }
+    .orbit-star:hover { transform: scale(1.25); background: var(--accent); color: #fff; box-shadow: 0 0 30px var(--accent); }
+
+    .star-tooltip { position: absolute; bottom: -32px; left: 50%; transform: translateX(-50%) scale(0.9); background: var(--bg-secondary); border: 1px solid var(--bg-glass-border); color: var(--text-main); padding: 4px 10px; border-radius: 8px; font-size: 11px; font-weight: 700; white-space: nowrap; opacity: 0; visibility: hidden; transition: all 0.25s ease; box-shadow: 0 5px 15px rgba(0,0,0,0.3); pointer-events: none; }
+    .orbit-star:hover .star-tooltip { opacity: 1; visibility: visible; transform: translateX(-50%) scale(1); }
+
+    .glowing-box { background: var(--bg-glass); border: 2px solid var(--accent); box-shadow: 0 0 25px var(--glow-color); }
+
+    .single-floating-moon { position: relative; width: 180px; height: 180px; border-radius: 50%; display: flex; align-items: center; justify-content: center; animation: moonFloatSpin 8s ease-in-out infinite; transition: all 0.4s ease; }
+    @keyframes moonFloatSpin {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-14px) rotate(4deg); }
+    }
+
+    .juz-glass-card { background: var(--bg-glass); backdrop-filter: blur(12px); border: 1px solid var(--bg-glass-border); border-radius: 1rem; padding: 0.85rem; display: flex; flex-direction: column; align-items: center; justify-content: space-between; gap: 0.5rem; transition: all 0.3s ease; }
+    .juz-glass-card:hover { transform: translateY(-3px); border-color: var(--accent); }
+
+    .status-bar-glow { width: 100%; height: 6px; border-radius: 10px; transition: all 0.4s ease; }
+    .status-bar-glow.done { background: #10b981; box-shadow: 0 0 12px #10b981; }
+    .status-bar-glow.progress { background: #f59e0b; box-shadow: 0 0 12px #f59e0b; }
+    .status-bar-glow.empty { background: #ef4444; box-shadow: 0 0 12px #ef4444; }
+
+    #canvas-container { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none; }
+
+    .modal { transition: opacity 0.3s ease, visibility 0.3s ease; opacity: 0; visibility: hidden; }
+    .modal.active { opacity: 1; visibility: visible; }
+
+    .theme-card { position: relative; cursor: pointer; transition: all 0.3s ease; }
+    .theme-card.active-theme { border-color: var(--accent) !important; box-shadow: 0 0 20px var(--glow-color); transform: scale(1.03); }
+    .theme-card .check-badge { display: none; }
+    .theme-card.active-theme .check-badge { display: flex; }
+
+    .glass-alert-box { background: rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.4); backdrop-filter: blur(12px); color: #fca5a5; padding: 0.75rem 1rem; border-radius: 0.75rem; font-size: 0.85rem; font-weight: 600; box-shadow: 0 4px 20px rgba(239, 68, 68, 0.2); }
+
+    .mobile-menu-drawer { position: fixed; top: 0; right: -100%; width: 85%; max-width: 380px; height: 100vh; background: var(--bg-secondary); border-left: 1px solid var(--bg-glass-border); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); z-index: 100; transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: -10px 0 30px rgba(0,0,0,0.5); display: flex; flex-direction: column; padding: 1.5rem; overflow-y: auto; }
+    .mobile-menu-drawer.active { right: 0; }
+    .mobile-menu-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); z-index: 90; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
+    .mobile-menu-overlay.active { opacity: 1; visibility: visible; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-purple-500 selection:text-white">
+
+  <!-- ThreeJS Background Canvas -->
+  <div id="canvas-container"></div>
+
+  <!-- Header / Navigation Bar -->
+  <header class="sticky top-0 z-40 w-full theme-header-footer border-b transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="#home" class="flex items-center gap-3 group">
+        <div class="w-11 h-11 rounded-xl overflow-hidden border border-[var(--bg-glass-border)] shadow-lg transform group-hover:rotate-6 transition-transform flex items-center justify-center bg-slate-900 flex-shrink-0">
+          <img src="ajwan_icon.png" alt="أجوان" class="w-full h-full object-cover" onerror="this.src='ajwan_icon.png'">
+        </div>
+        <div class="flex flex-col">
+          <span class="font-bold text-base sm:text-lg tracking-wide group-hover:text-purple-400 transition-colors">أجوان اليوسف</span>
+          <span class="text-xs text-sub flex items-center gap-1">ملاذ القمر 🌙</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav class="hidden lg:flex items-center gap-4 text-sm font-medium">
+        <a href="#quran" class="hover:text-[var(--accent)] transition-colors py-1">محرابي</a>
+        <a href="#reflections" class="hover:text-[var(--accent)] transition-colors py-1">تأملاتي</a>
+        <a href="#cv" class="text-white hover:text-[var(--accent)] transition-colors py-1">سيرتي</a>
+        <a href="#planner" class="hover:text-[var(--accent)] transition-colors py-1">مقرراتي</a>
+        <a href="#onedrive-section" class="hover:text-[var(--accent)] transition-colors py-1">إنجازاتي ومكتبتي</a>
+      </nav>
+
+      <!-- Action Control Buttons -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        <button id="themeModalBtn" class="hidden sm:flex px-3.5 py-2 rounded-xl border border-gray-700 bg-slate-900/40 text-xs font-semibold hover:border-[var(--accent)] transition-all items-center gap-1.5" title="اختر المظهر المفضّل">
+          <span>🎨</span> <span>المظهر</span>
+        </button>
+
+        <button id="adminModalBtn" class="hidden sm:flex px-3.5 py-2 rounded-xl text-white font-bold text-xs hover:opacity-90 transition-all shadow-md items-center gap-1" style="background: var(--accent);">
+          <span>⚙️</span> <span class="hidden md:inline">لوحة التحكم</span>
+        </button>
+
+        <button id="burgerMenuBtn" class="lg:hidden p-2.5 rounded-xl border border-gray-700 bg-slate-900/60 text-main hover:border-[var(--accent)] transition-all flex flex-col justify-center gap-1.5 w-11 h-11 items-center" aria-label="القائمة">
+          <span class="w-5 h-0.5 bg-current rounded-full transition-all"></span>
+          <span class="w-5 h-0.5 bg-current rounded-full transition-all"></span>
+          <span class="w-5 h-0.5 bg-current rounded-full transition-all"></span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Mobile Burger Menu Drawer -->
+  <div id="mobileMenuOverlay" class="mobile-menu-overlay"></div>
+  <div id="mobileMenuDrawer" class="mobile-menu-drawer">
+    <div class="flex items-center justify-between border-b border-gray-800 pb-4 mb-4">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-lg overflow-hidden border border-[var(--bg-glass-border)] flex items-center justify-center bg-slate-900">
+          <img src="ajwan_icon.png" alt="أجوان" class="w-full h-full object-cover" onerror="this.src='ajwan_icon.png'">
+        </div>
+        <span class="font-bold text-base text-main">القائمة</span>
+      </div>
+      <button id="closeMobileMenuBtn" class="w-9 h-9 rounded-xl bg-slate-900 border border-gray-800 text-sub hover:text-white flex items-center justify-center font-bold text-base">✕</button>
+    </div>
+
+    <div class="flex flex-col gap-2 text-base font-semibold flex-1">
+      <a href="#quran" onclick="toggleMobileMenu()" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-900/60 hover:text-[var(--accent)] transition-colors border border-transparent hover:border-gray-800"><span>۞</span> محرابي</a>
+      <a href="#reflections" onclick="toggleMobileMenu()" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-900/60 hover:text-[var(--accent)] transition-colors border border-transparent hover:border-gray-800"><span>✨</span> تأملاتي</a>
+      <a href="#cv" onclick="toggleMobileMenu()" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-900/60 hover:text-[var(--accent)] transition-colors border border-transparent hover:border-gray-800"><span>📜</span> سيرتي</a>
+      <a href="#planner" onclick="toggleMobileMenu()" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-900/60 hover:text-[var(--accent)] transition-colors border border-transparent hover:border-gray-800"><span>📚</span> مقرراتي</a>
+      <a href="#onedrive-section" onclick="toggleMobileMenu()" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-900/60 hover:text-[var(--accent)] transition-colors border border-transparent hover:border-gray-800"><span>☁️</span> إنجازاتي ومكتبتي ون درايف</a>
+
+      <div class="border-t border-gray-800 my-3 pt-3 flex flex-col gap-2">
+        <button onclick="toggleMobileMenu(); document.getElementById('themeModalBtn').click();" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-900/60 text-[var(--accent)] transition-colors border border-gray-800 bg-slate-900/40 text-right w-full font-bold">
+          <span>🎨</span> <span>المظهر</span>
+        </button>
+        <button onclick="toggleMobileMenu(); document.getElementById('adminModalBtn').click();" class="flex items-center gap-3 p-3 rounded-xl text-white transition-all shadow-md text-right w-full font-bold" style="background: var(--accent);">
+          <span>⚙️</span> <span>لوحة التحكم</span>
+        </button>
+      </div>
+    </div>
+    
+    <div class="pt-4 border-t border-gray-800 text-center text-xs text-sub">
+      ملاذ القمر | أجوان اليوسف 🌙
+    </div>
+  </div>
+
+  <!-- Main Content Areas -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24 py-10 w-full">
+
+    <!-- 1. HERO / HOME SECTION -->
+    <section id="home" class="min-h-[80vh] flex flex-col lg:flex-row items-center justify-between gap-12 pt-4">
+      <div class="lg:w-1/2 space-y-6 text-center lg:text-start">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[var(--bg-glass-border)] bg-[var(--bg-glass)] text-[var(--accent)] text-xs font-medium">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span>بين ضوء القمر .. وأفق الحلم</span>
+        </div>
+        
+        <div class="space-y-3">
+          <h1 class="hero-title-main text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-wide">
+            أهلًا بكم في <span class="clean-moon-text">ملاذ القمر</span>🌙
+          </h1>
+          <h2 class="hero-title-sub text-xl sm:text-2xl lg:text-3xl font-bold">
+            وهنا تبدأ حكايتي
+          </h2>
+        </div>
+        
+        <div class="text-sub text-sm sm:text-base leading-relaxed pt-2 space-y-4 text-justify">
+          <p><span class="glowing-ajwan text-base sm:text-lg">أنا أجوان اليوسف ...</span> وُلدتُ في أعالي جبال السروات بالمملكة العربية السعودية، حيث يعانق الغيم الضباب، وحيث يهمس المطر للأرض بحكايات السماء. نشأتُ في كنف دفء أبٍ كريم، وعطف أمٍّ رؤوم، محاطةً بحبِّ الأخ، وودِّ الأخت، وثقة الكبير، واحترام الصغير، وابتسامة الطفل البريء. أجد نفسي قريبةً من الناس، وأشعر بهم قريبين مني، أعبُر إلى أرواحهم بهدوءٍ كعبور النسيم.</p>
+          <p>بدأتُ تعليمي في روضة بيشة الأهلية، ثم أكملتُ مشواري في ابتدائية تحفيظ القرآن الكريم الأولى ببيشة، وأستمر الآن في متوسطة تحفيظ القرآن الكريم الأولى ببيشة، عشتُ تجارب السفر والترحال إلى المدينة الحضارية والقرية الريفية، و عبرت منها إلى الضواحي ووصلت حتى البوادي، أتنقل بين تفاصيلها، وأستلهم من دروسها.</p>
+          <p>أغلى وأجمل الهدايا إلى قلبي : والدي يوسف، وأمي هند، وأخي إبراهيم و أختي أسمهان.</p>
+          <p>أعشقُ السفر، وأحبُّ أن أرفع عيني للسماء، أبحث عن إجاباتٍ في النجوم، وأسرحُ في تأملاتٍ تُطيل الرحلة في خاطري. أؤمن أن في كل خطوةٍ حكاية، وفي كل طريق سرًّا مخفيًا ينتظر أن يُكتشف.</p>
+          <p>أكتبُ لأُفرغ ثِقَل الأيام حين تضيق، وأترك قلمي يطير بي حين يملؤني الفرح.</p>
+          <p>في النهاية ... هذه الحياةُ رحلةٌ قصيرة، فلنجعلها أجمل بطاعة الله، ونحياها بحبٍّ وصدق، ونتأمل كلَّ جمالها قبل أن تصل الرحلة إلى نهايتها.</p>
+        </div>
+      </div>
+
+      <div class="lg:w-1/2 flex justify-center py-8 w-full">
+        <div class="hero-art-container scale-90 sm:scale-100">
+          <div class="orbit-ring ring-1"></div>
+          <div class="orbit-ring ring-2"></div>
+          <div class="orbit-ring ring-3"></div>
+          <div class="orbit-ring ring-4"></div>
+          <div class="orbit-ring ring-5"></div>
+
+          <div class="crystal-planet" id="planetAvatar">
+            <img src="ajwan portrait.png" alt="أجوان اليوسف" onerror="this.src='ajwan portrait.png'">
+          </div>
+
+          <a href="#quran" class="orbit-star" style="top: 8%; left: 50%; transform: translate(-50%, -50%);">
+            <span>۞</span> <div class="star-tooltip">محرابي</div>
+          </a>
+          <a href="#reflections" class="orbit-star" style="top: 22%; right: 4%;">
+            <span>✨</span> <div class="star-tooltip">تأملاتي</div>
+          </a>
+          <a href="#cv" class="orbit-star" style="top: 50%; right: -2%;">
+            <span>📜</span> <div class="star-tooltip">سيرتي</div>
+          </a>
+          <a href="#onedrive-section" class="orbit-star" style="bottom: 12%; right: 8%;">
+            <span>🏆</span> <div class="star-tooltip">إنجازاتي</div>
+          </a>
+          <a href="#onedrive-section" class="orbit-star" style="bottom: 2%; left: 45%; transform: translateX(-50%);">
+            <span>✧</span> <div class="star-tooltip">مدونتي</div>
+          </a>
+          <a href="#planner" class="orbit-star" style="bottom: 22%; left: 4%;">
+            <span>📚</span> <div class="star-tooltip">مقرراتي</div>
+          </a>
+          <a href="#onedrive-section" class="orbit-star" style="top: 22%; left: 8%;">
+            <span>📖</span> <div class="star-tooltip">المكتبة</div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- MY CV SECTION -->
+    <section id="cv" class="space-y-8 scroll-mt-24">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-gray-800 pb-4">
+        <div>
+          <h2 class="text-3xl font-bold mt-1">سيرتي 📜</h2>
+        </div>
+        <div class="flex items-center gap-3 text-xs text-sub">
+          <span>📍 ALAC3159, Bisha City</span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div onclick="openCvModal('bio')" class="glass-card p-6 cursor-pointer flex flex-col justify-between space-y-4 group">
+          <div class="flex items-center justify-between">
+            <div class="w-12 h-12 rounded-2xl bg-[var(--accent)]/10 border border-[var(--accent)]/30 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform shadow-inner">
+              <span class="filter drop-shadow">🪶</span>
+            </div>
+            <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-slate-900/60 text-[var(--accent)] border border-gray-800">تعريف شامل ↗</span>
+          </div>
+          <div>
+            <h3 class="font-bold text-lg text-main">النبذة التعريفية</h3>
+            <p class="text-xs text-sub mt-2 leading-relaxed">نبذة عن النشأة، المولد في شهر رمضان المبارك، والبدايات في ربوع جبال السروات ببيشة.</p>
+          </div>
+        </div>
+
+        <div onclick="openCvModal('education')" class="glass-card p-6 cursor-pointer flex flex-col justify-between space-y-4 group">
+          <div class="flex items-center justify-between">
+            <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform shadow-inner">
+              <span class="filter drop-shadow">🎓</span>
+            </div>
+            <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-slate-900/60 text-emerald-400 border border-gray-800">التسلسل الزمني ↗</span>
+          </div>
+          <div>
+            <h3 class="font-bold text-lg text-main">المسيرة التعليمية</h3>
+            <p class="text-xs text-sub mt-2 leading-relaxed">من روضة بيشة إلى ابتدائية ومتوسطة تحفيظ القرآن الكريم الأولى بتقدير ممتاز.</p>
+          </div>
+        </div>
+
+        <div onclick="openCvModal('experiences')" class="glass-card p-6 cursor-pointer flex flex-col justify-between space-y-4 group">
+          <div class="flex items-center justify-between">
+            <div class="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform shadow-inner">
+              <span class="filter drop-shadow">🌟</span>
+            </div>
+            <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-slate-900/60 text-amber-400 border border-gray-800">الأنشطة والمشاركة ↗</span>
+          </div>
+          <div>
+            <h3 class="font-bold text-lg text-main">الخبرات والأنشطة</h3>
+            <p class="text-xs text-sub mt-2 leading-relaxed">المسابقات العلمية، مهارات الحاسب، التنظيم، والعمل التطوعي والمدرسي.</p>
+          </div>
+        </div>
+
+        <div onclick="openCvModal('skills')" class="glass-card p-6 cursor-pointer flex flex-col justify-between space-y-4 group">
+          <div class="flex items-center justify-between">
+            <div class="w-12 h-12 rounded-2xl bg-sky-500/10 border border-sky-500/30 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform shadow-inner">
+              <span class="filter drop-shadow">💡</span>
+            </div>
+            <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-slate-900/60 text-sky-400 border border-gray-800">القدرات الشخصية ↗</span>
+          </div>
+          <div>
+            <h3 class="font-bold text-lg text-main">المهارات الشخصية والقدرات</h3>
+            <p class="text-xs text-sub mt-2 leading-relaxed">حفظ القرآن، التواصل الفعّال، العمل الجماعي، والصياغة الأدبية الإبداعية.</p>
+          </div>
+        </div>
+
+        <div onclick="openCvModal('languages')" class="glass-card p-6 cursor-pointer flex flex-col justify-between space-y-4 group">
+          <div class="flex items-center justify-between">
+            <div class="w-12 h-12 rounded-2xl bg-rose-500/10 border border-rose-500/30 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform shadow-inner">
+              <span class="filter drop-shadow">🗣️</span>
+            </div>
+            <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-slate-900/60 text-rose-400 border border-gray-800">مستويات اللغات ↗</span>
+          </div>
+          <div>
+            <h3 class="font-bold text-lg text-main">اللغات</h3>
+            <p class="text-xs text-sub mt-2 leading-relaxed">العربية (اللغة الأم)، الإنجليزية (متوسط)، والإسبانية (مبتدئ).</p>
+          </div>
+        </div>
+
+        <div onclick="openCvModal('interests')" class="glass-card p-6 cursor-pointer flex flex-col justify-between space-y-4 group">
+          <div class="flex items-center justify-between">
+            <div class="w-12 h-12 rounded-2xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform shadow-inner">
+              <span class="filter drop-shadow">🎨</span>
+            </div>
+            <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-slate-900/60 text-purple-400 border border-gray-800">الشغف والهوايات ↗</span>
+          </div>
+          <div>
+            <h3 class="font-bold text-lg text-main">الاهتمامات والهوايات</h3>
+            <p class="text-xs text-sub mt-2 leading-relaxed">التصميم والإبداع البصري، السفر والترحال، الكتابة والتدوين، والقراءة.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. QURAN JOURNEY SECTION -->
+    <section id="quran" class="space-y-8 scroll-mt-24">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-gray-800 pb-4">
+        <div><h2 class="text-3xl font-bold mt-1">رحلتي القرآنية ۞</h2></div>
+        <div class="text-xs text-emerald-400 font-semibold">متابعة الحفظ والتلاوة والتدبر</div>
+      </div>
+
+      <div class="glass-card p-4 sm:p-8 space-y-6 glowing-box">
+        <div class="text-center space-y-4 border-b border-gray-800/80 pb-6">
+          <div><span class="text-4xl text-emerald-400 inline-block animate-pulse">۞</span></div>
+          <div class="text-lg sm:text-2xl md:text-3xl font-extrabold text-emerald-400 leading-relaxed pt-2">
+            <span class="quran-ayah inline-block">﴿وَلَقَدْ يَسَّرْنَا الْقُرْآنَ لِلذِّكْرِ فَهَلْ مِن مُّدَّكِرٍ﴾</span>
+            <span class="inline-block text-xs sm:text-sm font-semibold text-sub mr-3 align-middle">سورة القمر • آية ١٧</span>
+          </div>
+        </div>
+
+        <div class="space-y-3 bg-slate-900/40 p-4 sm:p-6 rounded-xl border border-gray-800">
+          <div class="flex justify-between items-center text-xs sm:text-sm font-bold">
+            <span class="text-emerald-400 flex items-center gap-2"><span>۞</span> <span>نسبة الإنجاز في حفظ القرآن الكريم:</span></span>
+            <span class="text-lg sm:text-xl text-emerald-400" id="quranTotalPercent">٠٪</span>
+          </div>
+          <div class="w-full h-4 rounded-full bg-slate-950 overflow-hidden p-0.5 border border-gray-800">
+            <div id="quranTotalProgressBar" class="h-full bg-gradient-to-r from-emerald-500 to-teal-300 rounded-full transition-all duration-500" style="width: 0%"></div>
+          </div>
+          <p class="text-xs sm:text-sm text-sub text-center pt-2 font-medium" id="dynamicQuranSummaryText">
+            (بحمد الله وفضله ومنّته تم حفظ ٣٠ جزءاً من أصل ٣٠ جزءاً ونسأل الله التمام)
+          </p>
+        </div>
+
+        <div class="space-y-4">
+          <h3 class="font-bold text-lg text-emerald-400 flex items-center gap-2">
+            <span>📚</span> <span>متابعة الأجزاء والسور وتوثيق الحفظ:</span>
+          </h3>
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-3" id="juzGrid"></div>
+        </div>
+
+        <div id="juzDetailsDrawer" class="hidden bg-slate-900/90 p-4 sm:p-5 rounded-xl border border-emerald-500/40 space-y-4">
+          <div class="flex justify-between items-center border-b border-gray-800 pb-3">
+            <h4 class="font-bold text-emerald-300 text-sm sm:text-base" id="juzDrawerTitle">تفاصيل الجزء</h4>
+            <button onclick="document.getElementById('juzDetailsDrawer').classList.add('hidden')" class="text-sub hover:text-white text-xs">✕ إغلاق</button>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3" id="surahChecklist"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. REFLECTIONS SECTION -->
+    <section id="reflections" class="space-y-8 scroll-mt-24">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-gray-800 pb-4">
+        <div><h2 class="text-3xl font-bold mt-1">تأملاتي في رحاب الآيات</h2></div>
+        <div class="text-xs text-amber-400 font-semibold" id="currentMoonPhaseLabel">...</div>
+      </div>
+
+      <div class="glass-card p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-8 glowing-box">
+        <div class="flex flex-col items-center gap-3">
+          <div class="single-floating-moon" id="dynamicMoonSphere"></div>
+        </div>
+
+        <div class="flex-1 space-y-5 text-center md:text-right border-t md:border-t-0 md:border-r border-gray-800 pt-6 md:pt-0 md:pr-8">
+          <div class="inline-flex">
+            <span class="px-3 py-1 rounded-full bg-amber-500/10 text-amber-300 text-xs font-bold border border-amber-500/30" id="todayReflectionDate">...</span>
+          </div>
+          <div class="text-base sm:text-xl font-bold text-amber-200 leading-relaxed" id="todayReflectionAyahAndSurah"></div>
+          <div><span class="px-3 py-1 rounded-full bg-[var(--bg-glass)] text-[var(--accent)] text-xs font-bold border border-[var(--bg-glass-border)]" id="todayReflectionTitle">...</span></div>
+          <p class="text-xs text-sub leading-relaxed sm:text-sm" id="todayReflectionDesc">...</p>
+          <div class="pt-4 border-t border-gray-800 text-left">
+            <span class="text-xs font-bold text-[var(--accent)]">ملاذ القمر | أجوان اليوسف</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. STUDY PLANNER SECTION -->
+    <section id="planner" class="space-y-8 scroll-mt-24">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-gray-800 pb-4">
+        <div><h2 class="text-3xl font-bold mt-1">مقرراتي 1448هـ</h2></div>
+        <span class="px-3 py-1 rounded-full border border-[var(--bg-glass-border)] bg-[var(--bg-glass)] text-[var(--accent)] text-xs font-semibold" id="todayHijriHeader">...</span>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="coursesGridContainer"></div>
+
+      <!-- Educational Platforms -->
+      <div class="space-y-6 pt-10">
+        <div class="text-center space-y-2">
+          <h3 class="text-2xl font-bold text-main">المنصات التعليمية الرسمية</h3>
+          <p class="text-xs text-sub">روابط سريعة ومباشرة للمنصات الوزارية والتعليمية المعتمدة</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+          <a href="https://www.moe.gov.sa/" target="_blank" class="glass-card p-6 flex flex-col items-center text-center space-y-4 group hover:border-[var(--accent)]">
+            <div class="w-16 h-16 rounded-2xl bg-[var(--bg-secondary)] border border-[var(--bg-glass-border)] shadow-md flex items-center justify-center text-3xl group-hover:scale-110 transition-transform" style="color: var(--accent);">🏛️</div>
+            <div><h4 class="font-bold text-base text-main">وزارة التعليم</h4></div>
+          </a>
+          <a href="https://schools.madrasati.sa/" target="_blank" class="glass-card p-6 flex flex-col items-center text-center space-y-4 group hover:border-[var(--accent)]">
+            <div class="w-16 h-16 rounded-2xl bg-[var(--bg-secondary)] border border-[var(--bg-glass-border)] shadow-md flex items-center justify-center text-3xl group-hover:scale-110 transition-transform" style="color: var(--accent);">💻</div>
+            <div><h4 class="font-bold text-base text-main">منصة مدرستي</h4></div>
+          </a>
+          <a href="https://noor.moe.gov.sa/" target="_blank" class="glass-card p-6 flex flex-col items-center text-center space-y-4 group hover:border-[var(--accent)]">
+            <div class="w-16 h-16 rounded-2xl bg-[var(--bg-secondary)] border border-[var(--bg-glass-border)] shadow-md flex items-center justify-center text-3xl group-hover:scale-110 transition-transform" style="color: var(--accent);">🎓</div>
+            <div><h4 class="font-bold text-base text-main">نظام نور</h4></div>
+          </a>
+          <a href="https://ethrai.sa/" target="_blank" class="glass-card p-6 flex flex-col items-center text-center space-y-4 group hover:border-[var(--accent)]">
+            <div class="w-16 h-16 rounded-2xl bg-[var(--bg-secondary)] border border-[var(--bg-glass-border)] shadow-md flex items-center justify-center text-3xl group-hover:scale-110 transition-transform" style="color: var(--accent);">🌟</div>
+            <div><h4 class="font-bold text-base text-main">إثرائي</h4></div>
+          </a>
+          <a href="https://www.ien.edu.sa/" target="_blank" class="glass-card p-6 flex flex-col items-center text-center space-y-4 group hover:border-[var(--accent)]">
+            <div class="w-16 h-16 rounded-2xl bg-[var(--bg-secondary)] border border-[var(--bg-glass-border)] shadow-md flex items-center justify-center text-3xl group-hover:scale-110 transition-transform" style="color: var(--accent);">👁️</div>
+            <div><h4 class="font-bold text-base text-main">عين التعليمية</h4></div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Quran, Sunnah & Kalem Tayeb Section -->
+      <div class="space-y-6 pt-10">
+        <div class="text-center space-y-2">
+          <h3 class="text-2xl font-bold text-main">الطمأنينة والسكينة</h3>
+          <p class="text-xs text-sub">مساحة إيمانية ومعرفية تتغذى بها الأرواح وتستقر معها القلوب</p>
+        </div>
+
+        <div class="space-y-4">
+          <a href="https://www.youtube.com/@SaudiQuranTv" target="_blank" class="glass-card p-6 flex flex-col sm:flex-row items-center justify-between gap-4 group hover:border-[var(--accent)]">
+            <div class="flex items-center gap-4 text-right">
+              <div class="w-14 h-14 rounded-2xl bg-[var(--bg-secondary)] border border-[var(--bg-glass-border)] shadow-md flex items-center justify-center text-2xl flex-shrink-0 group-hover:scale-110 transition-transform text-emerald-400">📺</div>
+              <div>
+                <h4 class="font-bold text-base text-main">قناة القرآن الكريم</h4>
+                <p class="text-xs text-sub mt-1">«في تدبر القرآن حياة القلوب، ونور البصائر، وطمأنينة السرائر..»</p>
+              </div>
+            </div>
+            <span class="px-5 py-2.5 rounded-xl bg-slate-900/60 border border-gray-700 text-xs font-bold text-main group-hover:bg-[var(--accent)] group-hover:text-white transition-all whitespace-nowrap">الانتقال للبث المباشر</span>
+          </a>
+
+          <a href="https://www.youtube.com/@SaudiSunnahTv" target="_blank" class="glass-card p-6 flex flex-col sm:flex-row items-center justify-between gap-4 group hover:border-[var(--accent)]">
+            <div class="flex items-center gap-4 text-right">
+              <div class="w-14 h-14 rounded-2xl bg-[var(--bg-secondary)] border border-[var(--bg-glass-border)] shadow-md flex items-center justify-center text-2xl flex-shrink-0 group-hover:scale-110 transition-transform text-amber-400">📚</div>
+              <div>
+                <h4 class="font-bold text-base text-main">قناة السنة النبوية</h4>
+                <p class="text-xs text-sub mt-1">«من أشرقت في قلبه أنوار السنة السنية، أشرق وجهه ببهجة القبول..»</p>
+              </div>
+            </div>
+            <span class="px-5 py-2.5 rounded-xl bg-slate-900/60 border border-gray-700 text-xs font-bold text-main group-hover:bg-[var(--accent)] group-hover:text-white transition-all whitespace-nowrap">الانتقال للبث المباشر</span>
+          </a>
+
+          <a href="https://kalemtayeb.com/" target="_blank" class="glass-card p-6 flex flex-col sm:flex-row items-center justify-between gap-4 group hover:border-[var(--accent)]">
+            <div class="flex items-center gap-4 text-right">
+              <div class="w-14 h-14 rounded-2xl bg-[var(--bg-secondary)] border border-[var(--bg-glass-border)] shadow-md flex items-center justify-center text-2xl flex-shrink-0 group-hover:scale-110 transition-transform text-sky-400">💬</div>
+              <div>
+                <h4 class="font-bold text-base text-main">الكلم الطيب</h4>
+                <p class="text-xs text-sub mt-1">«الكلم الطيب يرفع صاحبه إلى أعلى درجات القرب، فالذكر للقلب مثل الماء للسمك..»</p>
+              </div>
+            </div>
+            <span class="px-5 py-2.5 rounded-xl bg-slate-900/60 border border-gray-700 text-xs font-bold text-main group-hover:bg-[var(--accent)] group-hover:text-white transition-all whitespace-nowrap">زيارة موسوعة الكلم الطيب</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5, 6, 7, 8. ONEDRIVE ADJACENT BOXES (إنجازاتي - مدونتي - مكتبتي - بكسلاتي) -->
+    <section id="onedrive-section" class="space-y-8 scroll-mt-24">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-gray-800 pb-4">
+        <div>
+          <h2 class="text-3xl font-bold mt-1">مخزن الإنجازات والأرشيف ☁️</h2>
+          <p class="text-xs text-sub mt-1">انقر على أي قسم للانتقال الفوري إلى مخزن ون درايف المخصص (يمكن تحديث الروابط من لوحة التحكم)</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="onedriveBoxesGrid">
+        <!-- يتم تعبئة البوكسات المتجاورة ديناميكياً بروابط ون درايف -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- CV MODAL POPUP -->
+  <div id="cvModal" class="modal fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md">
+    <div class="glass-card w-full max-w-2xl p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto relative border-[var(--accent)]">
+      <div class="flex items-center justify-between border-b border-gray-800 pb-4">
+        <h3 id="cvModalTitle" class="text-xl font-bold text-main flex items-center gap-2">عنوان القسم</h3>
+        <button onclick="closeCvModal()" class="w-9 h-9 rounded-xl bg-slate-900 border border-gray-800 text-sub hover:text-white flex items-center justify-center font-bold text-base">✕</button>
+      </div>
+      <div id="cvModalBody" class="space-y-4 text-sm text-sub leading-relaxed"></div>
+    </div>
+  </div>
+
+  <!-- THEMES SELECTION MODAL -->
+  <div id="themeModal" class="modal fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md">
+    <div class="glass-card w-full max-w-2xl p-6 space-y-6 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between border-b border-gray-800 pb-4">
+        <h3 class="text-xl font-bold flex items-center gap-2"><span>🎨</span> <span>اختر المظهر المفضل:</span></h3>
+        <button class="closeModalBtn text-gray-400 hover:text-white text-xl">✕</button>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-4" id="themesGrid"></div>
+    </div>
+  </div>
+
+  <!-- ADMIN DASHBOARD MODAL -->
+  <div id="adminModal" class="modal fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md">
+    <div class="glass-card w-full max-w-2xl p-6 space-y-6 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between border-b border-gray-800 pb-4">
+        <h3 class="text-xl font-bold flex items-center gap-2"><span>⚙️</span> <span>لوحة التحكم وإدارة روابط ون درايف</span></h3>
+        <button class="closeModalBtn text-gray-400 hover:text-white text-xl">✕</button>
+      </div>
+
+      <!-- Login Form View -->
+      <div id="adminLoginForm" class="space-y-4">
+        <p class="text-xs text-sub">يرجى تسجيل الدخول للوصول لإعدادات روابط ون درايف والمظهر:</p>
+        <div>
+          <label class="block text-xs font-bold text-sub mb-1">اسم المستخدم</label>
+          <input type="text" id="adminUserInput" placeholder="admin" class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-sub mb-1">كلمة المرور</label>
+          <input type="password" id="adminPassInput" placeholder="123456" class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm">
+        </div>
+        <div id="adminAlertBox" class="hidden glass-alert-box text-center">خطأ: اسم المستخدم أو كلمة المرور غير صحيحة!</div>
+        <button onclick="loginAdmin()" class="w-full py-2.5 rounded-xl text-white font-bold text-sm" style="background: var(--accent);">تسجيل الدخول</button>
+      </div>
+
+      <!-- Dashboard Controls View -->
+      <div id="adminControlsArea" class="hidden space-y-6">
+        <div class="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold">
+          ✓ تم تسجيل الدخول بنجاح كمسؤول بالنظام.
+        </div>
+
+        <div class="space-y-4 border-t border-gray-800 pt-4">
+          <h4 class="font-bold text-sm text-[var(--accent)]">إدارة روابط ون درايف (إنجازاتي - مدونتي - مكتبتي - بكسلاتي):</h4>
+          
+          <div class="space-y-3">
+            <div>
+              <label class="block text-xs font-bold text-sub mb-1">🔗 رابط ون درايف - إنجازاتي:</label>
+              <input type="url" id="onedriveAchLink" placeholder="https://onedrive.live.com/..." class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm text-main">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-sub mb-1">🔗 رابط ون درايف - مدونتي:</label>
+              <input type="url" id="onedriveBlogLink" placeholder="https://onedrive.live.com/..." class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm text-main">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-sub mb-1">🔗 رابط ون درايف - مكتبتي:</label>
+              <input type="url" id="onedriveLibLink" placeholder="https://onedrive.live.com/..." class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm text-main">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-sub mb-1">🔗 رابط ون درايف - بكسلاتي:</label>
+              <input type="url" id="onedrivePixLink" placeholder="https://onedrive.live.com/..." class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm text-main">
+            </div>
+            <button onclick="saveOneDriveLinks()" class="px-4 py-2 rounded-lg font-bold text-xs text-white" style="background: var(--accent);">حفظ روابط ون درايف</button>
+          </div>
+        </div>
+
+        <div class="border-t border-gray-800 pt-4 flex justify-between items-center">
+          <button onclick="logoutAdmin()" class="text-xs text-red-400 font-bold hover:underline">تسجيل الخروج</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-5 left-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 px-5 py-3 rounded-2xl glass-card text-white text-sm shadow-2xl flex items-center gap-3 border-[var(--accent)]">
+    <span class="w-2.5 h-2.5 rounded-full bg-[var(--accent)] animate-ping"></span>
+    <span id="toastMsg" class="font-bold">تم الإجراء بنجاح</span>
+  </div>
+
+  <!-- Footer -->
+  <footer class="w-full theme-header-footer border-t py-10 mt-16 text-center text-xs text-sub">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col items-center justify-center gap-3">
+      <p class="font-bold text-sm text-main">All Rights Reserved 2026©</p>
+      <p class="font-extrabold text-base" style="color: var(--accent);">أجوان اليوسف | Alajwanah</p>
+      <p class="text-sub">بيشة - المملكة العربية السعودية</p>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    const cvDataContent = {
+      bio: {
+        title: "🪶 النبذة التعريفية",
+        content: `
+          <div class="space-y-4 text-justify">
+            <p>في رحاب الطفولة المزهرة، تفتحت زهرة باسمة اسمها <strong>أجوان بنت يوسف بن حامد آل حامد القرني</strong>، تحمل قلباً ناعماً بالصفاء، وعقلاً مشدوداً إلى نور العلم وحفظ القرآن. كان ذلك في الحادي عشر من شهر رمضان المبارك عام ثلاث وثلاثين وأربعمائة وألف للهجرة (11 رمضان 1433 هـ)، لتشرق حياتها في شهر القرآن العظيم حيث تعانق الروح السكينة ويزهو القلب بالإيمان.</p>
+            <p>تنتمي أجوان إلى أرض الخير، أرض المملكة العربية السعودية، وتعيش في ربوع منطقة عسير، في مدينة بيشة، بحي الملك عبدالله، حيث تمتزج الأصالة بعبق المكان ودفء الانتماء، وهي اليوم تخط خطواتها الدراسية الواثقة في <strong>الصف الثالث المتوسط</strong>، ضمن برنامج تحفيظ القرآن الكريم بالقسم " ب "، في متوسطة تحفيظ القرآن الكريم الأولى ببيشة، لتكون إحدى براعم العلم القرآني بإذن الله.</p>
+            <div class="pt-3 border-t border-gray-800 text-center">
+              <span class="text-xs text-sub">البريد الإلكتروني :</span><br>
+              <strong style="color: var(--accent);">alajwanah@gmail.com</strong>
+            </div>
+          </div>
+        `
+      },
+      education: {
+        title: "🎓 المسيرة التعليمية",
+        content: `
+          <div class="relative border-r-2 border-[var(--accent)] mr-3 pr-6 space-y-6">
+            <div class="relative">
+              <div class="absolute -right-[31px] top-1.5 w-4 h-4 rounded-full bg-[var(--accent)] border-4 border-slate-950"></div>
+              <span class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-slate-900 text-[var(--accent)]">٢٠١٧ - ٢٠١٨ م</span>
+              <h4 class="font-bold text-main text-base mt-1">روضة بيشة الأهلية</h4>
+              <p class="text-xs text-sub mt-1">بداية التأسيس والتعليم المبكر والحصول على شهادة إتمام المستوى الثالث بتقدير ممتاز.</p>
+            </div>
+            <div class="relative">
+              <div class="absolute -right-[31px] top-1.5 w-4 h-4 rounded-full bg-[var(--accent)] border-4 border-slate-950"></div>
+              <span class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-slate-900 text-[var(--accent)]">٢٠١٨ - ٢٠٢٣ م</span>
+              <h4 class="font-bold text-main text-base mt-1">ابتدائية تحفيظ القرآن الكريم الأولى ببيشة</h4>
+              <p class="text-xs text-sub mt-1">إتمام المرحلة الابتدائية وحفظ أجزاء مباركة من كتاب الله بتقدير ممتاز.</p>
+            </div>
+            <div class="relative">
+              <div class="absolute -right-[31px] top-1.5 w-4 h-4 rounded-full bg-[var(--accent)] border-4 border-slate-950"></div>
+              <span class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-slate-900 text-[var(--accent)]">٢٠٢٣ - حتى الآن</span>
+              <h4 class="font-bold text-main text-base mt-1">متوسطة تحفيظ القرآن الكريم الأولى ببيشة</h4>
+              <p class="text-xs text-sub mt-1">مواصلة التميز العلمي بالصف الثالث المتوسط (القسم ب).</p>
+            </div>
+          </div>
+        `
+      },
+      experiences: {
+        title: "🌟 الخبرات والأنشطة",
+        content: `
+          <ul class="space-y-3">
+            <li class="p-3 rounded-xl bg-slate-900/60 border border-gray-800 flex items-start gap-3">
+              <span class="text-lg">🏆</span>
+              <span>المشاركة الفاعلة والمتميزة في المسابقات المدرسية العلمية والثقافية.</span>
+            </li>
+            <li class="p-3 rounded-xl bg-slate-900/60 border border-gray-800 flex items-start gap-3">
+              <span class="text-lg">💻</span>
+              <span>إتقان تطبيقات الحاسب الآلي وبرامج العرض الاحترافي (PowerPoint, Word, Canva).</span>
+            </li>
+            <li class="p-3 rounded-xl bg-slate-900/60 border border-gray-800 flex items-start gap-3">
+              <span class="text-lg">👥</span>
+              <span>مهارات تنظيمية عالية والقدرة على إدارة وتنسيق الفعاليات المدرسية وفريق العمل.</span>
+            </li>
+            <li class="p-3 rounded-xl bg-slate-900/60 border border-gray-800 flex items-start gap-3">
+              <span class="text-lg">📖</span>
+              <span>شغف بالقراءة الواعية وتنظيم الجداول الدراسية بفاعلية وانضباط.</span>
+            </li>
+          </ul>
+        `
+      },
+      skills: {
+        title: "💡 المهارات الشخصية والقدرات",
+        content: `
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div class="p-3 rounded-xl bg-slate-900/60 border border-gray-800 flex items-center gap-3">
+              <span>۞</span> <span class="font-bold text-main">حفظ القرآن الكريم والتلاوة بالتجويد</span>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-900/60 border border-gray-800 flex items-center gap-3">
+              <span>🗣️</span> <span class="font-bold text-main">مهارات التواصل الفعّال والإيجابي</span>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-900/60 border border-gray-800 flex items-center gap-3">
+              <span>🤝</span> <span class="font-bold text-main">العمل الجماعي وروح المبادرة</span>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-900/60 border border-gray-800 flex items-center gap-3">
+              <span>✍️</span> <span class="font-bold text-main">الصياغة الأدبية والكتابة الإبداعية</span>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-900/60 border border-gray-800 flex items-center gap-3 sm:col-span-2">
+              <span>🎤</span> <span class="font-bold text-main">القدرات الإلقائية والخطابية المميزة</span>
+            </div>
+          </div>
+        `
+      },
+      languages: {
+        title: "🗣️ اللغات",
+        content: `
+          <div class="space-y-4">
+            <div>
+              <div class="flex justify-between text-xs font-bold mb-1">
+                <span class="text-main">اللغة العربية (اللغة الأم)</span>
+                <span class="text-[var(--accent)]">١٠٠٪</span>
+              </div>
+              <div class="w-full h-3 bg-slate-950 rounded-full overflow-hidden p-0.5 border border-gray-800">
+                <div class="h-full bg-gradient-to-r from-emerald-500 to-teal-400 rounded-full" style="width: 100%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-xs font-bold mb-1">
+                <span class="text-main">English (اللغة الإنجليزية)</span>
+                <span class="text-[var(--accent)]">٦٥٪</span>
+              </div>
+              <div class="w-full h-3 bg-slate-950 rounded-full overflow-hidden p-0.5 border border-gray-800">
+                <div class="h-full bg-gradient-to-r from-sky-500 to-indigo-400 rounded-full" style="width: 65%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-xs font-bold mb-1">
+                <span class="text-main">Español (اللغة الإسبانية)</span>
+                <span class="text-[var(--accent)]">٣٥٪</span>
+              </div>
+              <div class="w-full h-3 bg-slate-950 rounded-full overflow-hidden p-0.5 border border-gray-800">
+                <div class="h-full bg-gradient-to-r from-amber-500 to-rose-400 rounded-full" style="width: 35%"></div>
+              </div>
+            </div>
+            <div class="mt-4 p-3 bg-slate-900/80 rounded-xl text-xs text-sub text-center font-medium border border-gray-800">
+              🎓 شغف مستمر بتعلّم وتطوير اللغات الأجنبية.
+            </div>
+          </div>
+        `
+      },
+      interests: {
+        title: "🎨 الاهتمامات والهوايات",
+        content: `
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="p-4 rounded-xl bg-slate-900/60 border border-gray-800 flex items-center gap-4">
+              <div class="w-12 h-12 rounded-xl bg-purple-500/20 border border-purple-500/40 flex items-center justify-center text-2xl">🎨</div>
+              <div>
+                <h4 class="font-bold text-main">التصميم الفني</h4>
+                <p class="text-xs text-sub mt-0.5">الإبداع البصري وتنسيق الألوان</p>
+              </div>
+            </div>
+            <div class="p-4 rounded-xl bg-slate-900/60 border border-gray-800 flex items-center gap-4">
+              <div class="w-12 h-12 rounded-xl bg-sky-500/20 border border-sky-500/40 flex items-center justify-center text-2xl">✈️</div>
+              <div>
+                <h4 class="font-bold text-main">السفر والترحال</h4>
+                <p class="text-xs text-sub mt-0.5">استكشاف الطبيعة والأماكن</p>
+              </div>
+            </div>
+            <div class="p-4 rounded-xl bg-slate-900/60 border border-gray-800 flex items-center gap-4">
+              <div class="w-12 h-12 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-2xl">✍️</div>
+              <div>
+                <h4 class="font-bold text-main">الكتابة والتدوين</h4>
+                <p class="text-xs text-sub mt-0.5">التعبير الأدبي والخواطر</p>
+              </div>
+            </div>
+            <div class="p-4 rounded-xl bg-slate-900/60 border border-gray-800 flex items-center gap-4">
+              <div class="w-12 h-12 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-2xl">📖</div>
+              <div>
+                <h4 class="font-bold text-main">القراءة الواعية</h4>
+                <p class="text-xs text-sub mt-0.5">تغذية الفكر والاطلاع المستمر</p>
+              </div>
+            </div>
+          </div>
+        `
+      }
+    };
+
+    function openCvModal(key) {
+      const data = cvDataContent[key];
+      if (!data) return;
+      document.getElementById('cvModalTitle').innerText = data.title;
+      document.getElementById('cvModalBody').innerHTML = data.content;
+      document.getElementById('cvModal').classList.add('active');
+    }
+    function closeCvModal() { document.getElementById('cvModal').classList.remove('active'); }
+
+    const QURAN_JUZ_DATA = {
+      30: ["النبأ", "النازعات", "عبس", "التكوير", "الانفطار", "المطففين", "الانشقاق", "البروج", "الطارق", "الأعلى", "الغاشية", "الفجر", "البلد", "الشمس", "الليل", "الضحى", "الشرح", "التين", "العلق", "القدر", "البينة", "الزلزلة", "العاديات", "القارعة", "التكاثر", "العصر", "الهمزة", "الفيل", "قريش", "المعون", "الكوثر", "الكافرون", "النصر", "المسد", "الإخلاص", "الفلق", "الناس"],
+      29: ["الملك", "القلم", "الحاقة", "المعارج", "نوح", "الجن", "المزمل", "المدثر", "القيامة", "الإنسان", "المرسلات"],
+      28: ["المجادلة", "الحشر", "الممتحنة", "الصف", "الجمعة", "المنافقون", "التغابن", "الطلاق", "التحريم"],
+      27: ["الذاريات", "الطور", "النجم", "القمر", "الرحمن", "الواقعة", "الحديد"],
+      26: ["أحقاف", "محمد", "الفتح", "الحجرات", "ق"],
+      25: ["فصلت", "الشورى", "الزخرف", "الدخان", "الجاثية"],
+      24: ["الزمر", "غافر", "فصلت"], 23: ["يس", "الصافات", "ص", "الزمر"], 22: ["الأحزاب", "سبأ", "فاطر", "يس"],
+      21: ["العنكبوت", "الروم", "لقمان", "السجدة", "الأحزاب"], 20: ["النمل", "القصص", "العنكبوت"],
+      19: ["الفرقان", "الشعراء", "النمل"], 18: ["المؤمنون", "النور", "الفرقان"], 17: ["الأنبياء", "الحج"],
+      16: ["الكهف", "مريم", "طه"], 15: ["الإسراء", "الكهف"], 14: ["الحجر", "النحل"], 13: ["يوسف", "الرعد", "إبراهيم"],
+      12: ["هود", "يوسف"], 11: ["يونس", "هود"], 10: ["الأنفال", "التوبة"], 9: ["الأعراف", "الأنفال"],
+      8: ["الأنعام", "الأعراف"], 7: ["المائدة", "الأنعام"], 6: ["النساء", "المائدة"], 5: ["النساء"],
+      4: ["آل عمران", "النساء"], 3: ["البقرة", "آل عمران"], 2: ["البقرة"], 1: ["الفاتحة", "البقرة"]
+    };
+
+    const MOON_PHASES_TABLE = {
+      1: { name: "الهلال المتزايد 🌒", grad: "radial-gradient(circle at 85% 50%, #fef3c7 0%, #f59e0b 20%, #0d111e 70%)" },
+      2: { name: "الهلال المتزايد 🌒", grad: "radial-gradient(circle at 80% 50%, #fef3c7 0%, #f59e0b 22%, #0d111e 70%)" },
+      3: { name: "الهلال المتزايد 🌒", grad: "radial-gradient(circle at 75% 50%, #fef3c7 0%, #f59e0b 25%, #0d111e 70%)" },
+      4: { name: "الهلال المتزايد 🌒", grad: "radial-gradient(circle at 70% 50%, #fef3c7 0%, #f59e0b 28%, #0d111e 75%)" },
+      5: { name: "الهلال المتزايد 🌒", grad: "radial-gradient(circle at 65% 50%, #fef3c7 0%, #f59e0b 32%, #0d111e 75%)" },
+      6: { name: "التربيع الأول 🌓", grad: "linear-gradient(90deg, #fef3c7 50%, #0d111e 50%)" },
+      7: { name: "الأحدب المتزايد 🌔", grad: "radial-gradient(circle at 45% 50%, #fef3c7 0%, #f59e0b 55%, #0d111e 85%)" },
+      8: { name: "الأحدب المتزايد 🌔", grad: "radial-gradient(circle at 40% 50%, #fef3c7 0%, #f59e0b 60%, #0d111e 85%)" },
+      9: { name: "الأحدب المتزايد 🌔", grad: "radial-gradient(circle at 35% 50%, #fef3c7 0%, #f59e0b 65%, #0d111e 90%)" },
+      10: { name: "الأحدب المتزايد 🌔", grad: "radial-gradient(circle at 30% 50%, #fef3c7 0%, #f59e0b 70%, #0d111e 90%)" },
+      11: { name: "الأحدب المتزايد 🌔", grad: "radial-gradient(circle at 25% 50%, #fef3c7 0%, #f59e0b 75%, #0d111e 95%)" },
+      12: { name: "الأحدب المتزايد 🌔", grad: "radial-gradient(circle at 20% 50%, #fef3c7 0%, #f59e0b 80%, #0d111e 95%)" },
+      13: { name: "الأحدب المتزايد 🌔", grad: "radial-gradient(circle at 15% 50%, #fef3c7 0%, #f59e0b 85%, #0d111e 98%)" },
+      14: { name: "البدر 🌕", grad: "radial-gradient(circle at 50% 50%, #fffbeb 0%, #fde68a 50%, #d97706 100%)" },
+      15: { name: "البدر 🌕", grad: "radial-gradient(circle at 50% 50%, #fffbeb 0%, #fde68a 50%, #d97706 100%)" },
+      16: { name: "الأحدب المتناقص 🌖", grad: "radial-gradient(circle at 85% 50%, #0d111e 0%, #f59e0b 20%, #fef3c7 85%)" },
+      17: { name: "الأحدب المتناقص 🌖", grad: "radial-gradient(circle at 80% 50%, #0d111e 0%, #f59e0b 25%, #fef3c7 80%)" },
+      18: { name: "الأحدب المتناقص 🌖", grad: "radial-gradient(circle at 75% 50%, #0d111e 0%, #f59e0b 30%, #fef3c7 75%)" },
+      19: { name: "الأحدب المتناقص 🌖", grad: "radial-gradient(circle at 70% 50%, #0d111e 0%, #f59e0b 35%, #fef3c7 70%)" },
+      20: { name: "الأحدب المتناقص 🌖", grad: "radial-gradient(circle at 65% 50%, #0d111e 0%, #f59e0b 40%, #fef3c7 65%)" },
+      21: { name: "التربيع الأخير 🌗", grad: "linear-gradient(270deg, #fef3c7 50%, #0d111e 50%)" },
+      22: { name: "الهلال المتناقص 🌘", grad: "radial-gradient(circle at 35% 50%, #fef3c7 0%, #f59e0b 25%, #0d111e 70%)" },
+      23: { name: "الهلال المتناقص 🌘", grad: "radial-gradient(circle at 30% 50%, #fef3c7 0%, #f59e0b 22%, #0d111e 70%)" },
+      24: { name: "الهلال المتناقص 🌘", grad: "radial-gradient(circle at 25% 50%, #fef3c7 0%, #f59e0b 20%, #0d111e 75%)" },
+      25: { name: "الهلال المتناقص 🌘", grad: "radial-gradient(circle at 20% 50%, #fef3c7 0%, #f59e0b 18%, #0d111e 75%)" },
+      26: { name: "الهلال المتناقص 🌘", grad: "radial-gradient(circle at 15% 50%, #fef3c7 0%, #f59e0b 15%, #0d111e 80%)" },
+      27: { name: "الهلال المتناقص 🌘", grad: "radial-gradient(circle at 12% 50%, #fef3c7 0%, #f59e0b 12%, #0d111e 85%)" },
+      28: { name: "الهلال المتناقص 🌘", grad: "radial-gradient(circle at 10% 50%, #fef3c7 0%, #f59e0b 10%, #0d111e 90%)" },
+      29: { name: "المحاق 🌑", grad: "radial-gradient(circle at 50% 50%, #171d31 0%, #0d111e 100%)" },
+      30: { name: "المحاق 🌑", grad: "radial-gradient(circle at 50% 50%, #171d31 0%, #0d111e 100%)" }
+    };
+
+    const DEFAULT_COURSES = [
+      { id: 1, title: "القرآن الكريم وعلومـه", desc: "ملفات الحفظ والتلاوة والتجويد", icon: "📖", link: "#" },
+      { id: 2, title: "التربية الإسلامية", desc: "التفسير والحديث والفقه والتوحيد", icon: "💡", link: "#" },
+      { id: 3, title: "لغتي الخالدة", desc: "النصوص والنحو والإنشاء", icon: "✍️", link: "#" },
+      { id: 4, title: "الرياضيات", desc: "التمارين والواجبات والمذكرات", icon: "📐", link: "#" },
+      { id: 5, title: "العلوم", desc: "التجارب والبحوث وملخصات الفصول", icon: "🔬", link: "#" },
+      { id: 6, title: "اللغة الإنجليزية", desc: "المفردات والقواعد وأوراق العمل", icon: "🗣️", link: "#" },
+      { id: 7, title: "الدراسات الاجتماعية", desc: "الخرائط والدروس والخرائط الذهنية", icon: "🌍", link: "#" },
+      { id: 8, title: "المهارات الرقمية", desc: "مشاريع الحاسب وتطبيقات البرمجة", icon: "💻", link: "#" }
+    ];
+
+    let savedSurahsState = JSON.parse(localStorage.getItem('alajwanah_surahs_map')) || {};
+
+    // روابط ون درايف الافتراضية
+    let oneDriveLinks = JSON.parse(localStorage.getItem('alajwanah_onedrive_links')) || {
+      achievements: "https://onedrive.live.com/",
+      blog: "https://onedrive.live.com/",
+      library: "https://onedrive.live.com/",
+      gallery: "https://onedrive.live.com/"
+    };
+
+    let appData = JSON.parse(localStorage.getItem('alajwanah_main_data')) || {
+      courses: DEFAULT_COURSES
+    };
+
+    function toArabicNumerals(str) {
+      return String(str).replace(/[0-9]/g, d => '٠١٢٣٤٥٦٧٨٩'[d]);
+    }
+
+    function saveData() {
+      localStorage.setItem('alajwanah_main_data', JSON.stringify(appData));
+      localStorage.setItem('alajwanah_surahs_map', JSON.stringify(savedSurahsState));
+      localStorage.setItem('alajwanah_onedrive_links', JSON.stringify(oneDriveLinks));
+      renderAll();
+    }
+
+    function toggleMobileMenu() {
+      document.getElementById('mobileMenuDrawer').classList.toggle('active');
+      document.getElementById('mobileMenuOverlay').classList.toggle('active');
+    }
+    document.getElementById('burgerMenuBtn').onclick = toggleMobileMenu;
+    document.getElementById('closeMobileMenuBtn').onclick = toggleMobileMenu;
+    document.getElementById('mobileMenuOverlay').onclick = toggleMobileMenu;
+
+    function getHijriDayNumber() {
+      try {
+        const today = new Date();
+        const formatter = new Intl.DateTimeFormat('en-US-u-ca-islamic-umalqura', { day: 'numeric' });
+        return parseInt(formatter.format(today)) || 15;
+      } catch (e) {
+        return 15;
+      }
+    }
+
+    function renderReflectionsPreview() {
+      const day = getHijriDayNumber();
+      const phaseInfo = MOON_PHASES_TABLE[day] || MOON_PHASES_TABLE[15];
+      const moonSphere = document.getElementById('dynamicMoonSphere');
+      
+      if (moonSphere) {
+        moonSphere.style.background = phaseInfo.grad;
+        moonSphere.style.boxShadow = '0 0 35px var(--glow-color)';
+      }
+      
+      document.getElementById('currentMoonPhaseLabel').innerText = `اليوم ${toArabicNumerals(day)} هجرياً: ${phaseInfo.name}`;
+      document.getElementById('todayReflectionAyahAndSurah').innerHTML = `<span class="quran-ayah text-amber-300">﴿فَاسْتَجَبْنَا لَهُ وَنَجَّيْنَاهُ مِنَ الْغَمِّ﴾</span> <span class="text-xs text-amber-400 block sm:inline mt-2">سورة الأنبياء - آية ٨٨</span>`;
+      document.getElementById('todayReflectionTitle').innerText = "دعوة يونس ونور الظلمات";
+      document.getElementById('todayReflectionDesc').innerText = "لا تسقط دعوة خرجت بنبض التوحيد والاستغفار ولو من قاع البحار.";
+      document.getElementById('todayReflectionDate').innerText = `${toArabicNumerals(day)} جمادى الأولى ١٤٤٨ هـ`;
+    }
+
+    function renderQuranSection() {
+      initializeDefaultSurahs();
+      const juzGrid = document.getElementById('juzGrid');
+      if (!juzGrid) return;
+      juzGrid.innerHTML = '';
+      let completedJuzCount = 0;
+
+      for (let i = 30; i >= 1; i--) {
+        const status = getJuzStatus(i);
+        if (status === 'done') completedJuzCount++;
+        const btn = document.createElement('button');
+        btn.className = 'juz-glass-card';
+        btn.innerHTML = `<span class="text-sm font-extrabold text-main">الجزء ${toArabicNumerals(i)}</span><div class="status-bar-glow ${status}"></div>`;
+        btn.onclick = () => openJuzDrawer(i);
+        juzGrid.appendChild(btn);
+      }
+
+      const percentVal = ((completedJuzCount / 30) * 100).toFixed(1);
+      document.getElementById('quranTotalPercent').innerText = toArabicNumerals(percentVal) + '٪';
+      document.getElementById('quranTotalProgressBar').style.width = percentVal + '%';
+      document.getElementById('dynamicQuranSummaryText').innerText = `(بحمد الله وفضله ومنّته تم حفظ ${toArabicNumerals(completedJuzCount)} جزءاً من أصل ٣٠ جزءاً ونسأل الله التمام)`;
+    }
+
+    function initializeDefaultSurahs() {
+      if (Object.keys(savedSurahsState).length === 0) {
+        for (let j = 30; j >= 3; j--) {
+          (QURAN_JUZ_DATA[j] || []).forEach(s => savedSurahsState[`${j}_${s}`] = true);
+        }
+        localStorage.setItem('alajwanah_surahs_map', JSON.stringify(savedSurahsState));
+      }
+    }
+
+    function getJuzStatus(juzNum) {
+      const surahs = QURAN_JUZ_DATA[juzNum] || [];
+      if (surahs.length === 0) return 'empty';
+      let checkedCount = 0;
+      surahs.forEach(s => { if (savedSurahsState[`${juzNum}_${s}`]) checkedCount++; });
+      if (checkedCount === surahs.length) return 'done';
+      if (checkedCount > 0) return 'progress';
+      return 'empty';
+    }
+
+    function openJuzDrawer(juzNum) {
+      const drawer = document.getElementById('juzDetailsDrawer');
+      document.getElementById('juzDrawerTitle').innerText = `الجزء ${toArabicNumerals(juzNum)} - السور المقررة`;
+      const checklist = document.getElementById('surahChecklist');
+      checklist.innerHTML = '';
+
+      (QURAN_JUZ_DATA[juzNum] || []).forEach(surah => {
+        const surahKey = `${juzNum}_${surah}`;
+        const isSurahSaved = !!savedSurahsState[surahKey];
+        const item = document.createElement('label');
+        item.className = 'flex items-center justify-between p-2.5 rounded-lg bg-slate-950/80 border border-gray-800 text-xs cursor-pointer hover:border-emerald-500/40';
+        item.innerHTML = `<span class="font-bold text-slate-200">سورة ${surah}</span><input type="checkbox" ${isSurahSaved ? 'checked' : ''} onchange="toggleSurahSave('${juzNum}', '${surah}')" class="accent-emerald-500 w-4 h-4">`;
+        checklist.appendChild(item);
+      });
+      drawer.classList.remove('hidden');
+    }
+
+    function toggleSurahSave(juzNum, surah) {
+      const surahKey = `${juzNum}_${surah}`;
+      savedSurahsState[surahKey] = !savedSurahsState[surahKey];
+      saveData();
+      showToast('۞ تم تحديث حالة الحفظ للسورة!');
+    }
+
+    function renderCourses() {
+      const box = document.getElementById('coursesGridContainer');
+      if (!box) return;
+      box.innerHTML = '';
+      appData.courses.forEach(c => {
+        const card = document.createElement('a');
+        card.href = c.link || '#';
+        card.target = c.link && c.link !== '#' ? '_blank' : '_self';
+        card.className = 'glass-card p-6 flex flex-col justify-between space-y-4 group hover:border-[var(--accent)]';
+        card.innerHTML = `
+          <div class="flex justify-between items-center"><span class="text-2xl">${c.icon}</span><span class="text-xs font-bold" style="color: var(--accent);">رابط المقرر ↗</span></div>
+          <div><h3 class="font-bold text-lg text-main">${c.title}</h3><p class="text-xs text-sub mt-1">${c.desc}</p></div>
+        `;
+        box.appendChild(card);
+      });
+    }
+
+    // رندر البوكسات المتجاورة الأربعة (إنجازاتي - مدونتي - مكتبتي - بكسلاتي) المتصلة بون درايف
+    function renderOneDriveBoxes() {
+      const grid = document.getElementById('onedriveBoxesGrid');
+      if (!grid) return;
+      grid.innerHTML = '';
+
+      const items = [
+        { key: 'achievements', label: 'إنجازاتي', icon: '🏆', link: oneDriveLinks.achievements, desc: 'توثيق المشاريع وشهادات التفوق' },
+        { key: 'blog', label: 'مدونتي', icon: '✧', link: oneDriveLinks.blog, desc: 'الأفكار، الخواطر والتدوينات الشخصية' },
+        { key: 'library', label: 'مكتبتي', icon: '📖', link: oneDriveLinks.library, desc: 'الكتب والملخصات والفوائد العلمية' },
+        { key: 'gallery', label: 'بكسلاتي', icon: '🖼️', link: oneDriveLinks.gallery, desc: 'معرض الصور واللقطات الفنية' }
+      ];
+
+      items.forEach(item => {
+        const card = document.createElement('a');
+        card.href = item.link && item.link.trim() !== '' ? item.link : '#';
+        card.target = '_blank';
+        card.className = 'glass-card p-6 flex flex-col items-center text-center space-y-4 group hover:border-[var(--accent)] cursor-pointer transition-all';
+        card.innerHTML = `
+          <div class="w-16 h-16 rounded-2xl bg-[var(--bg-secondary)] border border-[var(--bg-glass-border)] shadow-md flex items-center justify-center text-3xl group-hover:scale-110 transition-transform" style="color: var(--accent);">
+            ${item.icon}
+          </div>
+          <div class="space-y-1">
+            <h3 class="font-extrabold text-xl text-main group-hover:text-[var(--accent)] transition-colors">${item.label}</h3>
+            <p class="text-xs text-sub">${item.desc}</p>
+          </div>
+          <span class="text-xs font-bold px-3 py-1 rounded-full bg-slate-900/80 text-[var(--accent)] border border-gray-800 mt-2">الانتقال لـ OneDrive ↗</span>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function loginAdmin() {
+      const user = document.getElementById('adminUserInput').value;
+      const pass = document.getElementById('adminPassInput').value;
+      if (user === 'admin' && pass === '123456') {
+        document.getElementById('adminLoginForm').classList.add('hidden');
+        document.getElementById('adminControlsArea').classList.remove('hidden');
+        
+        // تعبئة حقول ون درايف بالقيم الحالية
+        document.getElementById('onedriveAchLink').value = oneDriveLinks.achievements || '';
+        document.getElementById('onedriveBlogLink').value = oneDriveLinks.blog || '';
+        document.getElementById('onedriveLibLink').value = oneDriveLinks.library || '';
+        document.getElementById('onedrivePixLink').value = oneDriveLinks.gallery || '';
+      } else {
+        document.getElementById('adminAlertBox').classList.remove('hidden');
+      }
+    }
+
+    function logoutAdmin() {
+      document.getElementById('adminLoginForm').classList.remove('hidden');
+      document.getElementById('adminControlsArea').classList.add('hidden');
+    }
+
+    function saveOneDriveLinks() {
+      oneDriveLinks.achievements = document.getElementById('onedriveAchLink').value;
+      oneDriveLinks.blog = document.getElementById('onedriveBlogLink').value;
+      oneDriveLinks.library = document.getElementById('onedriveLibLink').value;
+      oneDriveLinks.gallery = document.getElementById('onedrivePixLink').value;
+      
+      saveData();
+      renderOneDriveBoxes();
+      showToast('✓ تم حفظ وتحديث روابط ون درايف بنجاح');
+    }
+
+    document.getElementById('adminModalBtn').onclick = () => document.getElementById('adminModal').classList.add('active');
+    document.querySelectorAll('.closeModalBtn').forEach(b => b.onclick = () => {
+      document.getElementById('adminModal').classList.remove('active');
+      document.getElementById('themeModal').classList.remove('active');
+    });
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toastMsg').innerText = msg;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      setTimeout(() => toast.classList.add('translate-y-20', 'opacity-0'), 2500);
+    }
+
+    function renderAll() {
+      renderQuranSection();
+      renderReflectionsPreview();
+      renderCourses();
+      renderOneDriveBoxes();
+      document.getElementById('todayHijriHeader').innerText = `${toArabicNumerals(getHijriDayNumber())} جمادى الأولى ١٤٤٨ هـ`;
+    }
+
+    // نظام الثيمات المطور (11 ثيماً)
+    const THEMES_LIST = [
+      { id: 'moon', name: 'ملاذ القمر (الافتراضي)', icon: '🌙', color: '#c084fc' },
+      { id: 'quran', name: 'الروضة القرآنية', icon: '۞', color: '#d4af37' },
+      { id: 'homeland', name: 'أفق السروات', icon: '🌲', color: '#22c55e' },
+      { id: 'travel', name: 'أفق الأفق والأثير', icon: '✈️', color: '#38bdf8' },
+      { id: 'book', name: 'سحر المخطوطات', icon: '📜', color: '#f59e0b' },
+      { id: 'burgundy', name: 'عنابي الملكي', icon: '🍷', color: '#f43f5e' },
+      { id: 'spring', name: 'زهور الربيع', icon: '🌸', color: '#f472b6' },
+      { id: 'summer', name: 'دفء الصيف', icon: '☀️', color: '#fb923c' },
+      { id: 'autumn', name: 'أوراق الخريف', icon: '🍁', color: '#d97706' },
+      { id: 'winter', name: 'صقيع الشتاء', icon: '❄️', color: '#38bdf8' },
+      { id: 'realmadrid', name: 'ملكي مدريد', icon: '👑', color: '#eab308' }
+    ];
+
+    function renderThemesModalGrid() {
+      const grid = document.getElementById('themesGrid');
+      if (!grid) return;
+      grid.innerHTML = '';
+      const currentTheme = localStorage.getItem('alajwanah_theme') || 'moon';
+
+      THEMES_LIST.forEach(t => {
+        const card = document.createElement('div');
+        card.className = `theme-card glass-card p-4 flex flex-col items-center text-center gap-2 relative ${currentTheme === t.id ? 'active-theme' : ''}`;
+        card.innerHTML = `
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center text-2xl" style="background: ${t.color}20; color: ${t.color};">${t.icon}</div>
+          <span class="font-bold text-xs text-main">${t.name}</span>
+          <div class="check-badge absolute top-2 right-2 w-5 h-5 rounded-full bg-[var(--accent)] text-slate-950 font-bold items-center justify-center text-xs">✓</div>
+        `;
+        card.onclick = () => setTheme(t.id);
+        grid.appendChild(card);
+      });
+    }
+
+    function setTheme(themeName) {
+      if (themeName === 'moon') {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.removeItem('alajwanah_theme');
+      } else {
+        document.documentElement.setAttribute('data-theme', themeName);
+        localStorage.setItem('alajwanah_theme', themeName);
+      }
+      renderThemesModalGrid();
+      updateParticleColor();
+      showToast('🎨 تم تطبيق المظهر بنجاح!');
+    }
+
+    document.getElementById('themeModalBtn').onclick = () => {
+      renderThemesModalGrid();
+      document.getElementById('themeModal').classList.add('active');
+    };
+
+    let particleMaterial;
+    function updateParticleColor() {
+      if (!particleMaterial) return;
+      const computedColor = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#c084fc';
+      particleMaterial.color.set(computedColor);
+    }
+
+    function init3DBackground() {
+      const container = document.getElementById('canvas-container');
+      if (!container) return;
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      container.appendChild(renderer.domElement);
+
+      const geometry = new THREE.BufferGeometry();
+      const count = 650;
+      const positions = new Float32Array(count * 3);
+
+      for (let i = 0; i < count * 3; i++) {
+        positions[i] = (Math.random() - 0.5) * 20;
+      }
+
+      geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      
+      const computedColor = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#c084fc';
+      particleMaterial = new THREE.PointsMaterial({
+        size: 0.035,
+        color: computedColor,
+        transparent: true,
+        opacity: 0.75
+      });
+
+      const particles = new THREE.Points(geometry, particleMaterial);
+      scene.add(particles);
+      camera.position.z = 5;
+
+      function animate() {
+        requestAnimationFrame(animate);
+        particles.rotation.y += 0.0008;
+        particles.rotation.x += 0.0004;
+        renderer.render(scene, camera);
+      }
+      animate();
+
+      window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+    }
+
+    window.onload = function() {
+      const savedTheme = localStorage.getItem('alajwanah_theme');
+      if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      }
+      init3DBackground();
+      renderAll();
+    };
+  </script>
+</body>
+</html>
