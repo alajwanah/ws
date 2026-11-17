@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ماالاذ القمر 🌙 | أجوان اليوسف</title>
+  <title>ملاذ القمر 🌙 | أجوان اليوسف</title>
   <meta name="description" content="الموقع الشخصي التعليمي وملف الإنجاز الرقمي للطالبة أجوان اليوسف - متوسطة تحفيظ القرآن الكريم الأولى ببيشة">
   
   <!-- Fonts -->
@@ -230,6 +230,28 @@
     .mobile-menu-drawer.active { right: 0; }
     .mobile-menu-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); z-index: 90; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
     .mobile-menu-overlay.active { opacity: 1; visibility: visible; }
+
+    /* Floating WhatsApp Button */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 58px;
+      height: 58px;
+      background-color: #25d366;
+      color: #ffffff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(37, 211, 102, 0.45);
+      z-index: 45;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .whatsapp-float:hover {
+      transform: scale(1.1) translateY(-3px);
+      box-shadow: 0 8px 25px rgba(37, 211, 102, 0.65);
+    }
   </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-purple-500 selection:text-white">
@@ -645,6 +667,13 @@
 
   </main>
 
+  <!-- Floating WhatsApp Icon -->
+  <a href="https://wa.me/966565588869" target="_blank" rel="noopener noreferrer" class="whatsapp-float" title="تواصل عبر واتساب" aria-label="واتساب">
+    <svg viewBox="0 0 32 32" width="32" height="32" fill="currentColor">
+      <path d="M16.004 3.2c-7.06 0-12.8 5.74-12.8 12.8 0 2.256.588 4.458 1.708 6.4L3.2 28.8l6.586-1.728c1.868 1.018 3.972 1.556 6.218 1.556h.006c7.058 0 12.796-5.74 12.796-12.8 0-3.42-1.332-6.636-3.75-9.054C22.638 4.534 19.422 3.2 16.004 3.2zm0 23.43h-.004c-1.91 0-3.784-.514-5.418-1.484l-.388-.23-3.908 1.026 1.044-3.81-.252-.402c-1.064-1.694-1.626-3.652-1.626-5.67 0-5.868 4.774-10.642 10.646-10.642 2.842 0 5.514 1.108 7.524 3.118 2.01 2.01 3.116 4.682 3.116 7.526-.002 5.87-4.776 10.642-10.634 10.642zm5.836-7.97c-.32-.16-1.894-.934-2.188-1.042-.294-.106-.508-.16-.722.16-.214.32-.828 1.042-1.014 1.256-.186.214-.374.24-.694.08-.32-.16-1.352-.498-2.574-1.588-.952-.848-1.594-1.896-1.78-2.216-.186-.32-.02-.494.14-.654.144-.144.32-.374.48-.56.16-.186.214-.32.32-.534.106-.214.054-.4-.026-.56-.08-.16-.722-1.738-.988-2.38-.26-.624-.524-.54-.722-.55-.186-.01-.4-.01-.614-.01s-.56.08-.854.4c-.294.32-1.122 1.096-1.122 2.672s1.148 3.1 1.308 3.314c.16.214 2.26 3.45 5.474 4.838.764.33 1.36.528 1.826.676.768.244 1.466.21 2.018.128.616-.092 1.894-.774 2.16-1.522.266-.748.266-1.39.186-1.522-.08-.134-.294-.214-.614-.374z"/>
+    </svg>
+  </a>
+
   <!-- CV MODAL POPUP -->
   <div id="cvModal" class="modal fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md">
     <div class="glass-card w-full max-w-2xl p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto relative border-[var(--accent)]">
@@ -677,7 +706,7 @@
 
       <!-- Login Form View -->
       <div id="adminLoginForm" class="space-y-4">
-        <p class="text-xs text-sub">يرجى تسجيل الدخول للوصول لإعدادات:</p>
+        <p class="text-xs text-sub">يرجى تسجيل الدخول للوصول للإعدادات:</p>
         <div>
           <label class="block text-xs font-bold text-sub mb-1">اسم المستخدم</label>
           <input type="text" id="adminUserInput" placeholder="********" class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm">
@@ -696,28 +725,35 @@
           ✓ تم تسجيل الدخول بنجاح كمسؤول بالنظام.
         </div>
 
+        <!-- OneDrive Links Section -->
         <div class="space-y-4 border-t border-gray-800 pt-4">
-          <h4 class="font-bold text-sm text-[var(--accent)]">إدارة روابط ون درايف (إنجازاتي - مدونتي - مكتبتي - بكسلاتي):</h4>
-          
-          <div class="space-y-3">
+          <h4 class="font-bold text-sm text-[var(--accent)]">إدارة روابط حكاياتي (إنجازاتي - مدونتي - مكتبتي - بكسلاتي):</h4>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label class="block text-xs font-bold text-sub mb-1">🔗 رابط ون درايف - إنجازاتي:</label>
-              <input type="url" id="onedriveAchLink" placeholder="https://onedrive.live.com/..." class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm text-main">
+              <label class="block text-xs font-bold text-sub mb-1">🏆 رابط إنجازاتي:</label>
+              <input type="url" id="onedriveAchLink" placeholder="https://..." class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm text-main">
             </div>
             <div>
-              <label class="block text-xs font-bold text-sub mb-1">🔗 رابط ون درايف - مدونتي:</label>
-              <input type="url" id="onedriveBlogLink" placeholder="https://onedrive.live.com/..." class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm text-main">
+              <label class="block text-xs font-bold text-sub mb-1">✧ رابط مدونتي:</label>
+              <input type="url" id="onedriveBlogLink" placeholder="https://..." class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm text-main">
             </div>
             <div>
-              <label class="block text-xs font-bold text-sub mb-1">🔗 رابط ون درايف - مكتبتي:</label>
-              <input type="url" id="onedriveLibLink" placeholder="https://onedrive.live.com/..." class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm text-main">
+              <label class="block text-xs font-bold text-sub mb-1">📖 رابط مكتبتي:</label>
+              <input type="url" id="onedriveLibLink" placeholder="https://..." class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm text-main">
             </div>
             <div>
-              <label class="block text-xs font-bold text-sub mb-1">🔗 رابط ون درايف - بكسلاتي:</label>
-              <input type="url" id="onedrivePixLink" placeholder="https://onedrive.live.com/..." class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm text-main">
+              <label class="block text-xs font-bold text-sub mb-1">🖼️ رابط بكسلاتي:</label>
+              <input type="url" id="onedrivePixLink" placeholder="https://..." class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm text-main">
             </div>
-            <button onclick="saveOneDriveLinks()" class="px-4 py-2 rounded-lg font-bold text-xs text-white" style="background: var(--accent);">حفظ روابط ون درايف</button>
           </div>
+          <button onclick="saveOneDriveLinks()" class="px-4 py-2 rounded-lg font-bold text-xs text-white" style="background: var(--accent);">حفظ روابط حكاياتي</button>
+        </div>
+
+        <!-- Courses Links Section -->
+        <div class="space-y-4 border-t border-gray-800 pt-4">
+          <h4 class="font-bold text-sm text-[var(--accent)]">إدارة روابط مقرراتي 1448هـ:</h4>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="adminCoursesInputs"></div>
+          <button onclick="saveCoursesLinks()" class="px-4 py-2 rounded-lg font-bold text-xs text-white" style="background: var(--accent);">حفظ روابط المقررات</button>
         </div>
 
         <div class="border-t border-gray-800 pt-4 flex justify-between items-center">
@@ -928,7 +964,6 @@
       4: ["آل عمران", "النساء"], 3: ["البقرة", "آل عمران"], 2: ["البقرة"], 1: ["الفاتحة", "البقرة"]
     };
 
-    // دالة رسم القمر بالانحناء الكروي الفلكي الواقعي
     function getRealisticMoonPhase(day) {
       const phaseAngle = ((day - 1) / 29.53) * 2 * Math.PI;
       const illumination = (1 - Math.cos(phaseAngle)) / 2;
@@ -1129,9 +1164,10 @@
       if (!box) return;
       box.innerHTML = '';
       appData.courses.forEach(c => {
+        const hasValidLink = c.link && c.link.trim() !== '' && c.link !== '#';
         const card = document.createElement('a');
-        card.href = c.link || '#';
-        card.target = c.link && c.link !== '#' ? '_blank' : '_self';
+        card.href = hasValidLink ? c.link : '#planner';
+        card.target = hasValidLink ? '_blank' : '_self';
         card.className = 'glass-card p-6 flex flex-col justify-between space-y-4 group hover:border-[var(--accent)]';
         card.innerHTML = `
           <div class="flex justify-between items-center"><span class="text-2xl">${c.icon}</span><span class="text-xs font-bold" style="color: var(--accent);">رابط المقرر ↗</span></div>
@@ -1172,17 +1208,47 @@
       });
     }
 
+    function renderAdminCoursesInputs() {
+      const container = document.getElementById('adminCoursesInputs');
+      if (!container) return;
+      container.innerHTML = '';
+
+      appData.courses.forEach(c => {
+        const div = document.createElement('div');
+        div.innerHTML = `
+          <label class="block text-xs font-bold text-sub mb-1">${c.icon} ${c.title}:</label>
+          <input type="url" id="courseLinkInput_${c.id}" value="${c.link && c.link !== '#' ? c.link : ''}" placeholder="https://..." class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm text-main">
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function saveCoursesLinks() {
+      appData.courses.forEach(c => {
+        const inputEl = document.getElementById(`courseLinkInput_${c.id}`);
+        if (inputEl) {
+          c.link = inputEl.value.trim() || '#';
+        }
+      });
+      saveData();
+      renderCourses();
+      showToast('✓ تم حفظ وتحديث روابط مقرراتي بنجاح');
+    }
+
     function loginAdmin() {
       const user = document.getElementById('adminUserInput').value;
       const pass = document.getElementById('adminPassInput').value;
       if (user === 'admin' && pass === '123456') {
         document.getElementById('adminLoginForm').classList.add('hidden');
         document.getElementById('adminControlsArea').classList.remove('hidden');
+        document.getElementById('adminAlertBox').classList.add('hidden');
         
         document.getElementById('onedriveAchLink').value = oneDriveLinks.achievements || '';
         document.getElementById('onedriveBlogLink').value = oneDriveLinks.blog || '';
         document.getElementById('onedriveLibLink').value = oneDriveLinks.library || '';
         document.getElementById('onedrivePixLink').value = oneDriveLinks.gallery || '';
+
+        renderAdminCoursesInputs();
       } else {
         document.getElementById('adminAlertBox').classList.remove('hidden');
       }
@@ -1201,7 +1267,7 @@
       
       saveData();
       renderOneDriveBoxes();
-      showToast('✓ تم حفظ وتحديث روابط ون درايف بنجاح');
+      showToast('✓ تم حفظ وتحديث روابط حكاياتي بنجاح');
     }
 
     document.getElementById('adminModalBtn').onclick = () => document.getElementById('adminModal').classList.add('active');
