@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>الملاذ القمر 🌙 | أجوان اليوسف</title>
+  <title>ملاذ القمر 🌙 | أجوان اليوسف</title>
   <meta name="description" content="الموقع الشخصي التعليمي وملف الإنجاز الرقمي للطالبة أجوان اليوسف - متوسطة تحفيظ القرآن الكريم الأولى ببيشة">
   
   <!-- Fonts -->
@@ -708,11 +708,11 @@
         <p class="text-xs text-sub">يرجى تسجيل الدخول للوصول للإعدادات:</p>
         <div>
           <label class="block text-xs font-bold text-sub mb-1">اسم المستخدم (البريد الإلكتروني)</label>
-          <input type="email" id="adminUserInput" placeholder="admin@alajwanah.sa" class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm">
+          <input type="email" id="adminUserInput" placeholder="admin@alajwanah.sa" class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm text-main">
         </div>
         <div>
           <label class="block text-xs font-bold text-sub mb-1">كلمة المرور</label>
-          <input type="password" id="adminPassInput" placeholder="********" class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm">
+          <input type="password" id="adminPassInput" placeholder="********" class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-gray-800 text-sm text-main">
         </div>
         <div id="adminAlertBox" class="hidden glass-alert-box text-center">خطأ: اسم المستخدم أو كلمة المرور غير صحيحة!</div>
         <button onclick="loginAdmin()" class="w-full py-2.5 rounded-xl text-white font-bold text-sm" style="background: var(--accent);">تسجيل الدخول</button>
@@ -783,7 +783,6 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { getFirestore, doc, getDoc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-    // Your web app's Firebase configuration
     const firebaseConfig = {
       apiKey: "AIzaSyDs60FnOxeou_6xCOekRbk3pb_sYzxIBW8",
       authDomain: "alajwanah-f8bc6.firebaseapp.com",
@@ -794,36 +793,43 @@
       appId: "1:503796969729:web:4e6288050034a7743aab00"
     };
 
-    // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
     const docRef = doc(db, "settings", "mainData");
 
-    let oneDriveLinks = {
+    window.oneDriveLinks = {
       achievements: "https://onedrive.live.com/",
       blog: "https://onedrive.live.com/",
       library: "https://onedrive.live.com/",
       gallery: "https://onedrive.live.com/"
     };
 
-    let appData = {
-      courses: DEFAULT_COURSES
+    window.appData = {
+      courses: [
+        { id: 1, title: "القرآن الكريم وعلومـه", desc: "ملفات الحفظ والتلاوة والتجويد", icon: "📖", link: "#" },
+        { id: 2, title: "التربية الإسلامية", desc: "التفسير والحديث والفقه والتوحيد", icon: "💡", link: "#" },
+        { id: 3, title: "لغتي الخالدة", desc: "النصوص والنحو والإنشاء", icon: "✍️", link: "#" },
+        { id: 4, title: "الرياضيات", desc: "التمارين والواجبات والمذكرات", icon: "📐", link: "#" },
+        { id: 5, title: "العلوم", desc: "التجارب والبحوث وملخصات الفصول", icon: "🔬", link: "#" },
+        { id: 6, title: "اللغة الإنجليزية", desc: "المفردات والقواعد وأوراق العمل", icon: "🗣️", link: "#" },
+        { id: 7, title: "الدراسات الاجتماعية", desc: "الخرائط والدرس والخرائط الذهنية", icon: "🌍", link: "#" },
+        { id: 8, title: "المهارات الرقمية", desc: "مشاريع الحاسب وتطبيقات البرمجة", icon: "💻", link: "#" }
+      ]
     };
 
     // Real-time synchronization with Firestore
     onSnapshot(docRef, (docSnap) => {
       if (docSnap.exists()) {
         const remoteData = docSnap.data();
-        if (remoteData.onedrive) oneDriveLinks = remoteData.onedrive;
-        if (remoteData.courses) appData.courses = remoteData.courses;
-        renderAll();
+        if (remoteData.onedrive) window.oneDriveLinks = remoteData.onedrive;
+        if (remoteData.courses) window.appData.courses = remoteData.courses;
+        if (typeof renderAll === 'function') renderAll();
       } else {
-        // Initialize remote data if it doesn't exist yet
         setDoc(docRef, {
           adminUser: "admin@alajwanah.sa",
           adminPass: "Ajwan@1448!",
-          onedrive: oneDriveLinks,
-          courses: appData.courses
+          onedrive: window.oneDriveLinks,
+          courses: window.appData.courses
         });
       }
     });
@@ -849,9 +855,9 @@
           onedrive: newOnedrive,
           courses: newCourses
         }, { merge: true });
-        showToast('✓ تم الحفظ والمزامنة سحابياً بنجاح!');
+        if (typeof showToast === 'function') showToast('✓ تم الحفظ والمزامنة سحابياً بنجاح!');
       } catch (e) {
-        showToast('❌ حدث خطأ أثناء الحفظ السحابي');
+        if (typeof showToast === 'function') showToast('❌ حدث خطأ أثناء الحفظ السحابي');
       }
     };
   </script>
@@ -1095,26 +1101,10 @@
       return { name: phaseName, svg: svg, illumination: illumination };
     }
 
-    const DEFAULT_COURSES = [
-      { id: 1, title: "القرآن الكريم وعلومـه", desc: "ملفات الحفظ والتلاوة والتجويد", icon: "📖", link: "#" },
-      { id: 2, title: "التربية الإسلامية", desc: "التفسير والحديث والفقه والتوحيد", icon: "💡", link: "#" },
-      { id: 3, title: "لغتي الخالدة", desc: "النصوص والنحو والإنشاء", icon: "✍️", link: "#" },
-      { id: 4, title: "الرياضيات", desc: "التمارين والواجبات والمذكرات", icon: "📐", link: "#" },
-      { id: 5, title: "العلوم", desc: "التجارب والبحوث وملخصات الفصول", icon: "🔬", link: "#" },
-      { id: 6, title: "اللغة الإنجليزية", desc: "المفردات والقواعد وأوراق العمل", icon: "🗣️", link: "#" },
-      { id: 7, title: "الدراسات الاجتماعية", desc: "الخرائط والدرس والخرائط الذهنية", icon: "🌍", link: "#" },
-      { id: 8, title: "المهارات الرقمية", desc: "مشاريع الحاسب وتطبيقات البرمجة", icon: "💻", link: "#" }
-    ];
-
     let savedSurahsState = JSON.parse(localStorage.getItem('alajwanah_surahs_map')) || {};
 
     function toArabicNumerals(str) {
       return String(str).replace(/[0-9]/g, d => '٠١٢٣٤٥٦٧٨٩'[d]);
-    }
-
-    function saveDataLocally() {
-      localStorage.setItem('alajwanah_surahs_map', JSON.stringify(savedSurahsState));
-      renderAll();
     }
 
     function toggleMobileMenu() {
@@ -1218,7 +1208,8 @@
     function toggleSurahSave(juzNum, surah) {
       const surahKey = `${juzNum}_${surah}`;
       savedSurahsState[surahKey] = !savedSurahsState[surahKey];
-      saveDataLocally();
+      localStorage.setItem('alajwanah_surahs_map', JSON.stringify(savedSurahsState));
+      renderQuranSection();
       showToast('۞ تم تحديث حالة الحفظ للسورة!');
     }
 
@@ -1226,7 +1217,9 @@
       const box = document.getElementById('coursesGridContainer');
       if (!box) return;
       box.innerHTML = '';
-      appData.courses.forEach(c => {
+      if (!window.appData || !window.appData.courses) return;
+      
+      window.appData.courses.forEach(c => {
         const hasValidLink = c.link && c.link.trim() !== '' && c.link !== '#';
         const card = document.createElement('a');
         card.href = hasValidLink ? c.link : '#planner';
@@ -1245,11 +1238,12 @@
       if (!grid) return;
       grid.innerHTML = '';
 
+      const links = window.oneDriveLinks || {};
       const items = [
-        { key: 'achievements', label: 'إنجازاتي', icon: '🏆', link: oneDriveLinks.achievements, desc: 'توثيق المشاريع وشهادات التفوق' },
-        { key: 'blog', label: 'مدونتي', icon: '✧', link: oneDriveLinks.blog, desc: 'الأفكار، الخواطر والتدوينات الشخصية' },
-        { key: 'library', label: 'مكتبتي', icon: '📖', link: oneDriveLinks.library, desc: 'الكتب والملخصات والفوائد العلمية' },
-        { key: 'gallery', label: 'بكسلاتي', icon: '🖼️', link: oneDriveLinks.gallery, desc: 'معرض الصور واللقطات الفنية' }
+        { key: 'achievements', label: 'إنجازاتي', icon: '🏆', link: links.achievements, desc: 'توثيق المشاريع وشهادات التفوق' },
+        { key: 'blog', label: 'مدونتي', icon: '✧', link: links.blog, desc: 'الأفكار، الخواطر والتدوينات الشخصية' },
+        { key: 'library', label: 'مكتبتي', icon: '📖', link: links.library, desc: 'الكتب والملخصات والفوائد العلمية' },
+        { key: 'gallery', label: 'بكسلاتي', icon: '🖼️', link: links.gallery, desc: 'معرض الصور واللقطات الفنية' }
       ];
 
       items.forEach(item => {
@@ -1276,7 +1270,8 @@
       if (!container) return;
       container.innerHTML = '';
 
-      appData.courses.forEach(c => {
+      if (!window.appData || !window.appData.courses) return;
+      window.appData.courses.forEach(c => {
         const div = document.createElement('div');
         div.innerHTML = `
           <label class="block text-xs font-bold text-sub mb-1">${c.icon} ${c.title}:</label>
@@ -1287,14 +1282,15 @@
     }
 
     window.saveCoursesLinks = async function() {
-      appData.courses.forEach(c => {
+      if (!window.appData || !window.appData.courses) return;
+      window.appData.courses.forEach(c => {
         const inputEl = document.getElementById(`courseLinkInput_${c.id}`);
         if (inputEl) {
           c.link = inputEl.value.trim() || '#';
         }
       });
       if (typeof window.saveToFirebase === 'function') {
-        await window.saveToFirebase(oneDriveLinks, appData.courses);
+        await window.saveToFirebase(window.oneDriveLinks, window.appData.courses);
       }
       renderCourses();
     }
@@ -1315,10 +1311,11 @@
         document.getElementById('adminControlsArea').classList.remove('hidden');
         document.getElementById('adminAlertBox').classList.add('hidden');
         
-        document.getElementById('onedriveAchLink').value = oneDriveLinks.achievements || '';
-        document.getElementById('onedriveBlogLink').value = oneDriveLinks.blog || '';
-        document.getElementById('onedriveLibLink').value = oneDriveLinks.library || '';
-        document.getElementById('onedrivePixLink').value = oneDriveLinks.gallery || '';
+        const links = window.oneDriveLinks || {};
+        document.getElementById('onedriveAchLink').value = links.achievements || '';
+        document.getElementById('onedriveBlogLink').value = links.blog || '';
+        document.getElementById('onedriveLibLink').value = links.library || '';
+        document.getElementById('onedrivePixLink').value = links.gallery || '';
 
         renderAdminCoursesInputs();
       } else {
@@ -1332,13 +1329,14 @@
     }
 
     window.saveOneDriveLinks = async function() {
-      oneDriveLinks.achievements = document.getElementById('onedriveAchLink').value;
-      oneDriveLinks.blog = document.getElementById('onedriveBlogLink').value;
-      oneDriveLinks.library = document.getElementById('onedriveLibLink').value;
-      oneDriveLinks.gallery = document.getElementById('onedrivePixLink').value;
+      if (!window.oneDriveLinks) window.oneDriveLinks = {};
+      window.oneDriveLinks.achievements = document.getElementById('onedriveAchLink').value;
+      window.oneDriveLinks.blog = document.getElementById('onedriveBlogLink').value;
+      window.oneDriveLinks.library = document.getElementById('onedriveLibLink').value;
+      window.oneDriveLinks.gallery = document.getElementById('onedrivePixLink').value;
       
       if (typeof window.saveToFirebase === 'function') {
-        await window.saveToFirebase(oneDriveLinks, appData.courses);
+        await window.saveToFirebase(window.oneDriveLinks, window.appData.courses);
       }
       renderOneDriveBoxes();
     }
@@ -1349,19 +1347,20 @@
       document.getElementById('themeModal').classList.remove('active');
     });
 
-    function showToast(msg) {
+    window.showToast = function(msg) {
       const toast = document.getElementById('toast');
       document.getElementById('toastMsg').innerText = msg;
       toast.classList.remove('translate-y-20', 'opacity-0');
       setTimeout(() => toast.classList.add('translate-y-20', 'opacity-0'), 2500);
     }
 
-    function renderAll() {
+    window.renderAll = function() {
       renderQuranSection();
       renderReflectionsPreview();
       renderCourses();
       renderOneDriveBoxes();
-      document.getElementById('todayHijriHeader').innerText = getHijriDateDetails().formatted;
+      const hijriHeader = document.getElementById('todayHijriHeader');
+      if (hijriHeader) hijriHeader.innerText = getHijriDateDetails().formatted;
     }
 
     const THEMES_LIST = [
