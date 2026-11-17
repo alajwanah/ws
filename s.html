@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ملاذ القمر 🌙 | أجوان اليوسف</title>
+  <title>الملاذ القمر 🌙 | أجوان اليوسف</title>
   <meta name="description" content="الموقع الشخصي التعليمي وملف الإنجاز الرقمي للطالبة أجوان اليوسف - متوسطة تحفيظ القرآن الكريم الأولى ببيشة">
   
   <!-- Fonts -->
@@ -778,6 +778,84 @@
     </div>
   </footer>
 
+  <!-- FIREBASE INTEGRATION & JAVASCRIPT LOGIC -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, doc, getDoc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyDs60FnOxeou_6xCOekRbk3pb_sYzxIBW8",
+      authDomain: "alajwanah-f8bc6.firebaseapp.com",
+      databaseURL: "https://alajwanah-f8bc6-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "alajwanah-f8bc6",
+      storageBucket: "alajwanah-f8bc6.firebasestorage.app",
+      messagingSenderId: "503796969729",
+      appId: "1:503796969729:web:4e6288050034a7743aab00"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const docRef = doc(db, "settings", "mainData");
+
+    let oneDriveLinks = {
+      achievements: "https://onedrive.live.com/",
+      blog: "https://onedrive.live.com/",
+      library: "https://onedrive.live.com/",
+      gallery: "https://onedrive.live.com/"
+    };
+
+    let appData = {
+      courses: DEFAULT_COURSES
+    };
+
+    // Real-time synchronization with Firestore
+    onSnapshot(docRef, (docSnap) => {
+      if (docSnap.exists()) {
+        const remoteData = docSnap.data();
+        if (remoteData.onedrive) oneDriveLinks = remoteData.onedrive;
+        if (remoteData.courses) appData.courses = remoteData.courses;
+        renderAll();
+      } else {
+        // Initialize remote data if it doesn't exist yet
+        setDoc(docRef, {
+          adminUser: "admin@alajwanah.sa",
+          adminPass: "Ajwan@1448!",
+          onedrive: oneDriveLinks,
+          courses: appData.courses
+        });
+      }
+    });
+
+    window.verifyFirebaseLogin = async function(email, pass) {
+      try {
+        const snap = await getDoc(docRef);
+        if (snap.exists()) {
+          const data = snap.data();
+          return email === data.adminUser && pass === data.adminPass;
+        }
+      } catch (e) {
+        console.error("خطأ في الاتصال بقاعدة البيانات", e);
+      }
+      return false;
+    };
+
+    window.saveToFirebase = async function(newOnedrive, newCourses) {
+      try {
+        await setDoc(docRef, {
+          adminUser: "admin@alajwanah.sa",
+          adminPass: "Ajwan@1448!",
+          onedrive: newOnedrive,
+          courses: newCourses
+        }, { merge: true });
+        showToast('✓ تم الحفظ والمزامنة سحابياً بنجاح!');
+      } catch (e) {
+        showToast('❌ حدث خطأ أثناء الحفظ السحابي');
+      }
+    };
+  </script>
+
   <!-- JAVASCRIPT LOGIC -->
   <script>
     const cvDataContent = {
@@ -1030,25 +1108,12 @@
 
     let savedSurahsState = JSON.parse(localStorage.getItem('alajwanah_surahs_map')) || {};
 
-    let oneDriveLinks = JSON.parse(localStorage.getItem('alajwanah_onedrive_links')) || {
-      achievements: "https://onedrive.live.com/",
-      blog: "https://onedrive.live.com/",
-      library: "https://onedrive.live.com/",
-      gallery: "https://onedrive.live.com/"
-    };
-
-    let appData = JSON.parse(localStorage.getItem('alajwanah_main_data')) || {
-      courses: DEFAULT_COURSES
-    };
-
     function toArabicNumerals(str) {
       return String(str).replace(/[0-9]/g, d => '٠١٢٣٤٥٦٧٨٩'[d]);
     }
 
-    function saveData() {
-      localStorage.setItem('alajwanah_main_data', JSON.stringify(appData));
+    function saveDataLocally() {
       localStorage.setItem('alajwanah_surahs_map', JSON.stringify(savedSurahsState));
-      localStorage.setItem('alajwanah_onedrive_links', JSON.stringify(oneDriveLinks));
       renderAll();
     }
 
@@ -1153,7 +1218,7 @@
     function toggleSurahSave(juzNum, surah) {
       const surahKey = `${juzNum}_${surah}`;
       savedSurahsState[surahKey] = !savedSurahsState[surahKey];
-      saveData();
+      saveDataLocally();
       showToast('۞ تم تحديث حالة الحفظ للسورة!');
     }
 
@@ -1221,22 +1286,31 @@
       });
     }
 
-    function saveCoursesLinks() {
+    window.saveCoursesLinks = async function() {
       appData.courses.forEach(c => {
         const inputEl = document.getElementById(`courseLinkInput_${c.id}`);
         if (inputEl) {
           c.link = inputEl.value.trim() || '#';
         }
       });
-      saveData();
+      if (typeof window.saveToFirebase === 'function') {
+        await window.saveToFirebase(oneDriveLinks, appData.courses);
+      }
       renderCourses();
-      showToast('✓ تم حفظ وتحديث روابط مقرراتي بنجاح');
     }
 
-    function loginAdmin() {
+    window.loginAdmin = async function() {
       const user = document.getElementById('adminUserInput').value;
       const pass = document.getElementById('adminPassInput').value;
-      if (user === 'admin@alajwanah.sa' && pass === 'Ajwan@1448!') {
+      
+      let isValid = false;
+      if (typeof window.verifyFirebaseLogin === 'function') {
+        isValid = await window.verifyFirebaseLogin(user, pass);
+      } else {
+        isValid = (user === 'admin@alajwanah.sa' && pass === 'Ajwan@1448!');
+      }
+
+      if (isValid) {
         document.getElementById('adminLoginForm').classList.add('hidden');
         document.getElementById('adminControlsArea').classList.remove('hidden');
         document.getElementById('adminAlertBox').classList.add('hidden');
@@ -1252,20 +1326,21 @@
       }
     }
 
-    function logoutAdmin() {
+    window.logoutAdmin = function() {
       document.getElementById('adminLoginForm').classList.remove('hidden');
       document.getElementById('adminControlsArea').classList.add('hidden');
     }
 
-    function saveOneDriveLinks() {
+    window.saveOneDriveLinks = async function() {
       oneDriveLinks.achievements = document.getElementById('onedriveAchLink').value;
       oneDriveLinks.blog = document.getElementById('onedriveBlogLink').value;
       oneDriveLinks.library = document.getElementById('onedriveLibLink').value;
       oneDriveLinks.gallery = document.getElementById('onedrivePixLink').value;
       
-      saveData();
+      if (typeof window.saveToFirebase === 'function') {
+        await window.saveToFirebase(oneDriveLinks, appData.courses);
+      }
       renderOneDriveBoxes();
-      showToast('✓ تم حفظ وتحديث روابط حكاياتي بنجاح');
     }
 
     document.getElementById('adminModalBtn').onclick = () => document.getElementById('adminModal').classList.add('active');
